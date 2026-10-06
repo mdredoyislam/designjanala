@@ -17,8 +17,8 @@
   --night: #000000;
   --night-2: #111111;
   --night-line: #222222;
-  --accent: #fbd700;
-  --accent-soft: #ffe55c;
+  --accent: #e85002;
+  --accent-soft: #ff620f;
 }
 
 @theme inline {
@@ -79,7 +79,7 @@ body {
   &::after { content: " ]"; white-space: pre; }
 }
 @utility btn-primary {
-  @apply btn bg-accent text-night hover:bg-accent-soft hover:shadow-[0_8px_30px_-8px_var(--accent)];
+  @apply btn bg-accent text-white hover:bg-accent-soft hover:shadow-[0_8px_30px_-8px_var(--accent)];
 }
 @utility btn-dark {
   @apply btn bg-night text-white hover:bg-[#262626];

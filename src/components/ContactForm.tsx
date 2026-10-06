@@ -16,7 +16,7 @@ export default function ContactForm() {
   if (state.status === "success") {
     return (
       <div className="p-4 sm:p-8" role="status">
-        <span className="flex h-12 w-12 items-center justify-center rounded-full bg-accent text-xl text-night">✓</span>
+        <span className="flex h-12 w-12 items-center justify-center rounded-full bg-accent text-xl text-white">✓</span>
         <h3 className="h-display mt-6 text-3xl">Message sent</h3>
         <p className="mt-3 text-muted">{state.message}</p>
       </div>
@@ -51,7 +51,7 @@ export default function ContactForm() {
           {budgets.map((b) => (
             <label key={b} className="cursor-pointer">
               <input type="radio" name="budget" value={b} className="peer sr-only" />
-              <span className="block rounded-full border border-line px-4 py-2 text-sm transition-colors peer-checked:border-accent peer-checked:bg-accent peer-checked:text-night peer-focus-visible:ring-2 peer-focus-visible:ring-accent hover:border-steel">
+              <span className="block rounded-full border border-line px-4 py-2 text-sm transition-colors peer-checked:border-accent peer-checked:bg-accent peer-checked:text-white peer-focus-visible:ring-2 peer-focus-visible:ring-accent hover:border-steel">
                 {b}
               </span>
             </label>

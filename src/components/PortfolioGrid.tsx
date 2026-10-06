@@ -33,7 +33,7 @@ export default function PortfolioGrid({ projects, filters = true }: { projects: 
                   setLimit(PAGE);
                 }}
                 className={`rounded-full border px-5 py-2.5 text-sm font-medium transition-colors ${
-                  selected ? "border-accent bg-accent text-night" : "border-line text-ink/70 hover:border-steel hover:text-ink"
+                  selected ? "border-accent bg-accent text-white" : "border-line text-ink/70 hover:border-steel hover:text-ink"
                 }`}
               >
                 {c.label} <span className={selected ? "text-white/70" : "text-muted"}>{count}</span>

@@ -92,7 +92,7 @@ export default function Footer() {
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label={s.name}
-                    className="flex h-9 w-9 items-center justify-center rounded-md border border-night-line bg-night-2 text-[11px] font-semibold text-night/80 transition-colors hover:border-accent hover:bg-accent hover:text-white"
+                    className="flex h-9 w-9 items-center justify-center rounded-md border border-night-line bg-night-2 text-[11px] font-semibold text-white/80 transition-colors hover:border-accent hover:bg-accent hover:text-white"
                   >
                     {s.short}
                   </a>
@@ -126,8 +126,8 @@ export default function Footer() {
           <p>&copy; {new Date().getFullYear()}, {site.name}. All rights reserved.</p>
           <p>{site.location}</p>
           <div className="flex gap-5">
-            <Link href="/contact" className="hover:text-night">Privacy Policy</Link>
-            <Link href="/contact" className="hover:text-night">Terms and Conditions</Link>
+            <Link href="/contact" className="hover:text-white">Privacy Policy</Link>
+            <Link href="/contact" className="hover:text-white">Terms and Conditions</Link>
           </div>
         </div>
       </div>

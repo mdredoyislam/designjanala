@@ -123,7 +123,7 @@ export default function TeamPage() {
                   <div className="flex items-center gap-4 mb-6">
                     <span className="flex h-10 w-10 items-center justify-center rounded-full bg-accent/20 text-accent font-mono text-sm">0{i + 1}</span>
                     <div>
-                      <h3 className="h-display text-3xl sm:text-4xl text-night">{m.name}</h3>
+                      <h3 className="h-display text-3xl sm:text-4xl text-white">{m.name}</h3>
                       <p className="font-mono text-[11px] tracking-wider text-accent uppercase mt-1">{m.role}</p>
                     </div>
                   </div>

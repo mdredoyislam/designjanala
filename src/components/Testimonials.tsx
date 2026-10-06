@@ -43,7 +43,7 @@ export default function Testimonials({
                 key={dir}
                 onClick={() => scroll(dir)}
                 aria-label={label}
-                className={`flex h-11 w-11 items-center justify-center rounded-md border transition-colors hover:border-accent hover:bg-accent hover:text-night ${
+                className={`flex h-11 w-11 items-center justify-center rounded-md border transition-colors hover:border-accent hover:bg-accent hover:text-white ${
                   dark ? "border-night-line" : "border-line"
                 }`}
               >
@@ -70,7 +70,7 @@ export default function Testimonials({
               </div>
               <figcaption className={`mt-10 border-t pt-6 ${dark ? "border-night-line" : "border-mist"}`}>
                 <div className="flex items-center gap-3">
-                  <span className="flex h-11 w-11 items-center justify-center rounded-full bg-accent text-sm font-semibold text-night">
+                  <span className="flex h-11 w-11 items-center justify-center rounded-full bg-accent text-sm font-semibold text-white">
                     {t.name.split(" ").map((w) => w[0]).slice(0, 2).join("")}
                   </span>
                   <span>
