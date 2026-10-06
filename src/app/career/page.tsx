@@ -53,7 +53,7 @@ export default function CareerPage() {
                 target={p.href.startsWith("http") ? "_blank" : undefined}
                 rel={p.href.startsWith("http") ? "noopener noreferrer" : undefined}
                 className={`group flex h-full min-h-[380px] flex-col justify-between rounded-2xl border p-8 transition-colors duration-500 sm:p-10 ${
-                  i === 2 ? "border-accent bg-accent text-white hover:bg-accent-soft" : "border-transparent bg-surface hover:bg-mist"
+                  i === 2 ? "border-accent bg-accent text-night hover:bg-accent-soft" : "border-transparent bg-surface hover:bg-mist"
                 }`}
               >
                 <span className="font-mono text-xs font-medium uppercase tracking-[0.2em] opacity-70">{p.kicker}</span>

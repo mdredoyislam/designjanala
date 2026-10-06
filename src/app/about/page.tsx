@@ -72,7 +72,7 @@ export default function AboutPage() {
         <div className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
           {team.map((m, i) => (
             <Reveal key={m.name} delay={i * 80} className="card p-8">
-              <span className="flex h-16 w-16 items-center justify-center rounded-full bg-accent text-xl font-bold text-white">
+              <span className="flex h-16 w-16 items-center justify-center rounded-full bg-accent text-xl font-bold text-night">
                 {m.name.split(" ").map((w) => w[0]).join("")}
               </span>
               <h3 className="h-display mt-16 text-2xl">{m.name}</h3>

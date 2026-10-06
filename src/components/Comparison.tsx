@@ -16,7 +16,7 @@ export default function Comparison() {
               <th
                 key={c}
                 className={`px-5 py-4 font-mono text-[11px] font-medium tracking-[0.14em] uppercase ${
-                  i === 0 ? "rounded-t-xl bg-accent text-white" : `bg-surface text-muted ${i === 2 ? "rounded-tr-xl" : ""}`
+                  i === 0 ? "rounded-t-xl bg-accent text-night" : `bg-surface text-muted ${i === 2 ? "rounded-tr-xl" : ""}`
                 }`}
               >
                 {c}
@@ -35,7 +35,7 @@ export default function Comparison() {
                     key={i}
                     className={`border-t px-5 py-4 ${
                       i === 0
-                        ? `border-white/20 bg-accent font-medium text-white ${last ? "rounded-b-xl" : ""}`
+                        ? `border-white/20 bg-accent font-medium text-night ${last ? "rounded-b-xl" : ""}`
                         : `border-mist bg-surface text-body ${last && i === 2 ? "rounded-br-xl" : ""}`
                     }`}
                   >

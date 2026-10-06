@@ -547,22 +547,10 @@ export const team: TeamMember[] = [
     focus: ["Brand Identity", "UI/UX", "Art Direction"],
   },
   {
-    name: "Jahangir Ahmad",
+    name: "Redoy Islam",
     role: "Developer",
     bio: "Turns designs into fast, maintainable web and mobile products, and owns the technical decisions behind them.",
     focus: ["Next.js", "APIs", "Mobile"],
-  },
-  {
-    name: "Forkanun Newaz",
-    role: "Digital Marketer",
-    bio: "Makes sure what we launch gets found: SEO, analytics and growth experiments for client products.",
-    focus: ["SEO", "Analytics", "Growth"],
-  },
-  {
-    name: "Rebeka Sultana",
-    role: "Customer Relations Officer",
-    bio: "Your first point of contact. Keeps projects on schedule and every client informed from kickoff to handover.",
-    focus: ["Client Success", "Scheduling", "Support"],
   },
 ];
 

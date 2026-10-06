@@ -8,6 +8,7 @@ import { MockUI } from "@/components/MockUI";
 import PageHero from "@/components/PageHero";
 import Reveal from "@/components/Reveal";
 import SectionHeading from "@/components/SectionHeading";
+import ServiceAccordion from "@/components/ServiceAccordion";
 import Testimonials from "@/components/Testimonials";
 import { industries, serviceCategories, services, servicesFaqs, servicesIn, site, team } from "@/data/site";
 
@@ -67,38 +68,16 @@ export default function ServicesPage() {
           title="Every Service We Offer Held to One Standard"
           aside={<p>There&rsquo;s no premium tier and no shortcut version here, just one bar every service has to clear before it reaches you, whichever service you choose.</p>}
         />
-        <div className="mt-12 divide-y divide-line border-y border-line">
-          {serviceCategories.map((c, i) => {
-            const list = servicesIn(c.slug);
-            return (
-              <Reveal key={c.slug} className="grid gap-8 py-10 lg:grid-cols-2 lg:items-center lg:gap-16 lg:py-14">
-                <div>
-                  <span className="flex h-8 w-8 items-center justify-center rounded bg-surface font-mono text-[11px] font-semibold text-accent">
-                    0{i + 1}
-                  </span>
-                  <h3 className="h-display mt-6 text-2xl sm:text-3xl">{c.title}</h3>
-                  <ul className="mt-5 flex flex-wrap gap-1.5">
-                    {list.map((s) => (
-                      <li key={s.slug}>
-                        <Link href={`/services/${s.slug}`} className="tag transition-colors hover:border-accent hover:text-accent">
-                          {s.title}
-                        </Link>
-                      </li>
-                    ))}
-                  </ul>
-                  <p className="mt-6 max-w-md text-body">{c.blurb}</p>
-                  <Link href={`/services/${list[0].slug}`} className="btn-primary mt-6">
-                    Explore service
-                  </Link>
-                </div>
-                <div className="relative overflow-hidden rounded-xl bg-gradient-to-br from-[#fbe3d4] via-[#f6efe9] to-[#eae4f7] p-6 sm:p-10">
-                  <div className="mx-auto max-w-sm rotate-[-4deg] rounded-2xl border-[6px] border-night bg-night shadow-2xl shadow-accent/20">
-                    <MockUI variant={[0, 1, 2, 3][i]} className="h-52 rounded-lg border-0" />
-                  </div>
-                </div>
-              </Reveal>
-            );
-          })}
+        <div className="mt-12">
+          {/* Use the interactive ServiceAccordion */}
+          <ServiceAccordion 
+            groups={serviceCategories.map((c) => ({
+              slug: c.slug,
+              title: c.title,
+              blurb: c.blurb,
+              list: servicesIn(c.slug).map(s => ({ slug: s.slug, title: s.title }))
+            }))} 
+          />
         </div>
       </section>
 

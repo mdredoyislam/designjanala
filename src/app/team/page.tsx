@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import Faq from "@/components/Faq";
 import Reveal from "@/components/Reveal";
+import CultureSlider from "@/components/CultureSlider";
 import { jobs, projects, site, stats, team, teamFaqs, teamPrinciples } from "@/data/site";
 
 export const metadata: Metadata = {
@@ -47,7 +48,7 @@ export default function TeamPage() {
         <div className="container-x relative pt-16 sm:pt-20 lg:pt-24">
           <div className="grid gap-10 lg:grid-cols-12 lg:items-end">
             <Reveal className="lg:col-span-8">
-              <p className="eyebrow">[ Team ]</p>
+              <p className="eyebrow lowercase">[ team ]</p>
               <h1 className="h-hero mt-5">
                 Fewer Hands, Tighter Builds,
                 <br className="hidden sm:block" /> and Better Results
@@ -107,41 +108,51 @@ export default function TeamPage() {
       {/* Leads */}
       <section id="leaders" className="container-x scroll-mt-20 pb-20 lg:pb-28">
         <Reveal className="mx-auto max-w-2xl text-center">
-          <p className="eyebrow">[ Leadership ]</p>
+          <p className="eyebrow lowercase text-accent">[ the leaderboard ]</p>
           <h2 className="h-section mt-4">Meet the People Who Never Hand Your Project Off</h2>
         </Reveal>
-        <div className="mt-12 divide-y divide-line border-y border-line">
+        <div className="mt-16 relative">
           {leaders.map((m, i) => (
-            <Reveal key={m.name} className="grid gap-8 py-10 lg:grid-cols-12 lg:items-center lg:py-12">
-              <div className="lg:col-span-7">
-                <h3 className="h-display text-3xl sm:text-4xl">{m.name}</h3>
-                <div className="mt-4 flex flex-wrap gap-1.5">
-                  <span className="tag">{m.role}</span>
-                  <span className="tag">{site.name}</span>
-                </div>
-                <p className="mt-5 max-w-lg text-body">{m.bio}</p>
-                <dl className="mt-6 max-w-md divide-y divide-line border-y border-line">
-                  {(leaderStats[i] ?? m.focus.map((f, j) => [`0${j + 1}`, f])).map(([v, l]) => (
-                    <div key={l} className="flex items-baseline gap-4 py-2.5">
-                      <dd className="h-display w-16 text-2xl text-accent">{v}</dd>
-                      <dt className="font-mono text-[11px] tracking-wider text-muted uppercase">{l}</dt>
+            <div 
+              key={m.name} 
+              className="sticky rounded-[2rem] bg-night-2 p-8 lg:p-12 mb-12 shadow-2xl border border-white/5"
+              style={{ top: `${100 + (i * 40)}px` }}
+            >
+              <div className="grid gap-8 lg:grid-cols-12 lg:items-center">
+                <div className="lg:col-span-7 flex flex-col items-start">
+                  <div className="flex items-center gap-4 mb-6">
+                    <span className="flex h-10 w-10 items-center justify-center rounded-full bg-accent/20 text-accent font-mono text-sm">0{i + 1}</span>
+                    <div>
+                      <h3 className="h-display text-3xl sm:text-4xl text-night">{m.name}</h3>
+                      <p className="font-mono text-[11px] tracking-wider text-accent uppercase mt-1">{m.role}</p>
                     </div>
-                  ))}
-                </dl>
-                <Link href="/contact" className="btn-primary mt-8">
-                  Contact {m.name.split(" ")[0]}
-                </Link>
-              </div>
-              <div className="lg:col-span-5">
-                <div className="relative overflow-hidden rounded-xl">
-                  <Portrait name={m.name} index={i} className="aspect-[4/3]" />
-                  <div className="absolute inset-x-3 bottom-3 rounded-lg bg-night/80 p-4 text-white backdrop-blur">
-                    <p className="font-mono text-[10px] tracking-wider text-white/50 uppercase">Ask me about</p>
-                    <p className="mt-1 text-sm font-medium">{m.focus.join(" · ")}</p>
+                  </div>
+                  <div className="flex flex-wrap gap-2 mb-6">
+                    <span className="rounded-full bg-white/5 px-3 py-1 font-mono text-[10px] tracking-wider text-white/60 uppercase">Based in {site.location}</span>
+                  </div>
+                  <p className="max-w-lg text-body text-white/70 leading-relaxed">{m.bio}</p>
+                  
+                  <div className="mt-8 grid grid-cols-3 gap-6 border-t border-white/10 pt-8 w-full max-w-md">
+                    {(leaderStats[i] ?? m.focus.map((f, j) => [`0${j + 1}`, f])).map(([v, l]) => (
+                      <div key={l}>
+                        <p className="text-3xl font-medium text-accent">{v}</p>
+                        <p className="font-mono text-[10px] tracking-wider text-white/50 uppercase mt-2">{l}</p>
+                      </div>
+                    ))}
+                  </div>
+                  
+                  <Link href="/contact" className="btn-primary mt-10 rounded-full">
+                    Read full profile
+                  </Link>
+                </div>
+                
+                <div className="lg:col-span-5 h-full">
+                  <div className="relative h-full min-h-[400px] overflow-hidden rounded-2xl">
+                    <Portrait name={m.name} index={i} className="absolute inset-0 w-full h-full object-cover" />
                   </div>
                 </div>
               </div>
-            </Reveal>
+            </div>
           ))}
         </div>
       </section>
@@ -156,13 +167,15 @@ export default function TeamPage() {
               talk to them directly.
             </p>
           </Reveal>
-          <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="mt-16 grid gap-x-6 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">
             {team.map((m, i) => (
-              <Reveal key={m.name} delay={(i % 3) * 80} className="group relative overflow-hidden rounded-xl">
-                <Portrait name={m.name} index={i} className="aspect-[4/5] transition-transform duration-700 group-hover:scale-[1.03]" />
-                <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-night/90 to-transparent p-5 pt-16 text-center text-white">
-                  <p className="font-semibold">{m.name}</p>
-                  <p className="mt-0.5 font-mono text-[10px] tracking-wider text-white/60 uppercase">{m.role}</p>
+              <Reveal key={m.name} delay={(i % 3) * 80} className="group cursor-pointer">
+                <div className="relative overflow-hidden rounded-2xl mb-4 aspect-[4/5] bg-surface">
+                  <Portrait name={m.name} index={i} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+                </div>
+                <div>
+                  <h3 className="text-xl font-semibold">{m.name}</h3>
+                  <p className="text-body text-sm mt-1">{m.role}</p>
                 </div>
               </Reveal>
             ))}
@@ -170,39 +183,8 @@ export default function TeamPage() {
         </div>
       </section>
 
-      {/* Principles: sticky statements stacking over a dimmed image */}
-      <section className="relative bg-night text-white">
-        <div className="absolute inset-0" aria-hidden="true">
-          <Image src={projects[8].image} alt="" fill sizes="100vw" className="object-cover opacity-25" />
-          <div className="absolute inset-0 bg-gradient-to-b from-night via-night/70 to-night" />
-        </div>
-        <div className="container-x relative py-20 lg:py-28">
-          <p className="eyebrow">[ How we choose ]</p>
-          <div className="mt-10">
-            {teamPrinciples.map((p, i) => (
-              <div
-                key={p}
-                className="sticky mb-[30vh] max-w-3xl last:mb-0"
-                style={{ top: `${110 + i * 12}px` }}
-              >
-                <p className="h-display rounded-xl bg-night/90 py-3 text-3xl leading-[1.15] backdrop-blur-sm sm:text-5xl">
-                  <span className="text-accent">{p.split(",")[0]},</span>
-                  {p.slice(p.indexOf(",") + 1)}
-                </p>
-              </div>
-            ))}
-          </div>
-        </div>
-        <div className="relative border-t border-night-line">
-          <div className="container-x grid grid-cols-2 sm:grid-cols-4">
-            {["Ship it right", "Keep learning", "Work together", "Own the outcome"].map((v, i) => (
-              <p key={v} className="flex items-center gap-2 py-5 font-mono text-[11px] tracking-wider text-white/60 uppercase">
-                <span className="text-accent">0{i + 1}</span> {v}
-              </p>
-            ))}
-          </div>
-        </div>
-      </section>
+      {/* Culture Slider */}
+      <CultureSlider principles={teamPrinciples} projects={projects} />
 
       {/* Careers */}
       <section id="careers" className="container-x scroll-mt-20 py-20 lg:py-28">

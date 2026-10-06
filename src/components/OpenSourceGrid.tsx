@@ -43,7 +43,7 @@ function Card({ p, featured }: { p: OpenProject; featured: boolean }) {
         <span className="font-mono text-[10px] tracking-[0.14em] text-white/45 uppercase">{p.category}</span>
         <CodeIcon />
       </div>
-      <h3 className="mt-4 text-lg font-semibold text-white">{p.title}</h3>
+      <h3 className="mt-4 text-lg font-semibold text-night">{p.title}</h3>
       <p className="mt-2 max-w-lg text-sm leading-relaxed text-white/60">{p.body}</p>
 
       {featured && p.image && (
@@ -72,7 +72,7 @@ function Card({ p, featured }: { p: OpenProject; featured: boolean }) {
 
       <div className="mt-auto pt-6">
         <div className="flex items-center justify-between">
-          <span className="rounded border border-night-line bg-night px-2 py-1 font-mono text-[10px] font-semibold text-white/70 uppercase">{p.format}</span>
+          <span className="rounded border border-night-line bg-night px-2 py-1 font-mono text-[10px] font-semibold text-night/70 uppercase">{p.format}</span>
           <CardLink href={p.href}>{p.cta}</CardLink>
         </div>
         {featured && p.secondary && (

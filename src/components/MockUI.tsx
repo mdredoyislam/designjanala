@@ -75,7 +75,7 @@ export function MockUI({ variant, className = "" }: { variant: number; className
         <div className="relative h-full">
           <div className="grid grid-cols-3 gap-2">
             <div className="col-span-2 flex h-16 items-center justify-center rounded bg-night">
-              <span className="h-display text-lg text-white">Aa</span>
+              <span className="h-display text-lg text-night">Aa</span>
             </div>
             <div className="space-y-1.5">
               {["bg-accent", "bg-night", "bg-steel", "bg-surface"].map((c) => (
@@ -88,7 +88,7 @@ export function MockUI({ variant, className = "" }: { variant: number; className
               <div key={i} className={`h-8 rounded ${i === 1 ? "border-2 border-accent bg-accent/10" : "bg-surface"}`} />
             ))}
           </div>
-          <span className="absolute top-12 right-6 rotate-[-8deg] rounded bg-accent px-1.5 py-0.5 text-[9px] font-semibold text-white">You</span>
+          <span className="absolute top-12 right-6 rotate-[-8deg] rounded bg-accent px-1.5 py-0.5 text-[9px] font-semibold text-night">You</span>
         </div>
       )}
     </div>

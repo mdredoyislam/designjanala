@@ -119,7 +119,7 @@ export default function Header() {
                     {servicesIn(c.slug).map((s) => (
                       <li key={s.slug}>
                         <Link href={`/services/${s.slug}`} className="group -mx-3 block rounded-lg px-3 py-2.5 transition-colors hover:bg-night-2">
-                          <span className="flex items-center justify-between text-[15px] font-medium text-white">
+                          <span className="flex items-center justify-between text-[15px] font-medium text-night">
                             {s.title}
                             <ArrowUpRight className="h-4 w-4 text-accent opacity-0 transition-opacity group-hover:opacity-100" />
                           </span>
