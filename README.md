@@ -1,33 +1,46 @@
-# DesignJanala — Next.js site
+# DesignJanala monorepo
 
-Rebuild of [designjanala.com](https://designjanala.com) (previously WordPress) on Next.js 16 + React 19 + Tailwind CSS 4, with a layout and service lineup modelled on musemind.agency.
+npm workspaces + [Turborepo](https://turborepo.com). One repo for the marketing site, the admin dashboard, the API and the tests.
+
+| Workspace | Path | What it is | Port |
+| --- | --- | --- | --- |
+| `@designjanala/web` | `apps/web` | Marketing site ([designjanala.com](https://designjanala.com)), Next.js 16 + Tailwind 4 | 3000 |
+| `@designjanala/dashboard` | `apps/dashboard` | Admin dashboard for contact-form leads, Next.js 16 | 3001 |
+| `@designjanala/api` | `apps/api` | REST API (Hono on Node) that stores leads | 4000 |
+| `@designjanala/shared` | `packages/shared` | Zod schemas and types shared by all apps | — |
+| `@designjanala/e2e` | `tests/e2e` | Playwright end-to-end tests across all three apps | — |
 
 ## Develop
 
 ```bash
 npm install
-npm run dev        # http://localhost:3000
-npm run build && npm start
+npm run dev              # web + dashboard + api together
+npm run dev:web          # just the site
+npm run dev:dashboard    # dashboard + api
 ```
 
-## Where things live
+Copy each app's `.env.example` to `.env.local` (Next apps) or `.env` (API) as needed.
+Set `API_URL=http://localhost:4000` in `apps/web/.env.local` to have contact-form submissions saved to the API and shown in the dashboard.
 
-| What | Where |
-| --- | --- |
-| All copy, the 11 services (6 marked `featured` show on the homepage), portfolio, testimonials, FAQ, stats | `src/data/site.ts` |
-| Pages | `src/app/*/page.tsx` |
-| Shared UI (header, footer, cards, marquee, reveal) | `src/components/` |
-| Design tokens (colors, buttons, type) | `src/app/globals.css` |
-| Portfolio images & logo (copied from the WP site) | `public/images/` |
-| Contact form server action | `src/app/contact/actions.ts` |
-| Redirects for old WordPress URLs | `next.config.ts` |
+## Check
 
-**Add a portfolio item:** drop the image in `public/images/portfolio/` and add an entry to `projects` in `src/data/site.ts`. Set `free: true` to show it on /freebies.
+```bash
+npm run lint        # ESLint (Next apps) and tsc (packages)
+npm run typecheck
+npm test            # Vitest unit tests (api, shared)
+npm run build
+npm run test:e2e    # Playwright; needs `npm run build` first and `npx playwright install chromium` once
+                    # (or PW_CHANNEL=chrome to use your installed Chrome)
+```
 
-## Contact form
+CI (`.github/workflows/ci.yml`) runs all of the above on every push to `main` and on pull requests.
 
-Set `CONTACT_WEBHOOK_URL` (see `.env.example`). Submissions are validated server-side and POSTed as JSON. Without it, production shows an error asking visitors to email directly, so leads are never silently dropped.
+## How the pieces connect
 
-## Deploy
+```
+apps/web contact form ──POST /leads──▶ apps/api ◀──GET/PATCH /leads, /stats (Bearer API_TOKEN)── apps/dashboard
+```
 
-Every route is statically generated, so it deploys anywhere Next.js runs (Vercel, Netlify, a Node server). Point the domain at the new host when ready; the WordPress site can stay up until then.
+- **API** (`apps/api/src/app.ts`): `GET /health`, public `POST /leads`, and token-protected `GET /leads`, `GET /leads/:id`, `PATCH /leads/:id`, `GET /stats`. Leads are kept **in memory** (`MemoryLeadStore`), so they reset on restart; implement `LeadStore` against a real database before going live.
+- **Dashboard**: server-rendered; calls the API with `API_URL` / `API_TOKEN`. It has **no login of its own yet**: put it behind auth (or a private network / access proxy) before deploying.
+- **Web**: unchanged content; see `apps/web` for where copy, pages and components live. The contact form still supports `CONTACT_WEBHOOK_URL`, and also posts to the API when `API_URL` is set.

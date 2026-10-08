@@ -4,7 +4,6 @@ import CodeWindow from "@/components/CodeWindow";
 import CountUp from "@/components/CountUp";
 import { CtaPeach } from "@/components/Cta";
 import Faq from "@/components/Faq";
-import { MockUI } from "@/components/MockUI";
 import PageHero from "@/components/PageHero";
 import Reveal from "@/components/Reveal";
 import SectionHeading from "@/components/SectionHeading";

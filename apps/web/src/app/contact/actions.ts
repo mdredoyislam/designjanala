@@ -29,8 +29,23 @@ export async function submitContact(_prev: ContactState, formData: FormData): Pr
   if (data.details.length < 10) errors.details = "Tell us a little more about your project.";
   if (Object.keys(errors).length) return { status: "error", errors, message: "Please fix the highlighted fields." };
 
-  // Delivery: set CONTACT_WEBHOOK_URL (Slack/Zapier/Make/Formspree, etc.) to receive submissions.
+  // Delivery: API_URL stores the lead for the dashboard (apps/api); CONTACT_WEBHOOK_URL
+  // (Slack/Zapier/Make/Formspree, etc.) notifies the team. Either or both may be set.
+  const api = process.env.API_URL;
   const webhook = process.env.CONTACT_WEBHOOK_URL;
+  if (api) {
+    try {
+      const res = await fetch(`${api}/leads`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      });
+      if (!res.ok) throw new Error(`API responded ${res.status}`);
+    } catch (err) {
+      console.error("Saving lead to API failed", err);
+      return { status: "error", message: `Something went wrong. Please email us at ${site.emails.project}.` };
+    }
+  }
   if (webhook) {
     try {
       const res = await fetch(webhook, {
@@ -43,8 +58,10 @@ export async function submitContact(_prev: ContactState, formData: FormData): Pr
       console.error("Contact webhook failed", err);
       return { status: "error", message: `Something went wrong. Please email us at ${site.emails.project}.` };
     }
+  } else if (api) {
+    // Stored by the API; no notification webhook configured.
   } else if (process.env.NODE_ENV === "production") {
-    console.error("CONTACT_WEBHOOK_URL is not set; contact submission was not delivered.");
+    console.error("Neither API_URL nor CONTACT_WEBHOOK_URL is set; contact submission was not delivered.");
     return { status: "error", message: `The form isn't connected yet. Please email us at ${site.emails.project}.` };
   } else {
     console.info("[contact] (dev, not delivered)", data);

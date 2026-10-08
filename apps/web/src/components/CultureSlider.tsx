@@ -4,12 +4,14 @@ import { useState } from "react";
 import Image from "next/image";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { EffectFade, Autoplay } from "swiper/modules";
+import type { Swiper as SwiperType } from "swiper";
+import type { Project } from "@/data/site";
 import "swiper/css";
 import "swiper/css/effect-fade";
 
 interface CultureSliderProps {
   principles: string[];
-  projects: any[];
+  projects: Project[];
 }
 
 const navItems = [
@@ -21,7 +23,7 @@ const navItems = [
 
 export default function CultureSlider({ principles, projects }: CultureSliderProps) {
   const [activeIndex, setActiveIndex] = useState(0);
-  const [swiperInstance, setSwiperInstance] = useState<any>(null);
+  const [swiperInstance, setSwiperInstance] = useState<SwiperType | null>(null);
 
   return (
     <section className="relative h-screen min-h-[600px] w-full bg-night text-white flex flex-col border-y border-white/10">
