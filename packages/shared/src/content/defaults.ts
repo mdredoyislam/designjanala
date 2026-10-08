@@ -190,6 +190,34 @@ const stackPrinciples = [
   { title: "Built to outlast", body: "We plan for the long term: active communities, good documentation and support that will still be there." },
 ];
 
+/** Technology page: the stack we usually start from for each kind of product. */
+const stackRecipes = [
+  {
+    title: "SaaS platform",
+    bestFor: "Subscriptions, dashboards, multi-tenant B2B apps",
+    summary: "A typed full-stack setup with a relational database, background jobs and error tracking from day one.",
+    tools: ["Next.js", "TypeScript", "Tailwind CSS", "NestJS", "PostgreSQL", "Redis", "Vercel", "Sentry"],
+  },
+  {
+    title: "AI assistant & RAG",
+    bestFor: "Support copilots, internal knowledge search, agents",
+    summary: "Retrieval over your own documents with evaluation and guardrails, behind a fast, streaming interface.",
+    tools: ["Python", "FastAPI", "LangChain", "Anthropic", "Pinecone", "PostgreSQL", "Docker", "Next.js"],
+  },
+  {
+    title: "Mobile app",
+    bestFor: "Consumer and field apps on iOS and Android",
+    summary: "One cross-platform codebase with offline support, push notifications and crash reporting.",
+    tools: ["Flutter", "Dart", "Firebase", "Node.js", "PostgreSQL", "Google Cloud", "Sentry"],
+  },
+  {
+    title: "Marketing website",
+    bestFor: "Launch sites, brand sites, content-heavy marketing",
+    summary: "Designed in Figma and built so your team can publish without a developer, with analytics wired in.",
+    tools: ["Figma", "Webflow", "Framer", "Next.js", "Cloudflare", "Google Analytics", "Hotjar"],
+  },
+];
+
 /** "What to Expect from Us" */
 const expectations = [
   { title: "AI-Driven Development", body: "AI tooling across research, design and code means faster cycles." },
@@ -200,8 +228,8 @@ const expectations = [
   { title: "Faster Time-to-Market", body: "Focused scopes and proven processes get you live sooner." },
 ];
 
-/** Brand illustrations (black + yellow SVGs) in apps/web/public/images/illustrations. */
-export const art = (name: string) => `/images/illustrations/${name}.svg`;
+/** Product-shot illustrations in apps/web/public/images/illustrations, rendered from design/illustrations. */
+export const art = (name: string) => `/images/illustrations/${name}.webp`;
 
 /** Service groups, mirroring the DevMonks layout: one card per group, four services each. */
 const serviceCategories = [
@@ -524,7 +552,7 @@ const team = [
   },
   {
     name: "Redoy Islam",
-    role: "Developer",
+    role: "Lead Developer",
     bio: "Turns designs into fast, maintainable web and mobile products, and owns the technical decisions behind them.",
     focus: ["Next.js", "APIs", "Mobile"],
     photo: "/images/team/redoy-islam.webp",
@@ -813,6 +841,7 @@ export const defaultContent: SiteContent = contentSchema.parse({
   services,
   techStack,
   stackPrinciples,
+  stackRecipes,
   categories,
   projects,
   team,

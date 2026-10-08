@@ -14,6 +14,8 @@ export default function Header({ content }: { content: Pick<SiteContent, "nav" |
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
   const [menu, setMenu] = useState(false);
+  const [activeCat, setActiveCat] = useState<string>();
+  const category = serviceCategories.find((c) => c.slug === activeCat) ?? serviceCategories[0];
   const [scrolled, setScrolled] = useState(false);
   const menuRef = useRef<HTMLElement>(null);
 
@@ -109,33 +111,89 @@ export default function Header({ content }: { content: Pick<SiteContent, "nav" |
         </div>
 
         {menu && (
-          <div
-            id="services-menu"
-            className="animate-fade-in absolute inset-x-0 top-full hidden border-b border-night-line bg-night lg:block"
-          >
-            <div className="container-x grid grid-cols-4 gap-8 py-10">
-              {serviceCategories.map((c) => (
-                <div key={c.slug}>
-                  <p className="eyebrow">[ {c.title} ]</p>
-                  <ul className="mt-4 space-y-1">
-                    {servicesIn(c.slug).map((s) => (
+          <div id="services-menu" className="animate-fade-in absolute inset-x-0 top-full hidden border-b border-night-line bg-night lg:block">
+            <div className="container-x grid grid-cols-12 gap-8 py-8">
+              {/* Service groups: hovering or focusing one switches the panel. */}
+              <ul className="col-span-3 space-y-1 border-r border-night-line pr-6" role="list">
+                {serviceCategories.map((c, i) => {
+                  const on = c.slug === category?.slug;
+                  return (
+                    <li key={c.slug}>
+                      <Link
+                        href={`/services#${c.slug}`}
+                        onMouseEnter={() => setActiveCat(c.slug)}
+                        onFocus={() => setActiveCat(c.slug)}
+                        className={`group relative flex items-center gap-4 rounded-lg px-4 py-3.5 transition-colors ${on ? "bg-night-2" : "hover:bg-night-2/60"}`}
+                      >
+                        <span className={`absolute inset-y-3 left-0 w-0.5 rounded-full transition-colors ${on ? "bg-accent" : "bg-transparent"}`} />
+                        <span className={`font-mono text-[11px] ${on ? "text-accent-fg" : "text-white/35"}`}>0{i + 1}</span>
+                        <span className="min-w-0 flex-1">
+                          <span className={`block text-[15px] font-medium ${on ? "text-white" : "text-white/70"}`}>{c.title}</span>
+                          <span className="block font-mono text-[10px] tracking-wider text-white/35 uppercase">{servicesIn(c.slug).length} services</span>
+                        </span>
+                      </Link>
+                    </li>
+                  );
+                })}
+              </ul>
+
+              {/* Services in the active group */}
+              {category && (
+                <div className="col-span-5">
+                  <p className="eyebrow">[ {category.title} ]</p>
+                  <ul className="mt-4 grid grid-cols-2 gap-2" role="list">
+                    {servicesIn(category.slug).map((s) => (
                       <li key={s.slug}>
-                        <Link href={`/services/${s.slug}`} className="group -mx-3 block rounded-lg px-3 py-2.5 transition-colors hover:bg-night-2">
-                          <span className="flex items-center justify-between text-[15px] font-medium text-white">
+                        <Link
+                          href={`/services/${s.slug}`}
+                          className="group flex h-full flex-col rounded-lg border border-night-line p-4 transition-colors hover:border-accent/60 hover:bg-night-2"
+                        >
+                          <span className="flex items-start justify-between gap-3 text-[15px] leading-snug font-medium text-white">
                             {s.title}
-                            <ArrowUpRight className="h-4 w-4 text-accent-fg opacity-0 transition-opacity group-hover:opacity-100" />
+                            <ArrowUpRight className="mt-0.5 h-4 w-4 shrink-0 text-white/30 transition-colors group-hover:text-accent-fg" />
                           </span>
-                          <span className="mt-0.5 block text-sm text-white/45">{s.tagline}</span>
+                          <span className="mt-1.5 text-sm text-white/50">{s.tagline}</span>
                         </Link>
                       </li>
                     ))}
                   </ul>
                 </div>
-              ))}
+              )}
+
+              {/* Feature card for the active group */}
+              {category && (
+                <Link
+                  href={servicesIn(category.slug)[0] ? `/services/${servicesIn(category.slug)[0].slug}` : "/services"}
+                  className="group col-span-4 flex flex-col overflow-hidden rounded-xl border border-night-line bg-night-2"
+                >
+                  <span className="relative block aspect-[16/10] overflow-hidden">
+                    <Image
+                      key={category.image}
+                      src={category.image}
+                      alt=""
+                      fill
+                      sizes="400px"
+                      className="animate-fade-in object-cover transition-transform duration-700 group-hover:scale-[1.03]"
+                    />
+                  </span>
+                  <span className="flex flex-1 flex-col p-5">
+                    <span className="text-sm leading-relaxed text-white/65">{category.blurb}</span>
+                    <span className="mt-4 inline-flex items-center gap-2 font-mono text-xs font-semibold tracking-[0.06em] text-accent-fg uppercase">
+                      Explore {category.title} <ArrowUpRight className="h-3.5 w-3.5 transition-transform group-hover:rotate-45" />
+                    </span>
+                  </span>
+                </Link>
+              )}
             </div>
             <div className="border-t border-night-line">
               <div className="container-x flex items-center justify-between py-4 text-sm">
-                <span className="text-white/50">Not sure what you need? We&rsquo;ll help you scope it.</span>
+                <span className="text-white/50">
+                  Not sure what you need?{" "}
+                  <Link href="/contact" className="text-white underline decoration-accent/50 underline-offset-4 hover:decoration-accent">
+                    Tell us about your product
+                  </Link>{" "}
+                  and we&rsquo;ll help you scope it.
+                </span>
                 <Link href="/services" className="font-mono text-xs font-semibold tracking-[0.06em] text-accent-fg uppercase">
                   [ View all services ]
                 </Link>
@@ -144,6 +202,9 @@ export default function Header({ content }: { content: Pick<SiteContent, "nav" |
           </div>
         )}
       </header>
+
+      {/* Dims the page under the services menu; clicking it closes the menu. */}
+      {menu && <div className="animate-fade-in fixed inset-0 top-[68px] z-40 hidden bg-black/60 lg:block" onClick={() => setMenu(false)} aria-hidden="true" />}
 
       {/* Rendered outside <header>: its backdrop-filter would otherwise become the containing block for this fixed panel. */}
       {open && (

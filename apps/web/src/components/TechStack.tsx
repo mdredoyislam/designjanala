@@ -1,14 +1,15 @@
 "use client";
 
 import { useState } from "react";
-import type { SiteContent } from "@designjanala/shared";
+import type { ToolIcon } from "@/lib/tool-icons";
+import ToolLogo from "./ToolLogo";
 
 const ALL = "All";
 /** Tools shown before "Load more", and how many each click adds. */
 const STEP = 16;
 
 /** Homepage stack: a segmented pill bar of categories over a cloud of tool pills. */
-export default function TechStack({ techStack }: { techStack: SiteContent["techStack"] }) {
+export default function TechStack({ techStack }: { techStack: { category: string; items: ToolIcon[] }[] }) {
   const tabs = [
     { name: ALL, count: techStack.reduce((n, t) => n + t.items.length, 0) },
     ...techStack.map((t) => ({ name: t.category, count: t.items.length })),
@@ -17,8 +18,8 @@ export default function TechStack({ techStack }: { techStack: SiteContent["techS
   const [limit, setLimit] = useState(STEP);
   const items =
     active === ALL
-      ? techStack.flatMap((t) => t.items.map((name) => ({ name, category: t.category })))
-      : (techStack.find((t) => t.category === active)?.items ?? []).map((name) => ({ name, category: active }));
+      ? techStack.flatMap((t) => t.items.map((tool) => ({ tool, category: t.category })))
+      : (techStack.find((t) => t.category === active)?.items ?? []).map((tool) => ({ tool, category: active }));
 
   return (
     <div>
@@ -60,15 +61,15 @@ export default function TechStack({ techStack }: { techStack: SiteContent["techS
 
       {/* Tool pills */}
       <ul key={active} className="animate-fade-in mx-auto mt-10 flex max-w-5xl flex-wrap justify-center gap-2.5" aria-live="polite">
-        {items.slice(0, limit).map(({ name, category }) => (
+        {items.slice(0, limit).map(({ tool, category }) => (
           <li
-            key={`${category}-${name}`}
-            className="group flex items-center gap-2 rounded-full border border-line bg-card py-1.5 pr-4 pl-1.5 text-sm font-medium text-ink transition-colors hover:border-accent"
+            key={`${category}-${tool.name}`}
+            className="group flex items-center gap-2.5 rounded-full border border-line bg-card py-1.5 pr-4 pl-2 text-sm font-medium text-ink transition-colors hover:border-ink/30"
           >
-            <span className="flex h-7 w-7 items-center justify-center rounded-full bg-accent/10 font-mono text-[11px] font-bold text-accent-fg transition-colors group-hover:bg-accent group-hover:text-accent-ink">
-              {name[0]}
+            <span className="flex h-7 w-7 items-center justify-center rounded-full bg-surface">
+              <ToolLogo tool={tool} className="h-4 w-4 text-[8px]" />
             </span>
-            {name}
+            {tool.name}
             {active === ALL && <span className="hidden font-mono text-[10px] text-muted uppercase sm:inline">· {category}</span>}
           </li>
         ))}
