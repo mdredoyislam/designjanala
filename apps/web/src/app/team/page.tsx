@@ -4,29 +4,13 @@ import Link from "next/link";
 import Faq from "@/components/Faq";
 import Reveal from "@/components/Reveal";
 import CultureSlider from "@/components/CultureSlider";
-import { jobs, projects, site, stats, team, teamFaqs, teamPrinciples } from "@/data/site";
+import { Founders, TeamPhoto } from "@/components/TeamPhoto";
+import { art, jobs, projects, serviceCategories, site, stats, team, teamFaqs, teamPrinciples } from "@/data/site";
 
 export const metadata: Metadata = {
   title: "Team",
   description: `Meet the ${site.name} team: the designers, developers and specialists who work on your project from kickoff to launch.`,
 };
-
-const initials = (name: string) => name.split(" ").map((w) => w[0]).join("");
-const tints = ["from-[#1a1a1a] to-[#3d3300]", "from-[#000000] to-[#2a2a2a]", "from-[#2a2300] to-[#111111]", "from-[#111111] to-[#333333]"];
-
-/** Gradient portrait placeholder with initials. Swap for <Image> once team photos exist. */
-function Portrait({ name, index, className = "" }: { name: string; index: number; className?: string }) {
-  return (
-    <div className={`relative overflow-hidden bg-gradient-to-br ${tints[index % tints.length]} ${className}`}>
-      <div
-        className="absolute inset-0 opacity-25"
-        style={{ backgroundImage: "radial-gradient(circle, rgb(255 255 255 / 0.6) 1px, transparent 1.4px)", backgroundSize: "10px 10px" }}
-        aria-hidden="true"
-      />
-      <span className="h-display absolute inset-0 flex items-center justify-center text-8xl text-accent/90">{initials(name)}</span>
-    </div>
-  );
-}
 
 export default function TeamPage() {
   const leaders = team.slice(0, 2);
@@ -38,7 +22,6 @@ export default function TeamPage() {
       [`${stats[1].value}+`, "Clients served"],
     ],
   ];
-  const collage = [projects[3], projects[17], projects[8], projects[19], projects[10]];
 
   return (
     <>
@@ -78,24 +61,21 @@ export default function TeamPage() {
 
           {/* Wide image band */}
           <Reveal className="relative mt-14 aspect-[16/7] overflow-hidden rounded-t-xl sm:aspect-[16/6]">
-            <Image src={projects[0].image} alt={projects[0].title} fill priority sizes="100vw" className="object-cover" />
+            <Image src={art("studio")} alt="Design canvas, code editor and mobile app on one shared workspace" fill preload sizes="100vw" className="object-cover object-top" />
             <div className="absolute inset-0 bg-gradient-to-t from-night via-night/30 to-transparent" />
           </Reveal>
         </div>
       </section>
 
-      {/* Collage */}
+      {/* Collage: the founders plus what they build */}
       <section className="container-x py-16 lg:py-20">
         <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
-          {collage.map((p, i) => (
-            <Reveal
-              key={p.image}
-              delay={i * 70}
-              className={`relative overflow-hidden rounded-lg bg-surface ${
-                i === 0 ? "col-span-2 row-span-2 aspect-[4/3] sm:aspect-auto" : "aspect-[4/3]"
-              } ${i > 2 ? "hidden sm:block" : ""}`}
-            >
-              <Image src={p.image} alt={p.title} fill sizes="(min-width: 640px) 33vw, 50vw" className="object-cover" />
+          <Reveal className="col-span-2 row-span-2 aspect-[4/3] overflow-hidden rounded-lg sm:aspect-auto">
+            <Founders sizes="(min-width: 640px) 25vw, 50vw" className="h-full w-full" />
+          </Reveal>
+          {serviceCategories.map((c, i) => (
+            <Reveal key={c.slug} delay={(i + 1) * 70} className={`relative aspect-[4/3] overflow-hidden rounded-lg bg-surface ${i > 1 ? "hidden sm:block" : ""}`}>
+              <Image src={c.image} alt={c.title} fill sizes="(min-width: 640px) 25vw, 50vw" className="object-cover" />
             </Reveal>
           ))}
         </div>
@@ -147,9 +127,7 @@ export default function TeamPage() {
                 </div>
                 
                 <div className="lg:col-span-5 h-full">
-                  <div className="relative h-full min-h-[400px] overflow-hidden rounded-2xl">
-                    <Portrait name={m.name} index={i} className="absolute inset-0 w-full h-full object-cover" />
-                  </div>
+                  <TeamPhoto member={m} sizes="(min-width: 1024px) 40vw, 90vw" className="h-full min-h-[400px] rounded-2xl" />
                 </div>
               </div>
             </div>
@@ -171,7 +149,12 @@ export default function TeamPage() {
             {team.map((m, i) => (
               <Reveal key={m.name} delay={(i % 3) * 80} className="group cursor-pointer">
                 <div className="relative overflow-hidden rounded-2xl mb-4 aspect-[4/5] bg-surface">
-                  <Portrait name={m.name} index={i} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+                  <TeamPhoto
+                    member={m}
+                    sizes="(min-width: 1024px) 30vw, (min-width: 640px) 45vw, 90vw"
+                    className="h-full w-full"
+                    imageClassName="transition duration-700 group-hover:scale-105 group-hover:grayscale-0"
+                  />
                 </div>
                 <div>
                   <h3 className="text-xl font-semibold">{m.name}</h3>
@@ -184,7 +167,7 @@ export default function TeamPage() {
       </section>
 
       {/* Culture Slider */}
-      <CultureSlider principles={teamPrinciples} projects={projects} />
+      <CultureSlider principles={teamPrinciples} />
 
       {/* Careers */}
       <section id="careers" className="container-x scroll-mt-20 py-20 lg:py-28">

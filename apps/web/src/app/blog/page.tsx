@@ -5,7 +5,8 @@ import Newsletter from "@/components/Newsletter";
 import PageHero from "@/components/PageHero";
 import Reveal from "@/components/Reveal";
 import SectionHeading from "@/components/SectionHeading";
-import { blogFaqs, posts, site, team } from "@/data/site";
+import { TeamPhoto } from "@/components/TeamPhoto";
+import { blogFaqs, site, team } from "@/data/site";
 
 export const metadata: Metadata = {
   title: "Blog",
@@ -13,7 +14,6 @@ export const metadata: Metadata = {
 };
 
 export default function BlogPage() {
-  const author = team[0];
   return (
     <>
       <PageHero eyebrow="Insights" title="Design & Engineering Insights and Product Thinking">
@@ -31,17 +31,19 @@ export default function BlogPage() {
           title="The People Behind Our Insights"
           aside={<p>Perspectives on product design, development and practical AI from the team doing the work.</p>}
         />
-        <Reveal className="mt-12 w-full max-w-xs">
-          <div className="flex aspect-[4/5] items-end overflow-hidden rounded-xl bg-gradient-to-br from-accent via-[#ffdf40] to-[#fff1a8] p-6">
-            <span className="h-display text-7xl text-accent-ink/90">{author.name.split(" ").map((w) => w[0]).join("")}</span>
-          </div>
-          <div className="mt-3 rounded-xl border border-line py-4 text-center">
-            <p className="font-semibold">{author.name}</p>
-            <p className="mt-0.5 font-mono text-[10px] tracking-wider text-muted uppercase">
-              {author.role} · {posts.length} articles
-            </p>
-          </div>
-        </Reveal>
+        <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:max-w-2xl">
+          {team.map((m, i) => (
+            <Reveal key={m.name} delay={i * 80}>
+              <TeamPhoto member={m} tone="accent" sizes="(min-width: 640px) 320px, 90vw" className="aspect-[4/5] rounded-xl" />
+              <div className="mt-3 rounded-xl border border-line py-4 text-center">
+                <p className="font-semibold">{m.name}</p>
+                <p className="mt-0.5 font-mono text-[10px] tracking-wider text-muted uppercase">
+                  {m.role} · {site.name}
+                </p>
+              </div>
+            </Reveal>
+          ))}
+        </div>
       </section>
 
       <Newsletter />

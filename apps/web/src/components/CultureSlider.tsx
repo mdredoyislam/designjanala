@@ -5,23 +5,22 @@ import Image from "next/image";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { EffectFade, Autoplay } from "swiper/modules";
 import type { Swiper as SwiperType } from "swiper";
-import type { Project } from "@/data/site";
+import { art } from "@/data/site";
 import "swiper/css";
 import "swiper/css/effect-fade";
 
 interface CultureSliderProps {
   principles: string[];
-  projects: Project[];
 }
 
 const navItems = [
-  { num: "01", cat: "CRAFT", label: "Ship it right" },
-  { num: "02", cat: "LEARNING", label: "Keep learning" },
-  { num: "03", cat: "COLLABORATION", label: "Work together" },
-  { num: "04", cat: "OWNERSHIP", label: "Own the outcome" },
+  { num: "01", cat: "CRAFT", label: "Ship it right", image: art("culture-craft") },
+  { num: "02", cat: "LEARNING", label: "Keep learning", image: art("culture-learning") },
+  { num: "03", cat: "COLLABORATION", label: "Work together", image: art("culture-collaboration") },
+  { num: "04", cat: "OWNERSHIP", label: "Own the outcome", image: art("culture-ownership") },
 ];
 
-export default function CultureSlider({ principles, projects }: CultureSliderProps) {
+export default function CultureSlider({ principles }: CultureSliderProps) {
   const [activeIndex, setActiveIndex] = useState(0);
   const [swiperInstance, setSwiperInstance] = useState<SwiperType | null>(null);
 
@@ -42,13 +41,7 @@ export default function CultureSlider({ principles, projects }: CultureSliderPro
             <SwiperSlide key={i} className="w-full h-full">
               <div className="relative w-full h-full flex flex-col justify-center">
                 <div className="absolute inset-0" aria-hidden="true">
-                  <Image 
-                    src={projects[i * 2 + 5]?.image || projects[8]?.image || "/images/portfolio/2018-03-7-1.jpg"} 
-                    alt="" 
-                    fill 
-                    sizes="100vw" 
-                    className="object-cover opacity-40" 
-                  />
+                  <Image src={navItems[i % navItems.length].image} alt="" fill sizes="100vw" className="object-cover object-right" />
                   <div className="absolute inset-0 bg-gradient-to-r from-night via-night/60 to-transparent" />
                   <div className="absolute inset-0 bg-gradient-to-t from-night via-transparent to-transparent opacity-80" />
                 </div>

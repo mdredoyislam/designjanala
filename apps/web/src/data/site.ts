@@ -202,27 +202,36 @@ export type ServiceCategory = {
   slug: "ai" | "saas" | "mobile" | "design";
   title: string;
   blurb: string;
+  /** Section illustration in /public/images/illustrations. */
+  image: string;
 };
+
+/** Brand illustrations (black + yellow SVGs) used where a section needs a picture. */
+export const art = (name: string) => `/images/illustrations/${name}.svg`;
 
 /** Service groups, mirroring the DevMonks layout: one card per group, four services each. */
 export const serviceCategories: ServiceCategory[] = [
   {
     slug: "ai",
+    image: art("service-ai"),
     title: "AI Automation Systems",
     blurb: "Agents, LLMs and automations that remove busywork and put your data to work.",
   },
   {
     slug: "saas",
+    image: art("service-saas"),
     title: "SaaS Platform Engineering",
     blurb: "Scalable web platforms, portals and MVPs built on a modern, production-ready stack.",
   },
   {
     slug: "mobile",
+    image: art("service-mobile"),
     title: "Mobile App Development",
     blurb: "Native and cross-platform apps that feel fast, reliable and at home on every device.",
   },
   {
     slug: "design",
+    image: art("service-design"),
     title: "Product & Brand Design",
     blurb: "Twelve years of design craft: UI/UX, brand identity, redesigns and no-code builds.",
   },
@@ -537,7 +546,8 @@ export const testimonials = [
   },
 ];
 
-export type TeamMember = { name: string; role: string; bio: string; focus: string[] };
+/** Cut-out portrait (transparent background) in /public/images/team. */
+export type TeamMember = { name: string; role: string; bio: string; focus: string[]; photo: string };
 
 export const team: TeamMember[] = [
   {
@@ -545,12 +555,14 @@ export const team: TeamMember[] = [
     role: "Founder & Lead Designer",
     bio: "Started DesignJanala more than a decade ago and still leads design on every project, from brand identities to product interfaces.",
     focus: ["Brand Identity", "UI/UX", "Art Direction"],
+    photo: "/images/team/zumanur-rahman.webp",
   },
   {
     name: "Redoy Islam",
     role: "Developer",
     bio: "Turns designs into fast, maintainable web and mobile products, and owns the technical decisions behind them.",
     focus: ["Next.js", "APIs", "Mobile"],
+    photo: "/images/team/redoy-islam.webp",
   },
 ];
 

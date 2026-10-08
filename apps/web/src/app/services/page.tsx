@@ -8,6 +8,7 @@ import PageHero from "@/components/PageHero";
 import Reveal from "@/components/Reveal";
 import SectionHeading from "@/components/SectionHeading";
 import ServiceAccordion from "@/components/ServiceAccordion";
+import { TeamAvatar } from "@/components/TeamPhoto";
 import Testimonials from "@/components/Testimonials";
 import { industries, serviceCategories, services, servicesFaqs, servicesIn, site, team } from "@/data/site";
 
@@ -74,6 +75,7 @@ export default function ServicesPage() {
               slug: c.slug,
               title: c.title,
               blurb: c.blurb,
+              image: c.image,
               list: servicesIn(c.slug).map(s => ({ slug: s.slug, title: s.title }))
             }))} 
           />
@@ -130,9 +132,7 @@ export default function ServicesPage() {
               <ul className="divide-y divide-night-line">
                 {team.map((m) => (
                   <li key={m.name} className="flex items-center gap-4 px-5 py-3.5">
-                    <span className="flex h-9 w-9 items-center justify-center rounded-full bg-accent text-xs font-bold text-accent-ink">
-                      {m.name.split(" ").map((w) => w[0]).join("")}
-                    </span>
+                    <TeamAvatar member={m} className="h-9 w-9" />
                     <span className="flex-1">
                       <span className="block text-sm font-medium">{m.role}</span>
                       <span className="block text-xs text-white/45">{m.focus.join(" · ")}</span>

@@ -2,6 +2,7 @@ import Link from "next/link";
 import { faqs as defaultFaqs, site, team } from "@/data/site";
 import { ArrowDown } from "./icons";
 import Reveal from "./Reveal";
+import { TeamAvatar } from "./TeamPhoto";
 
 /** Centered heading, then a dark "more questions?" card beside a beige accordion. */
 export default function Faq({
@@ -28,10 +29,15 @@ export default function Faq({
           </span>
           <div className="relative">
             <p className="h-display text-2xl normal-case sm:text-3xl">Do you have more questions?</p>
-            <p className="mt-5 font-semibold">{lead.name}</p>
-            <p className="text-sm text-white/60">
-              {lead.role} · {site.name}
-            </p>
+            <div className="mt-5 flex items-center gap-3">
+              <TeamAvatar member={lead} className="h-12 w-12" />
+              <div>
+                <p className="font-semibold">{lead.name}</p>
+                <p className="text-sm text-white/60">
+                  {lead.role} · {site.name}
+                </p>
+              </div>
+            </div>
             <Link href="/contact" className="btn-secondary mt-6 w-full">
               Reach me out
             </Link>

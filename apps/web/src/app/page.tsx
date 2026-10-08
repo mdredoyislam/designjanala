@@ -11,10 +11,11 @@ import Radar from "@/components/Radar";
 import Reveal from "@/components/Reveal";
 import SectionHeading from "@/components/SectionHeading";
 import ServiceCategories from "@/components/ServiceCategories";
+import { Founders } from "@/components/TeamPhoto";
 import TechStack from "@/components/TechStack";
 import Testimonials from "@/components/Testimonials";
 import { Check } from "@/components/icons";
-import { aiInProcess, expectations, industries, marketplaces, projects, site, stats, whyUs } from "@/data/site";
+import { aiInProcess, art, expectations, industries, marketplaces, site, stats, whyUs } from "@/data/site";
 
 const trusted = [...marketplaces.map((m) => m.name), "Once Upon A Bazaar", "PAN USA", "California Auto Parts"];
 const clientNames = ["Once Upon A Bazaar", "PAN USA", "California Auto Parts", "Upwork", "Fiverr"];
@@ -175,8 +176,8 @@ export default function Home() {
               ))}
             </div>
           </Reveal>
-          <Reveal delay={100} className="relative aspect-[4/3] overflow-hidden rounded-xl bg-surface">
-            <Image src={projects[0].image} alt={projects[0].title} fill sizes="(min-width: 1024px) 50vw, 100vw" className="object-cover" />
+          <Reveal delay={100}>
+            <Founders sizes="(min-width: 1024px) 25vw, 50vw" className="aspect-[4/3] rounded-xl" />
           </Reveal>
         </div>
         <dl className="mt-10 grid gap-5 sm:grid-cols-3">
@@ -194,8 +195,14 @@ export default function Home() {
       {/* Process */}
       <section id="process" className="scroll-mt-20 bg-surface/60 py-20 lg:py-28">
         <div className="container-x grid gap-12 lg:grid-cols-2 lg:items-center">
-          <Reveal className="relative aspect-[4/3] overflow-hidden rounded-xl bg-surface lg:aspect-[4/5]">
-            <Image src={projects[2].image} alt={projects[2].title} fill sizes="(min-width: 1024px) 50vw, 100vw" className="object-cover" />
+          <Reveal className="relative mx-auto aspect-[4/5] w-full max-w-md overflow-hidden rounded-xl border border-line bg-surface lg:max-w-none">
+            <Image
+              src={art("process")}
+              alt="Product journey: idea, AI-enhanced planning, design and engineering, testing and launch"
+              fill
+              sizes="(min-width: 1024px) 50vw, 100vw"
+              className="object-cover"
+            />
           </Reveal>
           <div>
             <SectionHeading title={`The ${site.name} Development Journey`} className="mb-8" />

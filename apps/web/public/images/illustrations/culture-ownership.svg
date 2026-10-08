@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" width="1600" height="900" role="img" aria-label="Launch checklist complete with a live status and uptime graph">
+<title>Launch checklist complete with a live status and uptime graph</title>
+  
+  <defs>
+    <radialGradient id="g46" cx="0.7" cy="0.45" r="0.6">
+      <stop offset="0" stop-color="#ffd000" stop-opacity="0.3"/>
+      <stop offset="1" stop-color="#ffd000" stop-opacity="0"/>
+    </radialGradient>
+    <pattern id="p47" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M40 0H0V40" fill="none" stroke="#ffffff" stroke-opacity="0.045"/>
+    </pattern>
+    <pattern id="d48" width="10" height="10" patternUnits="userSpaceOnUse">
+      <circle cx="5" cy="5" r="1.3" fill="#ffd000"/>
+    </pattern>
+    <radialGradient id="mg50" cx="0.7" cy="0.45" r="0.45">
+      <stop offset="0" stop-color="#fff" stop-opacity="0.35"/>
+      <stop offset="1" stop-color="#fff" stop-opacity="0"/>
+    </radialGradient>
+    <mask id="m49"><rect width="1600" height="900" fill="url(#mg50)"/></mask>
+  </defs>
+  <rect width="1600" height="900" fill="#0a0a0a"/>
+  <rect width="1600" height="900" fill="url(#p47)"/>
+  <rect width="1600" height="900" fill="url(#d48)" mask="url(#m49)"/>
+  <rect width="1600" height="900" fill="url(#g46)"/>
+  
+  <g>
+    <rect x="910" y="168" width="400" height="520" rx="14" fill="#000" opacity="0.55"/>
+    <rect x="900" y="150" width="400" height="520" rx="14" fill="#141414" stroke="#3a3a3a" stroke-width="1.5"/>
+    <path d="M900 186H1300" stroke="#3a3a3a" stroke-width="1.5"/>
+    <circle cx="920" cy="168" r="5" fill="#3a3a3a"/>
+    <circle cx="937" cy="168" r="5" fill="#3a3a3a"/>
+    <circle cx="954" cy="168" r="5" fill="#ffd000"/>
+    <text x="1100" y="173" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12" letter-spacing="1.5" fill="#525252">RELEASE v1.0</text>
+  </g>
+  <circle cx="945" cy="230" r="16" fill="#ffd000" stroke="#ffd000" stroke-width="2"/>
+  <path d="M938.28 230l4.8 5.12 8.8 -9.92" fill="none" stroke="#0a0a0a" stroke-width="3.52" stroke-linecap="round" stroke-linejoin="round"/><rect x="978" y="224" width="200" height="8" rx="4" fill="#3a3a3a"/><rect x="978" y="240" width="0" height="8" rx="4" fill="#3a3a3a"/><circle cx="945" cy="300" r="16" fill="#ffd000" stroke="#ffd000" stroke-width="2"/>
+  <path d="M938.28 300l4.8 5.12 8.8 -9.92" fill="none" stroke="#0a0a0a" stroke-width="3.52" stroke-linecap="round" stroke-linejoin="round"/><rect x="978" y="294" width="170" height="8" rx="4" fill="#3a3a3a"/><rect x="978" y="310" width="0" height="8" rx="4" fill="#3a3a3a"/><circle cx="945" cy="370" r="16" fill="#ffd000" stroke="#ffd000" stroke-width="2"/>
+  <path d="M938.28 370l4.8 5.12 8.8 -9.92" fill="none" stroke="#0a0a0a" stroke-width="3.52" stroke-linecap="round" stroke-linejoin="round"/><rect x="978" y="364" width="140" height="8" rx="4" fill="#3a3a3a"/><rect x="978" y="380" width="0" height="8" rx="4" fill="#3a3a3a"/><circle cx="945" cy="440" r="16" fill="#ffd000" stroke="#ffd000" stroke-width="2"/>
+  <path d="M938.28 440l4.8 5.12 8.8 -9.92" fill="none" stroke="#0a0a0a" stroke-width="3.52" stroke-linecap="round" stroke-linejoin="round"/><rect x="978" y="434" width="200" height="8" rx="4" fill="#3a3a3a"/><rect x="978" y="450" width="0" height="8" rx="4" fill="#3a3a3a"/><circle cx="945" cy="510" r="16" fill="#ffd000" stroke="#ffd000" stroke-width="2"/>
+  <path d="M938.28 510l4.8 5.12 8.8 -9.92" fill="none" stroke="#0a0a0a" stroke-width="3.52" stroke-linecap="round" stroke-linejoin="round"/><rect x="978" y="504" width="170" height="8" rx="4" fill="#3a3a3a"/><rect x="978" y="520" width="0" height="8" rx="4" fill="#3a3a3a"/><circle cx="945" cy="580" r="16" fill="#ffd000" stroke="#ffd000" stroke-width="2"/>
+  <path d="M938.28 580l4.8 5.12 8.8 -9.92" fill="none" stroke="#0a0a0a" stroke-width="3.52" stroke-linecap="round" stroke-linejoin="round"/><rect x="978" y="574" width="140" height="8" rx="4" fill="#3a3a3a"/><rect x="978" y="590" width="0" height="8" rx="4" fill="#3a3a3a"/>
+  <rect x="925" y="610" width="350" height="40" rx="20" fill="#ffd000"/>
+  <text x="1100" y="636" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="15" letter-spacing="4" fill="#0a0a0a">SHIPPED</text>
+  <g transform="translate(1340 210)">
+    <path d="M10 0 V 520" stroke="#f5f5f5" stroke-width="8" stroke-linecap="round"/>
+    <path d="M14 10 H 190 L 150 70 L 190 130 H 14Z" fill="#ffd000"/>
+    <text x="40" y="80" text-anchor="start" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="26" letter-spacing="4" fill="#0a0a0a">LIVE</text>
+  </g>
+  <rect x="1360" y="560" width="200" height="120" rx="12" fill="#141414" stroke="#3a3a3a" stroke-width="2"/>
+  <text x="1378" y="588" text-anchor="start" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12" letter-spacing="1" fill="#f5f5f5">UPTIME 99.98%</text>
+  <rect x="1378" y="604" width="7" height="56" rx="2" fill="#ffd000"/><rect x="1388.5" y="604" width="7" height="56" rx="2" fill="#ffd000"/><rect x="1399" y="604" width="7" height="56" rx="2" fill="#ffd000"/><rect x="1409.5" y="604" width="7" height="56" rx="2" fill="#ffd000"/><rect x="1420" y="604" width="7" height="56" rx="2" fill="#ffd000"/><rect x="1430.5" y="604" width="7" height="56" rx="2" fill="#ffd000"/><rect x="1441" y="604" width="7" height="56" rx="2" fill="#ffd000"/><rect x="1451.5" y="604" width="7" height="56" rx="2" fill="#ffd000"/><rect x="1462" y="604" width="7" height="56" rx="2" fill="#ffd000"/><rect x="1472.5" y="604" width="7" height="56" rx="2" fill="#525252"/><rect x="1483" y="604" width="7" height="56" rx="2" fill="#ffd000"/><rect x="1493.5" y="604" width="7" height="56" rx="2" fill="#ffd000"/><rect x="1504" y="604" width="7" height="56" rx="2" fill="#ffd000"/><rect x="1514.5" y="604" width="7" height="56" rx="2" fill="#ffd000"/><rect x="1525" y="604" width="7" height="56" rx="2" fill="#ffd000"/><rect x="1535.5" y="604" width="7" height="56" rx="2" fill="#ffd000"/>
+
+</svg>

@@ -2,13 +2,14 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import Image from "next/image";
 import Link from "next/link";
-import { MockUI } from "@/components/MockUI";
 
 type ServiceGroupProps = {
   slug: string;
   title: string;
   blurb: string;
+  image: string;
   list: { slug: string; title: string }[];
 };
 
@@ -69,11 +70,9 @@ export default function ServiceAccordion({ groups }: { groups: ServiceGroupProps
                       </Link>
                     </div>
 
-                    {/* Right Image/MockUI */}
-                    <div className="relative overflow-hidden rounded-xl bg-gradient-to-br from-[#2a2300] via-[#141414] to-[#0a0a0a] p-6 sm:p-10">
-                      <div className="mx-auto max-w-sm rotate-[-4deg] rounded-2xl border-[6px] border-night bg-night shadow-2xl shadow-accent/20">
-                        <MockUI variant={i % 4} className="h-52 rounded-lg border-0" />
-                      </div>
+                    {/* Category illustration */}
+                    <div className="relative aspect-[4/3] overflow-hidden rounded-xl border border-line">
+                      <Image src={g.image} alt={g.title} fill sizes="(min-width: 1024px) 45vw, 100vw" className="object-cover" />
                     </div>
                   </div>
                 </motion.div>
