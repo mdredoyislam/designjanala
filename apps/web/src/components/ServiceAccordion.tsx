@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
@@ -16,6 +16,20 @@ type ServiceGroupProps = {
 export default function ServiceAccordion({ groups }: { groups: ServiceGroupProps[] }) {
   const [active, setActive] = useState(0);
 
+  // Open the group named in the URL hash (the header's service menu links to /services#<group>).
+  useEffect(() => {
+    const sync = () => {
+      const i = groups.findIndex((g) => `#${g.slug}` === window.location.hash);
+      if (i >= 0) setActive(i);
+    };
+    const frame = requestAnimationFrame(sync);
+    window.addEventListener("hashchange", sync);
+    return () => {
+      cancelAnimationFrame(frame);
+      window.removeEventListener("hashchange", sync);
+    };
+  }, [groups]);
+
   return (
     <div className="mt-12 divide-y divide-line border-y border-line">
       {groups.map((g, i) => {
@@ -24,8 +38,10 @@ export default function ServiceAccordion({ groups }: { groups: ServiceGroupProps
         return (
           <div 
             key={g.slug}
-            className="group relative"
+            id={g.slug}
+            className="group relative scroll-mt-24"
             onMouseEnter={() => setActive(i)}
+            onClick={() => setActive(i)}
           >
             {/* The Row Header (Always visible) */}
             <div className={`flex cursor-pointer items-center justify-between py-8 transition-colors lg:py-10 ${isActive ? "text-accent-fg" : "hover:text-accent-fg"}`}>

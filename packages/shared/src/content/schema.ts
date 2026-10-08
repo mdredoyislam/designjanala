@@ -105,6 +105,16 @@ const sections = {
     .array(z.object({ category: text("Category"), body: long("Description"), items: strings("Tools", "Tool") }))
     .meta({ itemLabel: "category" }),
   stackPrinciples: z.array(titleBody).meta({ itemLabel: "title" }),
+  stackRecipes: z
+    .array(
+      z.object({
+        title: text("Product type", "e.g. SaaS platform"),
+        bestFor: text("Best for"),
+        summary: long("Why this stack"),
+        tools: strings("Tools", "Tool", "Use the same names as in the tech stack so the logos match."),
+      }),
+    )
+    .meta({ itemLabel: "title" }),
 
   // Portfolio
   categories: uniqueBy(z.object({ slug: slug("Key"), label: text("Label") }), "slug").meta({ itemLabel: "label" }),
@@ -225,6 +235,7 @@ export const contentGroups: { label: string; sections: { key: ContentSectionKey;
       { key: "services", label: "Services", description: "Every service page: summary, overview and deliverables." },
       { key: "techStack", label: "Tech stack", description: "Technology categories and tools." },
       { key: "stackPrinciples", label: "Stack principles", description: "How we choose technology (Technology page)." },
+      { key: "stackRecipes", label: "Typical stacks", description: "Example stacks per product type (Technology page)." },
     ],
   },
   {

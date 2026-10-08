@@ -7,7 +7,7 @@ import { EffectFade, Autoplay } from "swiper/modules";
 import type { Swiper as SwiperType } from "swiper";
 
 // Inlined rather than imported from @designjanala/shared, which would pull the whole content model into the client bundle.
-const art = (name: string) => `/images/illustrations/${name}.svg`;
+const art = (name: string) => `/images/illustrations/${name}.webp`;
 import "swiper/css";
 import "swiper/css/effect-fade";
 
@@ -44,15 +44,18 @@ export default function CultureSlider({ principles }: CultureSliderProps) {
               <div className="relative w-full h-full flex flex-col justify-center">
                 <div className="absolute inset-0" aria-hidden="true">
                   <Image src={navItems[i % navItems.length].image} alt="" fill sizes="100vw" className="object-cover object-right" />
-                  <div className="absolute inset-0 bg-gradient-to-r from-night via-night/60 to-transparent" />
+                  <div className="absolute inset-0 bg-gradient-to-r from-night from-35% via-night/80 via-50% to-transparent to-70%" />
                   <div className="absolute inset-0 bg-gradient-to-t from-night via-transparent to-transparent opacity-80" />
                 </div>
                 
-                <div className="container-x relative z-10 w-full max-w-3xl pl-0 md:pl-12 lg:pl-24">
-                  <p className="font-mono text-[11px] tracking-[0.2em] text-accent-fg uppercase mb-6">[ culture ]</p>
-                  <h2 className="text-3xl sm:text-4xl md:text-5xl font-medium leading-[1.2] tracking-tight text-white shadow-black drop-shadow-lg">
-                    {p}
-                  </h2>
+                {/* Copy stays in the left part of the slide; the product shot sits on the right. */}
+                <div className="container-x relative z-10">
+                  <div className="max-w-xl lg:max-w-[44%]">
+                    <p className="font-mono text-[11px] tracking-[0.2em] text-accent-fg uppercase mb-6">[ culture ]</p>
+                    <h2 className="text-3xl sm:text-4xl md:text-5xl font-medium leading-[1.2] tracking-tight text-white shadow-black drop-shadow-lg">
+                      {p}
+                    </h2>
+                  </div>
                 </div>
               </div>
             </SwiperSlide>

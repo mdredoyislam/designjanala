@@ -17,6 +17,7 @@ import Testimonials from "@/components/Testimonials";
 import { Check } from "@/components/icons";
 import { art } from "@designjanala/shared";
 import { getContent } from "@/lib/content";
+import { toolIcon } from "@/lib/tool-icons";
 
 export default async function Home() {
   const { aiInProcess, clients, expectations, industries, marketplaces, site, stats, team, techStack, testimonials, whyUs } = await getContent();
@@ -252,7 +253,7 @@ export default async function Home() {
         <div className="container-x">
           <SectionHeading eyebrow="Technology" title="Engineered with Modern Tech Stacks" center className="mb-10" />
           <Reveal>
-            <TechStack techStack={techStack} />
+            <TechStack techStack={techStack.map((t) => ({ category: t.category, items: t.items.map(toolIcon) }))} />
           </Reveal>
           <div className="mt-12 text-center">
             <Link href="/technology" className="btn-dark">
