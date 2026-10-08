@@ -70,7 +70,7 @@ export default function ServiceAccordion({ groups }: { groups: ServiceGroupProps
                     </div>
 
                     {/* Right Image/MockUI */}
-                    <div className="relative overflow-hidden rounded-xl bg-gradient-to-br from-[#fbe3d4] via-[#f6efe9] to-[#eae4f7] p-6 sm:p-10">
+                    <div className="relative overflow-hidden rounded-xl bg-gradient-to-br from-[#2a2300] via-[#141414] to-[#0a0a0a] p-6 sm:p-10">
                       <div className="mx-auto max-w-sm rotate-[-4deg] rounded-2xl border-[6px] border-night bg-night shadow-2xl shadow-accent/20">
                         <MockUI variant={[0, 1, 2, 3][i % 4] as any} className="h-52 rounded-lg border-0" />
                       </div>

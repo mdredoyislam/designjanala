@@ -24,7 +24,7 @@ export default function ContactSection({ as: Heading = "h2" }: { as?: "h1" | "h2
             products to life.
           </p>
         </div>
-        <div className="rounded-xl bg-white p-7 shadow-sm sm:p-10 lg:col-span-7">
+        <div className="rounded-xl border border-line bg-card p-7 shadow-sm sm:p-10 lg:col-span-7">
           <ContactForm />
         </div>
       </div>

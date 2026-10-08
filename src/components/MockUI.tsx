@@ -4,7 +4,7 @@
  */
 export function MockUI({ variant, className = "" }: { variant: number; className?: string }) {
   return (
-    <div className={`relative overflow-hidden rounded-t-lg border border-b-0 border-mist bg-white p-3 ${className}`} aria-hidden="true">
+    <div className={`relative overflow-hidden rounded-t-lg border border-b-0 border-mist bg-white p-3 theme-light ${className}`} aria-hidden="true">
       <div className="mb-3 flex gap-1">
         <span className="h-1.5 w-1.5 rounded-full bg-[#ff5f57]" />
         <span className="h-1.5 w-1.5 rounded-full bg-[#febc2e]" />
@@ -88,7 +88,7 @@ export function MockUI({ variant, className = "" }: { variant: number; className
               <div key={i} className={`h-8 rounded ${i === 1 ? "border-2 border-accent bg-accent/10" : "bg-surface"}`} />
             ))}
           </div>
-          <span className="absolute top-12 right-6 rotate-[-8deg] rounded bg-accent px-1.5 py-0.5 text-[9px] font-semibold text-white">You</span>
+          <span className="absolute top-12 right-6 rotate-[-8deg] rounded bg-accent px-1.5 py-0.5 text-[9px] font-semibold text-accent-ink">You</span>
         </div>
       )}
     </div>

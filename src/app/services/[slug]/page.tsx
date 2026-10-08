@@ -105,7 +105,7 @@ export default async function ServicePage(props: PageProps<"/services/[slug]">) 
             <p className="eyebrow">[ Next service ]</p>
             <p className="h-display mt-3 text-3xl transition-colors group-hover:text-accent sm:text-5xl">{next.title}</p>
           </div>
-          <span className="flex h-14 w-14 shrink-0 items-center justify-center rounded-md bg-accent text-white transition-transform duration-500 group-hover:rotate-45">
+          <span className="flex h-14 w-14 shrink-0 items-center justify-center rounded-md bg-accent text-accent-ink transition-transform duration-500 group-hover:rotate-45">
             <ArrowUpRight className="h-6 w-6" />
           </span>
         </div>

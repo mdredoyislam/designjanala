@@ -71,7 +71,7 @@ export default function TechnologyPage() {
               <p className="mt-2 text-sm text-body">{t.body}</p>
               <ul className="mt-5 flex flex-wrap gap-1.5">
                 {t.items.map((item) => (
-                  <li key={item} className="rounded bg-accent/10 px-2 py-1 text-[11px] font-medium text-[#b13e02]">
+                  <li key={item} className="rounded bg-accent/10 px-2 py-1 text-[11px] font-medium text-accent">
                     {item}
                   </li>
                 ))}
@@ -101,7 +101,7 @@ export default function TechnologyPage() {
           />
           <div className="mt-12 grid gap-px overflow-hidden rounded-xl bg-line sm:grid-cols-2 lg:grid-cols-4">
             {stackPrinciples.map((p, i) => (
-              <Reveal key={p.title} delay={i * 80} className="bg-[#f7f6f3] p-6 sm:p-8">
+              <Reveal key={p.title} delay={i * 80} className="bg-card p-6 sm:p-8">
                 <span className="flex h-10 w-10 items-center justify-center rounded-full bg-accent/10 font-mono text-xs font-semibold text-accent">
                   0{i + 1}
                 </span>

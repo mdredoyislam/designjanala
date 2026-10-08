@@ -24,7 +24,7 @@ export default function ProjectCard({
           className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.04]"
         />
         {project.free && (
-          <span className="absolute top-4 left-4 rounded-full bg-accent px-3 py-1 text-xs font-semibold text-white">Free</span>
+          <span className="absolute top-4 left-4 rounded-full bg-accent px-3 py-1 text-xs font-semibold text-accent-ink">Free</span>
         )}
       </div>
       <div className="mt-5">

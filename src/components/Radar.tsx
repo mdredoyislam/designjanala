@@ -46,7 +46,7 @@ export default function Radar() {
           strokeOpacity={0.4}
           animate={{ rotate: 360 }}
           transition={{ duration: 40, repeat: Infinity, ease: "linear" }}
-          style={{ originX: "50%", originY: "50%" }}
+          style={{ opacity: 0.85, originX: "50%", originY: "50%" }}
         />
 
         {/* Concentric circles scaling in */}
@@ -107,7 +107,6 @@ export default function Radar() {
           stroke="var(--accent)"
           strokeWidth={1}
           filter="url(#glow)"
-          style={{ opacity: 0.85 }}
           variants={{
             hidden: { scale: 0.5, opacity: 0 },
             visible: { scale: 1, opacity: 0.85, transition: { delay: 0.6, duration: 1, type: "spring", bounce: 0.3 } }

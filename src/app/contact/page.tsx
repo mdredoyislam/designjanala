@@ -26,7 +26,7 @@ export default function ContactPage() {
           <p className="text-body">Also available on</p>
           <div className="mt-3 flex flex-wrap gap-2">
             {marketplaces.map((m) => (
-              <a key={m.name} href={m.href} target="_blank" rel="noopener noreferrer" className="pill border border-line bg-white hover:border-accent hover:text-accent">
+              <a key={m.name} href={m.href} target="_blank" rel="noopener noreferrer" className="pill border border-line bg-card hover:border-accent hover:text-accent">
                 {m.name}
               </a>
             ))}

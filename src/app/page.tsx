@@ -261,7 +261,7 @@ export default function Home() {
           </Reveal>
           <div className="grid grid-cols-2 gap-px overflow-hidden rounded-xl bg-line sm:grid-cols-3 lg:col-span-7">
             {expectations.map((e, i) => (
-              <Reveal key={e.title} delay={(i % 3) * 80} className="flex flex-col items-center bg-white px-4 py-8 text-center">
+              <Reveal key={e.title} delay={(i % 3) * 80} className="flex flex-col items-center bg-card px-4 py-8 text-center">
                 <span className="flex h-10 w-10 items-center justify-center rounded-lg bg-surface text-accent">
                   <Check className="h-5 w-5" />
                 </span>

@@ -51,7 +51,7 @@ export default function FreebieGrid({ projects }: { projects: Project[] }) {
           <article key={p.image} className="card-dark flex flex-col overflow-hidden">
             <div className="flex items-center justify-between px-5 pt-5">
               <span className="font-mono text-[10px] tracking-wider text-white/50 uppercase">Template</span>
-              <span className={`rounded px-2 py-0.5 font-mono text-[10px] font-semibold tracking-wider uppercase ${p.free ? "bg-accent text-white" : "border border-night-line text-white/60"}`}>
+              <span className={`rounded px-2 py-0.5 font-mono text-[10px] font-semibold tracking-wider uppercase ${p.free ? "bg-accent text-accent-ink" : "border border-night-line text-white/60"}`}>
                 {p.free ? "Free" : "Premium"}
               </span>
             </div>

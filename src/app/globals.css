@@ -1,24 +1,39 @@
 @import "tailwindcss";
 
 /*
- * DevMonks-style theme: dark heroes and footer ("night"), light content sections,
- * warm beige cards ("surface") and an orange accent.
+ * Black & yellow theme: black pages ("night" heroes/footer, near-black content sections),
+ * dark graphite cards ("surface"/"card") and a yellow accent. Text on the accent is black ("accent-ink").
  */
 :root {
-  --background: #ffffff;
-  --foreground: #0a0a0a;
+  --background: #0a0a0a;
+  --foreground: #f5f5f5;
+  --ink: #ffffff;
+  --body: #a3a3a3;
+  --muted: #8a8a8a;
+  --line: #2a2a2a;
+  --surface: #141414;
+  --card: #1c1c1c;
+  --mist: #262626;
+  --steel: #404040;
+  --night: #000000;
+  --night-2: #111111;
+  --night-line: #222222;
+  --accent: #ffd000;
+  --accent-soft: #ffe04d;
+  --accent-ink: #0a0a0a;
+}
+
+/* Light island for UI mockups that should still read as a light screen. */
+.theme-light {
   --ink: #0a0a0a;
   --body: #525252;
   --muted: #737373;
   --line: #e5e5e5;
-  --surface: #f0eeea;
-  --mist: #e7e4de;
+  --surface: #f0f0ee;
+  --card: #ffffff;
+  --mist: #e7e7e4;
   --steel: #d4d4d4;
-  --night: #000000;
-  --night-2: #111111;
-  --night-line: #222222;
-  --accent: #e85002;
-  --accent-soft: #ff620f;
+  color: var(--ink);
 }
 
 @theme inline {
@@ -29,6 +44,7 @@
   --color-muted: var(--muted);
   --color-line: var(--line);
   --color-surface: var(--surface);
+  --color-card: var(--card);
   --color-mist: var(--mist);
   --color-steel: var(--steel);
   --color-night: var(--night);
@@ -36,6 +52,7 @@
   --color-night-line: var(--night-line);
   --color-accent: var(--accent);
   --color-accent-soft: var(--accent-soft);
+  --color-accent-ink: var(--accent-ink);
   --font-sans: var(--font-inter);
   --font-display: var(--font-grotesk);
   --font-mono: var(--font-jetbrains);
@@ -53,7 +70,7 @@ body {
 
 ::selection {
   background: var(--accent);
-  color: #fff;
+  color: var(--accent-ink);
 }
 
 @utility container-x {
@@ -79,13 +96,13 @@ body {
   &::after { content: " ]"; white-space: pre; }
 }
 @utility btn-primary {
-  @apply btn bg-accent text-white hover:bg-accent-soft hover:shadow-[0_8px_30px_-8px_var(--accent)];
+  @apply btn bg-accent text-accent-ink hover:bg-accent-soft hover:shadow-[0_8px_30px_-8px_var(--accent)];
 }
 @utility btn-dark {
-  @apply btn bg-night text-white hover:bg-[#262626];
+  @apply btn border border-night-line bg-night text-white hover:border-accent hover:text-accent;
 }
 @utility btn-secondary {
-  @apply btn bg-white text-night hover:bg-[#e5e5e5];
+  @apply btn bg-white text-night hover:bg-accent;
 }
 @utility btn-outline {
   @apply btn border border-current/25 hover:border-current;
@@ -101,26 +118,26 @@ body {
   @apply rounded-xl border border-night-line bg-night-2;
 }
 @utility tag {
-  @apply inline-flex items-center rounded border border-line bg-white px-2 py-1 text-[11px] leading-none text-body;
+  @apply inline-flex items-center rounded border border-line bg-card px-2 py-1 text-[11px] leading-none text-body;
 }
 @utility pill {
   @apply inline-flex items-center rounded-full px-3.5 py-2 text-sm;
 }
 
-/* Orange halftone dots used behind every hero. */
+/* Yellow halftone dots used behind every hero. */
 .bg-halftone {
-  background-image: radial-gradient(circle, rgb(232 80 2 / 0.7) 1.1px, transparent 1.6px);
+  background-image: radial-gradient(circle, rgb(255 208 0 / 0.55) 1.1px, transparent 1.6px);
   background-size: 9px 9px;
   mask-image: radial-gradient(ellipse 55% 70% at 78% 35%, #000 0%, rgb(0 0 0 / 0.5) 40%, transparent 75%);
 }
 .bg-halftone-center {
-  background-image: radial-gradient(circle, rgb(232 80 2 / 0.6) 1.1px, transparent 1.6px);
+  background-image: radial-gradient(circle, rgb(255 208 0 / 0.5) 1.1px, transparent 1.6px);
   background-size: 9px 9px;
   mask-image: radial-gradient(ellipse 50% 60% at 50% 50%, #000 0%, transparent 75%);
 }
 /* Fine dotted texture for light sections. */
 .bg-dots {
-  background-image: radial-gradient(circle, rgb(10 10 10 / 0.08) 1px, transparent 1.4px);
+  background-image: radial-gradient(circle, rgb(255 255 255 / 0.06) 1px, transparent 1.4px);
   background-size: 14px 14px;
 }
 

@@ -92,7 +92,7 @@ export default function Footer() {
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label={s.name}
-                    className="flex h-9 w-9 items-center justify-center rounded-md border border-night-line bg-night-2 text-[11px] font-semibold text-white/80 transition-colors hover:border-accent hover:bg-accent hover:text-white"
+                    className="flex h-9 w-9 items-center justify-center rounded-md border border-night-line bg-night-2 text-[11px] font-semibold text-white/80 transition-colors hover:border-accent hover:bg-accent hover:text-accent-ink"
                   >
                     {s.short}
                   </a>

@@ -66,7 +66,7 @@ export default async function PostPage(props: PageProps<"/blog/[slug]">) {
           <p className="eyebrow">[ Keep reading ]</p>
           <div className="mt-8 grid gap-5 md:grid-cols-3">
             {more.map((p) => (
-              <Link key={p.slug} href={`/blog/${p.slug}`} className="group overflow-hidden rounded-xl bg-white">
+              <Link key={p.slug} href={`/blog/${p.slug}`} className="group overflow-hidden rounded-xl bg-card">
                 <PostCover post={p} index={posts.indexOf(p)} />
                 <div className="p-5">
                   <p className="font-mono text-[10px] tracking-wider text-accent uppercase">{p.category}</p>

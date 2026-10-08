@@ -58,7 +58,7 @@ export default function BlogGrid() {
                 setPage(0);
               }}
               className={`shrink-0 rounded-full border px-4 py-2 font-mono text-[11px] font-medium tracking-wider uppercase transition-colors ${
-                c === category ? "border-accent bg-accent text-white" : "border-night-line text-white/70 hover:border-white/40"
+                c === category ? "border-accent bg-accent text-accent-ink" : "border-night-line text-white/70 hover:border-white/40"
               }`}
             >
               {c}
@@ -95,7 +95,7 @@ export default function BlogGrid() {
               key={i}
               onClick={() => setPage(i)}
               aria-current={i === current ? "page" : undefined}
-              className={`h-7 w-7 rounded font-mono text-xs ${i === current ? "bg-accent text-white" : "bg-night-2 text-white/60 hover:text-white"}`}
+              className={`h-7 w-7 rounded font-mono text-xs ${i === current ? "bg-accent text-accent-ink" : "bg-night-2 text-white/60 hover:text-white"}`}
             >
               {i + 1}
             </button>

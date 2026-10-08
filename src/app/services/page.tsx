@@ -91,7 +91,7 @@ export default function ServicesPage() {
           <div className="mt-12 -mx-4 flex snap-x gap-4 overflow-x-auto px-4 pb-2 [scrollbar-width:none] sm:mx-0 sm:grid sm:grid-cols-2 sm:px-0 lg:grid-cols-4">
             {industries.map((ind, i) => (
               <Reveal key={ind.title} delay={(i % 4) * 70} className="w-[70vw] shrink-0 snap-start sm:w-auto">
-                <div className="flex h-28 items-center justify-center rounded-xl bg-white">
+                <div className="flex h-28 items-center justify-center rounded-xl bg-card">
                   <span className="grid grid-cols-3 gap-1.5" aria-hidden="true">
                     {Array.from({ length: 6 }, (_, j) => (
                       <span key={j} className={`h-5 w-5 rounded ${j === i % 6 ? "bg-accent" : "bg-surface"}`} />
@@ -131,7 +131,7 @@ export default function ServicesPage() {
               <ul className="divide-y divide-night-line">
                 {team.map((m) => (
                   <li key={m.name} className="flex items-center gap-4 px-5 py-3.5">
-                    <span className="flex h-9 w-9 items-center justify-center rounded-full bg-accent text-xs font-bold">
+                    <span className="flex h-9 w-9 items-center justify-center rounded-full bg-accent text-xs font-bold text-accent-ink">
                       {m.name.split(" ").map((w) => w[0]).join("")}
                     </span>
                     <span className="flex-1">

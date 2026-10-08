@@ -19,7 +19,7 @@ export default function Newsletter() {
           "M1200 60 H900 L840 150 H690",
           "M1200 340 H940 L880 250 H700",
         ].map((d, i) => (
-          <path key={d} d={d} fill="none" stroke={i % 2 ? "#e85002" : "#d4cfc6"} strokeWidth={1.5} />
+          <path key={d} d={d} fill="none" stroke={i % 2 ? "#ffd000" : "#3a3a3a"} strokeWidth={1.5} />
         ))}
         {[
           [520, 160],
@@ -27,7 +27,7 @@ export default function Newsletter() {
           [690, 150],
           [700, 250],
         ].map(([cx, cy]) => (
-          <circle key={`${cx}-${cy}`} cx={cx} cy={cy} r={5} fill="#e85002" />
+          <circle key={`${cx}-${cy}`} cx={cx} cy={cy} r={5} fill="#ffd000" />
         ))}
       </svg>
       <Reveal className="container-x relative text-center">
@@ -50,7 +50,7 @@ export default function Newsletter() {
               type="email"
               required
               placeholder="Your mail here"
-              className="flex-1 rounded-md border border-line bg-white px-4 py-3 text-sm outline-none focus:border-accent"
+              className="flex-1 rounded-md border border-line bg-card px-4 py-3 text-sm outline-none focus:border-accent"
             />
             <button type="submit" disabled={pending} className="btn-primary disabled:opacity-60">
               {pending ? "Sending" : "Subscribe"}

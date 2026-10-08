@@ -32,8 +32,8 @@ export default function BlogPage() {
           aside={<p>Perspectives on product design, development and practical AI from the team doing the work.</p>}
         />
         <Reveal className="mt-12 w-full max-w-xs">
-          <div className="flex aspect-[4/5] items-end overflow-hidden rounded-xl bg-gradient-to-br from-accent via-[#f08a4b] to-[#f6c9a6] p-6">
-            <span className="h-display text-7xl text-white/90">{author.name.split(" ").map((w) => w[0]).join("")}</span>
+          <div className="flex aspect-[4/5] items-end overflow-hidden rounded-xl bg-gradient-to-br from-accent via-[#ffdf40] to-[#fff1a8] p-6">
+            <span className="h-display text-7xl text-accent-ink/90">{author.name.split(" ").map((w) => w[0]).join("")}</span>
           </div>
           <div className="mt-3 rounded-xl border border-line py-4 text-center">
             <p className="font-semibold">{author.name}</p>

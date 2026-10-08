@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 };
 
 const initials = (name: string) => name.split(" ").map((w) => w[0]).join("");
-const tints = ["from-accent to-[#f6a06b]", "from-[#2a2a2a] to-[#5a5a5a]", "from-[#b13e02] to-accent", "from-[#3a3530] to-[#8a7d6d]"];
+const tints = ["from-[#1a1a1a] to-[#3d3300]", "from-[#000000] to-[#2a2a2a]", "from-[#2a2300] to-[#111111]", "from-[#111111] to-[#333333]"];
 
 /** Gradient portrait placeholder with initials. Swap for <Image> once team photos exist. */
 function Portrait({ name, index, className = "" }: { name: string; index: number; className?: string }) {
@@ -23,7 +23,7 @@ function Portrait({ name, index, className = "" }: { name: string; index: number
         style={{ backgroundImage: "radial-gradient(circle, rgb(255 255 255 / 0.6) 1px, transparent 1.4px)", backgroundSize: "10px 10px" }}
         aria-hidden="true"
       />
-      <span className="h-display absolute inset-0 flex items-center justify-center text-8xl text-white/90">{initials(name)}</span>
+      <span className="h-display absolute inset-0 flex items-center justify-center text-8xl text-accent/90">{initials(name)}</span>
     </div>
   );
 }
@@ -207,7 +207,7 @@ export default function TeamPage() {
                   <span className="font-mono text-[10px] tracking-wider text-muted uppercase">
                     {j.type} · {j.location}
                   </span>
-                  <span className="rounded bg-white px-2 py-1 font-mono text-[10px] tracking-wider text-muted uppercase">{j.type === "Internship" ? "Entry level" : "Mid level"}</span>
+                  <span className="rounded bg-card px-2 py-1 font-mono text-[10px] tracking-wider text-muted uppercase">{j.type === "Internship" ? "Entry level" : "Mid level"}</span>
                 </div>
                 <p className="mt-5 font-mono text-[10px] tracking-wider text-accent uppercase">{j.team}</p>
                 <h3 className="mt-1 text-xl font-semibold">{j.title}</h3>

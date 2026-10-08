@@ -6,7 +6,7 @@ import Reveal from "./Reveal";
 /** Light, centered CTA with an orange glow: used at the bottom of the homepage. */
 export function CtaGlow({ title, body, cta = "Book a strategy call" }: { title: ReactNode; body: ReactNode; cta?: string }) {
   return (
-    <section className="relative overflow-hidden bg-white py-24 lg:py-32">
+    <section className="relative overflow-hidden bg-background py-24 lg:py-32">
       <div className="pointer-events-none absolute -bottom-40 left-1/2 h-[360px] w-[900px] -translate-x-1/2 rounded-[50%] bg-accent/35 blur-[110px]" aria-hidden="true" />
       <div className="bg-dots pointer-events-none absolute inset-0 [mask-image:linear-gradient(to_bottom,transparent,#000)]" aria-hidden="true" />
       <Reveal className="container-x relative text-center">
@@ -21,25 +21,25 @@ export function CtaGlow({ title, body, cta = "Book a strategy call" }: { title: 
   );
 }
 
-/** Peach band with a mock proposal card: services page. */
+/** Yellow band with a mock proposal card: services page. */
 export function CtaPeach({ title, body }: { title: ReactNode; body: ReactNode }) {
   return (
-    <section className="bg-gradient-to-br from-[#fde3d3] via-[#fbd3bc] to-[#f8c3a5]">
+    <section className="bg-accent text-accent-ink">
       <div className="container-x grid items-center gap-10 py-16 lg:grid-cols-2 lg:py-20">
         <Reveal>
           <h2 className="h-section">{title}</h2>
-          <p className="lead mt-5 max-w-md text-ink/70">{body}</p>
+          <p className="lead mt-5 max-w-md text-accent-ink/70">{body}</p>
           <div className="mt-8 flex flex-wrap gap-3">
             <Link href="/contact" className="btn-dark">
               Book a strategy call
             </Link>
-            <Link href="/contact" className="btn-primary">
+            <Link href="/contact" className="btn-outline">
               Become our client
             </Link>
           </div>
         </Reveal>
         <Reveal delay={120} className="relative mx-auto w-full max-w-md">
-          <div className="rounded-xl bg-white p-5 shadow-xl shadow-accent/20">
+          <div className="rounded-xl border border-line bg-card p-5 shadow-xl shadow-accent/10">
             <div className="flex gap-1.5">
               <span className="h-2 w-2 rounded-full bg-[#ff5f57]" />
               <span className="h-2 w-2 rounded-full bg-[#febc2e]" />
@@ -48,7 +48,7 @@ export function CtaPeach({ title, body }: { title: ReactNode; body: ReactNode })
             <p className="mt-4 font-mono text-[11px] tracking-wider text-muted uppercase">Project plan</p>
             {["Discovery & scope", "Design sprint", "Build & QA", "Launch"].map((s, i) => (
               <div key={s} className="mt-3 flex items-center gap-3">
-                <span className={`flex h-5 w-5 items-center justify-center rounded-full text-[10px] font-bold text-white ${i < 2 ? "bg-accent" : "bg-steel"}`}>
+                <span className={`flex h-5 w-5 items-center justify-center rounded-full text-[10px] font-bold ${i < 2 ? "bg-accent text-accent-ink" : "bg-steel text-white"}`}>
                   {i + 1}
                 </span>
                 <span className="flex-1 text-sm">{s}</span>
@@ -58,7 +58,7 @@ export function CtaPeach({ title, body }: { title: ReactNode; body: ReactNode })
               </div>
             ))}
           </div>
-          <div className="absolute -right-3 -bottom-6 rounded-lg bg-accent px-4 py-3 text-white shadow-lg sm:-right-8">
+          <div className="absolute -right-3 -bottom-6 rounded-lg bg-night px-4 py-3 text-accent shadow-lg sm:-right-8">
             <p className="font-mono text-[10px] tracking-wider uppercase opacity-80">Reply time</p>
             <p className="h-display text-xl">&lt; 24 hrs</p>
           </div>
