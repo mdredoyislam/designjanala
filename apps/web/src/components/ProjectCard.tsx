@@ -1,17 +1,18 @@
 import Image from "next/image";
-import { categories, type Project } from "@/data/site";
-
-const labelFor = (slug: string) => categories.find((c) => c.slug === slug)?.label ?? slug;
+import type { Project, SiteContent } from "@designjanala/shared";
 
 export default function ProjectCard({
   project,
+  categories,
   large = false,
   priority = false,
 }: {
   project: Project;
+  categories: SiteContent["categories"];
   large?: boolean;
   priority?: boolean;
 }) {
+  const labelFor = (slug: string) => categories.find((c) => c.slug === slug)?.label ?? slug;
   return (
     <article className="group">
       <div className="relative aspect-[3/2] overflow-hidden rounded-2xl border border-line bg-surface">

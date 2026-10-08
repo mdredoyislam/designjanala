@@ -1,14 +1,16 @@
 import type { Metadata } from "next";
 import ContactSection from "@/components/ContactSection";
 import PageHero from "@/components/PageHero";
-import { marketplaces, site } from "@/data/site";
+import { getContent } from "@/lib/content";
 
 export const metadata: Metadata = {
   title: "Contact",
   description: "Start a project with DesignJanala. Tell us about your brand, website, SaaS or app.",
 };
 
-export default function ContactPage() {
+export default async function ContactPage() {
+  const { marketplaces, site } = await getContent();
+
   return (
     <>
       <PageHero eyebrow="Contact" title="Bring the Idea. We'll Structure It.">
@@ -26,7 +28,7 @@ export default function ContactPage() {
           <p className="text-body">Also available on</p>
           <div className="mt-3 flex flex-wrap gap-2">
             {marketplaces.map((m) => (
-              <a key={m.name} href={m.href} target="_blank" rel="noopener noreferrer" className="pill border border-line bg-card hover:border-accent hover:text-accent">
+              <a key={m.name} href={m.href} target="_blank" rel="noopener noreferrer" className="pill border border-line bg-card hover:border-accent hover:text-accent-fg">
                 {m.name}
               </a>
             ))}

@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { team, type TeamMember } from "@/data/site";
+import type { TeamMember } from "@designjanala/shared";
 
 /** Cut-out team portrait standing on a dark halftone backdrop (or the yellow accent) with a soft glow. */
 export function TeamPhoto({
@@ -50,7 +50,7 @@ export function TeamAvatar({ member, className = "h-10 w-10" }: { member: TeamMe
 }
 
 /** Both founders side by side with name tags: used where a section talks about "the team". */
-export function Founders({ sizes, className = "" }: { sizes: string; className?: string }) {
+export function Founders({ team, sizes, className = "" }: { team: TeamMember[]; sizes: string; className?: string }) {
   return (
     <div className={`relative overflow-hidden bg-night-2 ${className}`}>
       <div className="bg-halftone-center pointer-events-none absolute inset-0 opacity-50" aria-hidden="true" />
@@ -66,7 +66,7 @@ export function Founders({ sizes, className = "" }: { sizes: string; className?:
         {team.map((m) => (
           <span key={m.name} className="rounded-md bg-night/80 px-3 py-2 backdrop-blur-sm">
             <span className="block text-sm font-semibold text-white">{m.name}</span>
-            <span className="block font-mono text-[10px] tracking-wider text-accent uppercase">{m.role}</span>
+            <span className="block font-mono text-[10px] tracking-wider text-accent-fg uppercase">{m.role}</span>
           </span>
         ))}
       </div>

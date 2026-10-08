@@ -1,20 +1,10 @@
 import Image from "next/image";
 import Link from "next/link";
-import { site, socials } from "@/data/site";
+import { getContent } from "@/lib/content";
 
 type Col = { title: string; links: { label: string; href: string }[] };
 
 const topRow: Col[] = [
-  {
-    title: "Industries",
-    links: [
-      { label: "SaaS & Startups", href: "/#industries" },
-      { label: "Fintech", href: "/#industries" },
-      { label: "Healthcare", href: "/#industries" },
-      { label: "E-commerce", href: "/#industries" },
-      { label: "Real Estate", href: "/#industries" },
-    ],
-  },
   {
     title: "Services",
     links: [
@@ -71,7 +61,14 @@ const bottomRow: Col[] = [
   },
 ];
 
-export default function Footer() {
+export default async function Footer() {
+  const { site, socials, industries, services } = await getContent();
+  // Hide shortcuts to service pages that were removed in the dashboard.
+  const live = (c: Col): Col => ({
+    ...c,
+    links: c.links.filter((l) => !l.href.startsWith("/services/") || services.some((s) => l.href === `/services/${s.slug}`)),
+  });
+  const industryCol: Col = { title: "Industries", links: industries.slice(0, 5).map((i) => ({ label: i.title, href: "/#industries" })) };
   return (
     <footer className="bg-night text-white">
       <div className="container-x pt-16 pb-8 lg:pt-20">
@@ -105,13 +102,13 @@ export default function Footer() {
           </div>
 
           <div className="grid gap-x-8 gap-y-12 sm:grid-cols-3 lg:col-span-7">
-            {[...topRow, ...bottomRow].map((c) => (
+            {[industryCol, ...topRow, ...bottomRow].map(live).map((c) => (
               <div key={c.title}>
                 <h3 className="font-mono text-[11px] tracking-[0.14em] text-white/50 uppercase">[ {c.title} ]</h3>
                 <ul className="mt-4 space-y-2.5 text-sm">
                   {c.links.map((l) => (
                     <li key={l.label}>
-                      <Link href={l.href} className="text-white/80 transition-colors hover:text-accent">
+                      <Link href={l.href} className="text-white/80 transition-colors hover:text-accent-fg">
                         {l.label}
                       </Link>
                     </li>

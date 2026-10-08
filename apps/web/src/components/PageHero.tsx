@@ -43,7 +43,7 @@ export function HeroChips({ items }: { items: { value: string; label: string }[]
     <div className="flex flex-wrap gap-2">
       {items.map((c) => (
         <span key={c.label} className="inline-flex items-center gap-1.5 rounded-md border border-night-line bg-night-2 px-3 py-1.5 text-xs text-white/70">
-          <span className="font-semibold text-accent">{c.value}</span> {c.label}
+          <span className="font-semibold text-accent-fg">{c.value}</span> {c.label}
         </span>
       ))}
     </div>

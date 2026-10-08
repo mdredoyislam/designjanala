@@ -15,6 +15,7 @@ coverage/
 /tests/e2e/test-results/
 /tests/e2e/playwright-report/
 /tests/e2e/blob-report/
+/tests/e2e/.data/
 
 # next.js
 .next/
@@ -26,6 +27,9 @@ dist/
 
 # turborepo
 .turbo/
+
+# API data (leads, content edits, uploads)
+/apps/api/data/
 
 # misc
 .DS_Store

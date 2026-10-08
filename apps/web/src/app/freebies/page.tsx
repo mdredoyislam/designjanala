@@ -6,24 +6,29 @@ import FreebieGrid from "@/components/FreebieGrid";
 import PageHero, { HeroChips } from "@/components/PageHero";
 import Reveal from "@/components/Reveal";
 import SectionHeading from "@/components/SectionHeading";
-import { categories, freebieFaqs, marketplaces, projects, site } from "@/data/site";
+import { getContent } from "@/lib/content";
 
-export const metadata: Metadata = {
-  title: "Freebies",
-  description: `Free and premium design templates by ${site.name}: resumes, brand identities, proposals, newsletters and stationery.`,
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const { site } = await getContent();
+  return {
+    title: "Freebies",
+    description: `Free and premium design templates by ${site.name}: resumes, brand identities, proposals, newsletters and stationery.`,
+  };
+}
 
-const slug = site.name.toLowerCase();
-const freeCount = projects.filter((p) => p.free).length;
-const creativeMarket = marketplaces.find((m) => m.name === "Creative Market")!.href;
+export default async function FreebiesPage() {
+  const { categories, freebieFaqs, marketplaces, projects, site } = await getContent();
 
-const steps = [
-  { title: "Pick a template", body: "Browse the directory and filter by category. Free templates are listed first." },
-  { title: "Request the files", body: `Click "Get template" and we'll email you the source files from ${site.emails.sample}.` },
-  { title: "Make it yours", body: "Swap in your content, colours and logo. Need help? We can customise it for you." },
-];
+  const slug = site.name.toLowerCase();
+  const freeCount = projects.filter((p) => p.free).length;
+  const creativeMarket = marketplaces.find((m) => m.name === "Creative Market")?.href ?? "/portfolio";
 
-export default function FreebiesPage() {
+  const steps = [
+    { title: "Pick a template", body: "Browse the directory and filter by category. Free templates are listed first." },
+    { title: "Request the files", body: `Click "Get template" and we'll email you the source files from ${site.emails.sample}.` },
+    { title: "Make it yours", body: "Swap in your content, colours and logo. Need help? We can customise it for you." },
+  ];
+
   return (
     <>
       <PageHero
@@ -46,7 +51,7 @@ export default function FreebiesPage() {
 }`}
             footer={
               <>
-                <span className="text-accent">↗ explore the templates</span>
+                <span className="text-accent-fg">↗ explore the templates</span>
                 <span>{site.name} / community</span>
               </>
             }
@@ -69,7 +74,7 @@ export default function FreebiesPage() {
           <HeroChips
             items={[
               { value: String(freeCount), label: "free templates" },
-              { value: String(categories.length - 1), label: "categories" },
+              { value: String(categories.length), label: "categories" },
               { value: `${projects.length}`, label: "designs in total" },
             ]}
           />
@@ -90,7 +95,7 @@ export default function FreebiesPage() {
             dark
             className="mb-10"
           />
-          <FreebieGrid projects={projects} />
+          <FreebieGrid projects={projects} categories={categories} sampleEmail={site.emails.sample} storeUrl={creativeMarket} />
           <p className="mt-8 text-xs text-white/40">
             Free templates are for personal and commercial use in your own projects. Please don&rsquo;t resell or redistribute the files.
           </p>
@@ -103,7 +108,7 @@ export default function FreebiesPage() {
           <div className="grid gap-px overflow-hidden rounded-xl border border-night-line bg-night-line md:grid-cols-3">
             {steps.map((s, i) => (
               <Reveal key={s.title} delay={i * 80} className="bg-night p-6 sm:p-8">
-                <span className="font-mono text-[11px] tracking-wider text-accent uppercase">0{i + 1} / {s.title.split(" ")[0]}</span>
+                <span className="font-mono text-[11px] tracking-wider text-accent-fg uppercase">0{i + 1} / {s.title.split(" ")[0]}</span>
                 <h3 className="mt-4 text-xl font-semibold">{s.title}</h3>
                 <p className="mt-2 text-sm text-white/60">{s.body}</p>
               </Reveal>

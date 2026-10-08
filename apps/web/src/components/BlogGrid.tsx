@@ -2,26 +2,29 @@
 
 import Link from "next/link";
 import { useMemo, useState } from "react";
-import { postCategories, posts } from "@/data/site";
+import type { Post } from "@designjanala/shared";
 import PostCover from "./PostCover";
 
 const PAGE = 6;
 const fmt = (d: string) => new Date(d).toLocaleDateString("en-US", { month: "short", year: "numeric" });
 
 /** Searchable, filterable, paginated post grid for the blog index. */
-export default function BlogGrid() {
+const ALL = "All Posts";
+
+export default function BlogGrid({ posts, categories }: { posts: Post[]; categories: string[] }) {
+  const postCategories = [ALL, ...categories];
   const [query, setQuery] = useState("");
-  const [category, setCategory] = useState<(typeof postCategories)[number]>("All Posts");
+  const [category, setCategory] = useState(ALL);
   const [page, setPage] = useState(0);
 
   const list = useMemo(() => {
     const q = query.trim().toLowerCase();
     return posts.filter(
       (p) =>
-        (category === "All Posts" || p.category === category) &&
+        (category === ALL || p.category === category) &&
         (!q || p.title.toLowerCase().includes(q) || p.excerpt.toLowerCase().includes(q)),
     );
-  }, [query, category]);
+  }, [query, category, posts]);
 
   const pages = Math.max(1, Math.ceil(list.length / PAGE));
   const current = Math.min(page, pages - 1);
@@ -75,9 +78,9 @@ export default function BlogGrid() {
             <Link key={p.slug} href={`/blog/${p.slug}`} className="group overflow-hidden rounded-xl bg-night-2 transition-colors hover:bg-[#1c1c1c]">
               <PostCover post={p} index={posts.indexOf(p)} />
               <div className="p-5">
-                <h3 className="font-medium leading-snug text-white group-hover:text-accent">{p.title}</h3>
+                <h3 className="font-medium leading-snug text-white group-hover:text-accent-fg">{p.title}</h3>
                 <div className="mt-5 flex items-center justify-between">
-                  <span className="rounded bg-accent/15 px-2 py-1 font-mono text-[10px] tracking-wider text-accent uppercase">{p.category}</span>
+                  <span className="rounded bg-accent/15 px-2 py-1 font-mono text-[10px] tracking-wider text-accent-fg uppercase">{p.category}</span>
                   <time dateTime={p.date} className="font-mono text-[10px] tracking-wider text-white/45 uppercase">
                     {fmt(p.date)}
                   </time>

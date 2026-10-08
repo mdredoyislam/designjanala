@@ -1,9 +1,9 @@
-import { comparison, site } from "@/data/site";
+import { getContent } from "@/lib/content";
 
-const columns = [site.name, "Freelancers", "Traditional Agencies"];
-
-/** "Where Others Stop, We Continue": the DesignJanala column is highlighted in orange. */
-export default function Comparison() {
+/** "Where Others Stop, We Continue": the DesignJanala column is highlighted in yellow. */
+export default async function Comparison() {
+  const { comparison, site } = await getContent();
+  const columns = [site.name, "Freelancers", "Traditional Agencies"];
   return (
     <div className="relative -mx-4 overflow-x-auto px-4 sm:mx-0 sm:px-0">
       <table className="w-full min-w-[720px] border-separate border-spacing-0 text-left text-sm">
@@ -30,7 +30,7 @@ export default function Comparison() {
             return (
               <tr key={row.label}>
                 <td className={`border-t border-mist bg-surface px-5 py-4 font-medium text-ink ${last ? "rounded-bl-xl" : ""}`}>{row.label}</td>
-                {row.values.map((v, i) => (
+                {[row.us, row.freelancers, row.agencies].map((v, i) => (
                   <td
                     key={i}
                     className={`border-t px-5 py-4 ${

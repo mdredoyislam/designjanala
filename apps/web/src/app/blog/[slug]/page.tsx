@@ -4,16 +4,17 @@ import { notFound } from "next/navigation";
 import { CtaGlow } from "@/components/Cta";
 import PostCover from "@/components/PostCover";
 import Reveal from "@/components/Reveal";
-import { posts, team } from "@/data/site";
+import { getContent } from "@/lib/content";
 
-export function generateStaticParams() {
+// Articles added in the dashboard after the build are rendered on first visit.
+export async function generateStaticParams() {
+  const { posts } = await getContent();
   return posts.map((p) => ({ slug: p.slug }));
 }
 
-export const dynamicParams = false;
-
 export async function generateMetadata(props: PageProps<"/blog/[slug]">): Promise<Metadata> {
   const { slug } = await props.params;
+  const { posts } = await getContent();
   const p = posts.find((x) => x.slug === slug);
   return p ? { title: p.title, description: p.excerpt, openGraph: { type: "article", publishedTime: p.date } } : {};
 }
@@ -22,10 +23,11 @@ const fmt = (d: string) => new Date(d).toLocaleDateString("en-US", { day: "numer
 
 export default async function PostPage(props: PageProps<"/blog/[slug]">) {
   const { slug } = await props.params;
+  const { posts, team } = await getContent();
   const index = posts.findIndex((p) => p.slug === slug);
   if (index === -1) notFound();
   const post = posts[index];
-  const author = team[0];
+  const author = team.find((m) => m.name === post.author) ?? team[0];
   const related = posts.filter((p) => p.slug !== post.slug && p.category === post.category).slice(0, 3);
   const more = related.length ? related : posts.filter((p) => p.slug !== post.slug).slice(0, 3);
 
@@ -34,14 +36,15 @@ export default async function PostPage(props: PageProps<"/blog/[slug]">) {
       <section className="relative overflow-hidden bg-night text-white">
         <div className="bg-halftone pointer-events-none absolute inset-0 opacity-60" aria-hidden="true" />
         <div className="container-x relative py-14 lg:py-20">
-          <Link href="/blog" className="font-mono text-[11px] tracking-wider text-white/60 uppercase hover:text-accent">
+          <Link href="/blog" className="font-mono text-[11px] tracking-wider text-white/60 uppercase hover:text-accent-fg">
             ← Back to blog
           </Link>
           <Reveal className="mt-8 max-w-4xl">
-            <span className="rounded bg-accent/15 px-2 py-1 font-mono text-[11px] tracking-wider text-accent uppercase">{post.category}</span>
+            <span className="rounded bg-accent/15 px-2 py-1 font-mono text-[11px] tracking-wider text-accent-fg uppercase">{post.category}</span>
             <h1 className="h-display mt-5 text-3xl sm:text-5xl">{post.title}</h1>
             <p className="mt-6 text-sm text-white/60">
-              By {author.name} · <time dateTime={post.date}>{fmt(post.date)}</time>
+              {author && <>By {author.name} · </>}
+              <time dateTime={post.date}>{fmt(post.date)}</time>
             </p>
           </Reveal>
         </div>
@@ -69,8 +72,8 @@ export default async function PostPage(props: PageProps<"/blog/[slug]">) {
               <Link key={p.slug} href={`/blog/${p.slug}`} className="group overflow-hidden rounded-xl bg-card">
                 <PostCover post={p} index={posts.indexOf(p)} />
                 <div className="p-5">
-                  <p className="font-mono text-[10px] tracking-wider text-accent uppercase">{p.category}</p>
-                  <h2 className="mt-2 font-medium leading-snug group-hover:text-accent">{p.title}</h2>
+                  <p className="font-mono text-[10px] tracking-wider text-accent-fg uppercase">{p.category}</p>
+                  <h2 className="mt-2 font-medium leading-snug group-hover:text-accent-fg">{p.title}</h2>
                 </div>
               </Link>
             ))}

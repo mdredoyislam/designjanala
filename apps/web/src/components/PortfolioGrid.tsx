@@ -1,17 +1,26 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { categories, type Project } from "@/data/site";
+import type { Project, SiteContent } from "@designjanala/shared";
 import ProjectCard from "./ProjectCard";
 
 const PAGE = 12;
 
-export default function PortfolioGrid({ projects, filters = true }: { projects: Project[]; filters?: boolean }) {
+export default function PortfolioGrid({
+  projects,
+  categories: categoryList,
+  filters = true,
+}: {
+  projects: Project[];
+  categories: SiteContent["categories"];
+  filters?: boolean;
+}) {
+  const categories = [{ slug: "all", label: "All" }, ...categoryList];
   const [active, setActive] = useState<string>("all");
   const [limit, setLimit] = useState(PAGE);
 
   const list = useMemo(
-    () => (active === "all" ? projects : projects.filter((p) => p.categories.includes(active as Project["categories"][number]))),
+    () => (active === "all" ? projects : projects.filter((p) => p.categories.includes(active))),
     [active, projects],
   );
 
@@ -20,7 +29,7 @@ export default function PortfolioGrid({ projects, filters = true }: { projects: 
       {filters && (
         <div className="mb-12 flex flex-wrap gap-2" role="tablist" aria-label="Filter projects">
           {categories.map((c) => {
-            const count = c.slug === "all" ? projects.length : projects.filter((p) => p.categories.includes(c.slug as Project["categories"][number])).length;
+            const count = c.slug === "all" ? projects.length : projects.filter((p) => p.categories.includes(c.slug)).length;
             if (count === 0) return null;
             const selected = active === c.slug;
             return (
@@ -45,7 +54,7 @@ export default function PortfolioGrid({ projects, filters = true }: { projects: 
 
       <div className="grid gap-x-6 gap-y-14 sm:grid-cols-2 lg:grid-cols-3">
         {list.slice(0, limit).map((p, i) => (
-          <ProjectCard key={p.image} project={p} priority={i < 3} />
+          <ProjectCard key={`${i}-${p.image}`} project={p} categories={categoryList} priority={i < 3} />
         ))}
       </div>
 

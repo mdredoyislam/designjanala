@@ -8,14 +8,26 @@ import SectionHeading from "@/components/SectionHeading";
 import Stats from "@/components/Stats";
 import { TeamAvatar, TeamPhoto } from "@/components/TeamPhoto";
 import Testimonials from "@/components/Testimonials";
-import { art, site, team, values } from "@/data/site";
+import { art, type TeamMember } from "@designjanala/shared";
+import { getContent } from "@/lib/content";
 
 export const metadata: Metadata = {
   title: "About Us",
   description: "Meet DesignJanala — a brand, UI/UX and development team based in Dhaka, Bangladesh.",
 };
 
-export default function AboutPage() {
+/** A team portrait, or a brand illustration when there are fewer than two team members. */
+function PortraitSlot({ member }: { member?: TeamMember }) {
+  if (member) return <TeamPhoto member={member} sizes="(min-width: 640px) 33vw, 100vw" className="aspect-[4/5] rounded-xl" />;
+  return (
+    <div className="relative aspect-[4/5] overflow-hidden rounded-xl border border-line">
+      <Image src={art("culture-collaboration")} alt="" fill sizes="(min-width: 640px) 33vw, 100vw" className="object-cover object-right" />
+    </div>
+  );
+}
+
+export default async function AboutPage() {
+  const { site, team, values, testimonials } = await getContent();
   return (
     <>
       <PageHero eyebrow="About Us" title="A Team Focused on Building What Matters">
@@ -29,13 +41,13 @@ export default function AboutPage() {
       <section className="container-x pt-16 lg:pt-20">
         <div className="grid gap-4 sm:grid-cols-3">
           <Reveal>
-            <TeamPhoto member={team[0]} sizes="(min-width: 640px) 33vw, 100vw" className="aspect-[4/5] rounded-xl" />
+            <PortraitSlot member={team[0]} />
           </Reveal>
           <Reveal delay={100} className="relative aspect-[4/5] overflow-hidden rounded-xl border border-line bg-surface sm:translate-y-12">
             <Image src={art("design-to-code")} alt="A design artboard handed off and turned into production code" fill sizes="(min-width: 640px) 33vw, 100vw" className="object-cover" />
           </Reveal>
           <Reveal delay={200}>
-            <TeamPhoto member={team[1]} sizes="(min-width: 640px) 33vw, 100vw" className="aspect-[4/5] rounded-xl" />
+            <PortraitSlot member={team[1]} />
           </Reveal>
         </div>
       </section>
@@ -48,7 +60,7 @@ export default function AboutPage() {
           <div className="lg:col-span-6 lg:col-start-7">
             {values.map((v, i) => (
               <Reveal key={v.title} delay={i * 80} className="grid grid-cols-[3rem_1fr] gap-4 border-b border-line py-8 first:pt-0">
-                <span className="font-mono text-sm text-accent tabular-nums">{String(i + 1).padStart(3, "0")}</span>
+                <span className="font-mono text-sm text-accent-fg tabular-nums">{String(i + 1).padStart(3, "0")}</span>
                 <div>
                   <h3 className="h-display text-2xl">{v.title}</h3>
                   <p className="mt-2 text-lg text-body">{v.body}</p>
@@ -85,7 +97,7 @@ export default function AboutPage() {
         </div>
       </section>
 
-      <Testimonials />
+      <Testimonials testimonials={testimonials} />
 
       <ContactSection />
     </>

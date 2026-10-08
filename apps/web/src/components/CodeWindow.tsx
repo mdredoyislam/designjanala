@@ -31,7 +31,7 @@ export default function CodeWindow({
               <span key={i}>
                 {part.split(/\b(const|let|export|return|true|false)\b/).map((w, j) =>
                   j % 2 ? (
-                    <span key={j} className="text-accent">{w}</span>
+                    <span key={j} className="text-accent-fg">{w}</span>
                   ) : (
                     w
                   ),

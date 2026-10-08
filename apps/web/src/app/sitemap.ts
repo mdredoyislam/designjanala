@@ -1,7 +1,11 @@
 import type { MetadataRoute } from "next";
-import { posts, services, site } from "@/data/site";
+import { getContent } from "@/lib/content";
 
-export default function sitemap(): MetadataRoute.Sitemap {
+// New services and articles from the dashboard appear here within five minutes.
+export const revalidate = 300;
+
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+  const { posts, services, site } = await getContent();
   const routes = ["", "/services", "/technology", "/blog", "/team", "/open-source", "/freebies", "/about", "/portfolio", "/career", "/contact"];
   return [
     ...routes.map((r) => ({ url: `${site.url}${r}`, changeFrequency: "monthly" as const, priority: r === "" ? 1 : 0.8 })),

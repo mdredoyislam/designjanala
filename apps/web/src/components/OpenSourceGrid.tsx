@@ -3,15 +3,14 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
-import { openSource, type OpenProject } from "@/data/site";
+import type { OpenProject } from "@designjanala/shared";
 
 const ALL = "All";
-const tabs = [ALL, ...Array.from(new Set(openSource.map((p) => p.category)))];
 const isExternal = (href: string) => href.startsWith("http");
 
 function CodeIcon() {
   return (
-    <span className="flex h-8 w-8 items-center justify-center rounded-md border border-accent/40 bg-accent/10 text-accent" aria-hidden="true">
+    <span className="flex h-8 w-8 items-center justify-center rounded-md border border-accent/40 bg-accent/10 text-accent-fg" aria-hidden="true">
       <svg className="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.2}>
         <path d="m8 7-5 5 5 5M16 7l5 5-5 5" strokeLinecap="round" strokeLinejoin="round" />
       </svg>
@@ -20,7 +19,7 @@ function CodeIcon() {
 }
 
 function CardLink({ href, children }: { href: string; children: React.ReactNode }) {
-  const cls = "font-mono text-[11px] font-semibold tracking-wider text-accent uppercase hover:underline";
+  const cls = "font-mono text-[11px] font-semibold tracking-wider text-accent-fg uppercase hover:underline";
   return isExternal(href) ? (
     <a href={href} target="_blank" rel="noopener noreferrer" className={cls}>
       {children} ↗
@@ -75,7 +74,7 @@ function Card({ p, featured }: { p: OpenProject; featured: boolean }) {
           <span className="rounded border border-night-line bg-night px-2 py-1 font-mono text-[10px] font-semibold text-white/70 uppercase">{p.format}</span>
           <CardLink href={p.href}>{p.cta}</CardLink>
         </div>
-        {featured && p.secondary && (
+        {featured && p.secondary.label && p.secondary.href && (
           <div className="mt-4">
             <CardLink href={p.secondary.href}>{p.secondary.label}</CardLink>
           </div>
@@ -86,7 +85,8 @@ function Card({ p, featured }: { p: OpenProject; featured: boolean }) {
 }
 
 /** Filterable open-source / free-resource directory. The first card in "All" is featured (spans two columns). */
-export default function OpenSourceGrid() {
+export default function OpenSourceGrid({ openSource }: { openSource: OpenProject[] }) {
+  const tabs = [ALL, ...Array.from(new Set(openSource.map((p) => p.category)))];
   const [active, setActive] = useState(ALL);
   const list = active === ALL ? openSource : openSource.filter((p) => p.category === active);
 

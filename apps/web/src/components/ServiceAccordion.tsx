@@ -28,15 +28,15 @@ export default function ServiceAccordion({ groups }: { groups: ServiceGroupProps
             onMouseEnter={() => setActive(i)}
           >
             {/* The Row Header (Always visible) */}
-            <div className={`flex cursor-pointer items-center justify-between py-8 transition-colors lg:py-10 ${isActive ? "text-accent" : "hover:text-accent"}`}>
+            <div className={`flex cursor-pointer items-center justify-between py-8 transition-colors lg:py-10 ${isActive ? "text-accent-fg" : "hover:text-accent-fg"}`}>
               <div className="flex items-center gap-6 sm:gap-12">
-                <span className={`font-mono text-[11px] font-semibold ${isActive ? "text-accent" : "text-muted"}`}>0{i + 1}</span>
+                <span className={`font-mono text-[11px] font-semibold ${isActive ? "text-accent-fg" : "text-muted"}`}>0{i + 1}</span>
                 <h3 className="h-display text-2xl sm:text-4xl lg:text-5xl">{g.title}</h3>
               </div>
               <motion.div 
                 animate={{ rotate: isActive ? 45 : 0 }} 
                 transition={{ duration: 0.3 }}
-                className={`hidden h-12 w-12 items-center justify-center rounded-full border text-lg sm:flex ${isActive ? "border-accent text-accent" : "border-line"}`}
+                className={`hidden h-12 w-12 items-center justify-center rounded-full border text-lg sm:flex ${isActive ? "border-accent text-accent-fg" : "border-line"}`}
               >
                 +
               </motion.div>
@@ -59,7 +59,7 @@ export default function ServiceAccordion({ groups }: { groups: ServiceGroupProps
                       <ul className="mt-8 flex flex-wrap gap-2">
                         {g.list.map((s) => (
                           <li key={s.slug}>
-                            <Link href={`/services/${s.slug}`} className="tag transition-colors hover:border-accent hover:text-accent">
+                            <Link href={`/services/${s.slug}`} className="tag transition-colors hover:border-accent hover:text-accent-fg">
                               {s.title}
                             </Link>
                           </li>

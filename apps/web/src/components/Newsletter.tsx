@@ -36,7 +36,7 @@ export default function Newsletter() {
           Be the first to hear about our latest projects, design insights and studio updates.
         </p>
         {state.status === "success" ? (
-          <p className="mt-8 font-medium text-accent" role="status">
+          <p className="mt-8 font-medium text-accent-fg" role="status">
             {state.message}
           </p>
         ) : (

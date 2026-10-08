@@ -6,14 +6,18 @@ import PageHero from "@/components/PageHero";
 import Reveal from "@/components/Reveal";
 import SectionHeading from "@/components/SectionHeading";
 import { TeamPhoto } from "@/components/TeamPhoto";
-import { blogFaqs, site, team } from "@/data/site";
+import { getContent } from "@/lib/content";
 
-export const metadata: Metadata = {
-  title: "Blog",
-  description: `Design and engineering insights from ${site.name}: product design, branding, development and practical AI.`,
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const { site } = await getContent();
+  return {
+    title: "Blog",
+    description: `Design and engineering insights from ${site.name}: product design, branding, development and practical AI.`,
+  };
+}
 
-export default function BlogPage() {
+export default async function BlogPage() {
+  const { blogFaqs, postCategories, posts, site, team } = await getContent();
   return (
     <>
       <PageHero eyebrow="Insights" title="Design & Engineering Insights and Product Thinking">
@@ -22,7 +26,7 @@ export default function BlogPage() {
 
       <section className="bg-night pb-20 text-white lg:pb-28">
         <div className="container-x border-t border-night-line pt-12">
-          <BlogGrid />
+          <BlogGrid posts={posts} categories={postCategories} />
         </div>
       </section>
 

@@ -10,21 +10,14 @@ import SectionHeading from "@/components/SectionHeading";
 import ServiceAccordion from "@/components/ServiceAccordion";
 import { TeamAvatar } from "@/components/TeamPhoto";
 import Testimonials from "@/components/Testimonials";
-import { industries, serviceCategories, services, servicesFaqs, servicesIn, site, team } from "@/data/site";
+import { servicesIn } from "@designjanala/shared";
+import { getContent } from "@/lib/content";
 
 export const metadata: Metadata = {
   title: "Services",
   description:
     "Web, mobile & AI development services: AI automation, SaaS platforms, mobile apps, MVPs, UI/UX and brand design, and Webflow / Framer development.",
 };
-
-const heroStats = [
-  { value: 1500, suffix: "+", label: "Projects shipped" },
-  { value: services.length, suffix: "", label: "Core services" },
-  { value: 350, suffix: "+", label: "Happy clients" },
-  { value: 12, suffix: "", label: "Years in business" },
-  { value: 0, suffix: "", label: "Hidden fees" },
-];
 
 const code = `const services = {
   ai: ["Agents", "LLM", "RAG"],
@@ -33,7 +26,16 @@ const code = `const services = {
   design: ["UI/UX", "Brand"],
 };`;
 
-export default function ServicesPage() {
+export default async function ServicesPage() {
+  const content = await getContent();
+  const { industries, serviceCategories, services, servicesFaqs, site, stats, team, testimonials } = content;
+  const heroStats = [
+    { value: stats[0]?.value ?? 0, suffix: stats[0]?.suffix ?? "", label: "Projects shipped" },
+    { value: services.length, suffix: "", label: "Core services" },
+    { value: stats[1]?.value ?? 0, suffix: stats[1]?.suffix ?? "", label: "Happy clients" },
+    { value: stats[2]?.value ?? 0, suffix: stats[2]?.suffix ?? "", label: "Years in business" },
+    { value: 0, suffix: "", label: "Hidden fees" },
+  ];
   return (
     <>
       <PageHero
@@ -45,7 +47,7 @@ export default function ServicesPage() {
             {heroStats.map((s) => (
               <div key={s.label} className="flex items-center justify-between gap-3 bg-night px-5 py-4">
                 <dt className="font-mono text-[10px] leading-tight tracking-[0.12em] text-white/50 uppercase">{s.label}</dt>
-                <dd className="h-display text-2xl text-accent">
+                <dd className="h-display text-2xl text-accent-fg">
                   <CountUp value={s.value} suffix={s.suffix} />
                 </dd>
               </div>
@@ -76,7 +78,7 @@ export default function ServicesPage() {
               title: c.title,
               blurb: c.blurb,
               image: c.image,
-              list: servicesIn(c.slug).map(s => ({ slug: s.slug, title: s.title }))
+              list: servicesIn(content, c.slug).map(s => ({ slug: s.slug, title: s.title }))
             }))} 
           />
         </div>
@@ -148,7 +150,7 @@ export default function ServicesPage() {
                   ["0", "Recruiter fees"],
                 ].map(([v, l]) => (
                   <div key={l} className="px-3 py-4">
-                    <dd className="h-display text-2xl text-accent">{v}</dd>
+                    <dd className="h-display text-2xl text-accent-fg">{v}</dd>
                     <dt className="mt-1 font-mono text-[10px] tracking-wider text-white/45 uppercase">{l}</dt>
                   </div>
                 ))}
@@ -160,7 +162,7 @@ export default function ServicesPage() {
 
       <Faq title="Questions About Our Development Services" items={servicesFaqs} more={{ label: "Explore our technology stack", href: "/technology" }} />
 
-      <Testimonials title="Proof, Not Promises" dark />
+      <Testimonials testimonials={testimonials} title="Proof, Not Promises" dark />
 
       <CtaPeach
         title="Bring the Idea. We'll Structure It."
