@@ -1,25 +1,27 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { industries } from "@/data/site";
+import type { SiteContent } from "@designjanala/shared";
 
 const SIZE = 640;
 const C = SIZE / 2;
 const R = 200;
-// Relative depth of experience per industry, matching the exact shape
-const values = [1, 0.875, 0.75, 0.5, 1, 0.75, 0.75, 0.875];
-
-const point = (i: number, r: number) => {
-  const a = (Math.PI * 2 * i) / industries.length - Math.PI / 2;
-  return [C + Math.cos(a) * r, C + Math.sin(a) * r] as const;
-};
+const PAD_X = 120;
+// Relative depth of experience per industry, repeated if there are more industries than values.
+const depths = [1, 0.875, 0.75, 0.5, 1, 0.75, 0.75, 0.875];
 
 /** Animated high-tech HUD radar chart */
-export default function Radar() {
+export default function Radar({ industries }: { industries: SiteContent["industries"] }) {
+  const values = industries.map((_, i) => depths[i % depths.length]);
+  const point = (i: number, r: number) => {
+    const a = (Math.PI * 2 * i) / Math.max(industries.length, 1) - Math.PI / 2;
+    return [C + Math.cos(a) * r, C + Math.sin(a) * r] as const;
+  };
   return (
-    <div className="relative mx-auto w-full max-w-[640px]">
-      <motion.svg 
-        viewBox={`0 0 ${SIZE} ${SIZE}`} 
+    <div className="relative mx-auto w-full max-w-[880px]">
+      <motion.svg
+        // Extra room left and right so long industry labels aren't clipped.
+        viewBox={`${-PAD_X} 0 ${SIZE + PAD_X * 2} ${SIZE}`}
         className="w-full h-auto drop-shadow-2xl" 
         role="img" 
         aria-label={`Industries: ${industries.map((i) => i.title).join(", ")}`}

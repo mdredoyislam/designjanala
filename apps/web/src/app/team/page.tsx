@@ -4,41 +4,30 @@ import Link from "next/link";
 import Faq from "@/components/Faq";
 import Reveal from "@/components/Reveal";
 import CultureSlider from "@/components/CultureSlider";
-import { jobs, projects, site, stats, team, teamFaqs, teamPrinciples } from "@/data/site";
+import { Founders, TeamPhoto } from "@/components/TeamPhoto";
+import { art } from "@designjanala/shared";
+import { getContent } from "@/lib/content";
 
-export const metadata: Metadata = {
-  title: "Team",
-  description: `Meet the ${site.name} team: the designers, developers and specialists who work on your project from kickoff to launch.`,
-};
-
-const initials = (name: string) => name.split(" ").map((w) => w[0]).join("");
-const tints = ["from-[#1a1a1a] to-[#3d3300]", "from-[#000000] to-[#2a2a2a]", "from-[#2a2300] to-[#111111]", "from-[#111111] to-[#333333]"];
-
-/** Gradient portrait placeholder with initials. Swap for <Image> once team photos exist. */
-function Portrait({ name, index, className = "" }: { name: string; index: number; className?: string }) {
-  return (
-    <div className={`relative overflow-hidden bg-gradient-to-br ${tints[index % tints.length]} ${className}`}>
-      <div
-        className="absolute inset-0 opacity-25"
-        style={{ backgroundImage: "radial-gradient(circle, rgb(255 255 255 / 0.6) 1px, transparent 1.4px)", backgroundSize: "10px 10px" }}
-        aria-hidden="true"
-      />
-      <span className="h-display absolute inset-0 flex items-center justify-center text-8xl text-accent/90">{initials(name)}</span>
-    </div>
-  );
+export async function generateMetadata(): Promise<Metadata> {
+  const { site } = await getContent();
+  return {
+    title: "Team",
+    description: `Meet the ${site.name} team: the designers, developers and specialists who work on your project from kickoff to launch.`,
+  };
 }
 
-export default function TeamPage() {
+export default async function TeamPage() {
+  const { jobs, projects, serviceCategories, site, stats, team, teamFaqs, teamPrinciples } = await getContent();
+  const stat = (i: number) => (stats[i] ? `${stats[i].value}${stats[i].suffix}` : "—");
   const leaders = team.slice(0, 2);
   // Only the founder gets studio-wide numbers; everyone else is described by focus area.
   const leaderStats = [
     [
-      [String(stats[2].value), "Years leading the studio"],
-      [`${stats[0].value}+`, "Projects delivered"],
-      [`${stats[1].value}+`, "Clients served"],
+      [stat(2), "Years leading the studio"],
+      [stat(0), "Projects delivered"],
+      [stat(1), "Clients served"],
     ],
   ];
-  const collage = [projects[3], projects[17], projects[8], projects[19], projects[10]];
 
   return (
     <>
@@ -65,8 +54,8 @@ export default function TeamPage() {
             <Reveal delay={100} as="dl" className="space-y-3 lg:col-span-4 lg:justify-self-end">
               {[
                 [String(team.length), "Core team members"],
-                [`${stats[0].value}+`, "Projects delivered"],
-                [`${stats[2].value}`, "Years in business"],
+                [stat(0), "Projects delivered"],
+                [stat(2), "Years in business"],
               ].map(([v, l]) => (
                 <div key={l} className="flex items-baseline gap-4 border-b border-night-line pb-3 last:border-0">
                   <dd className="h-display w-24 text-3xl">{v}</dd>
@@ -78,24 +67,21 @@ export default function TeamPage() {
 
           {/* Wide image band */}
           <Reveal className="relative mt-14 aspect-[16/7] overflow-hidden rounded-t-xl sm:aspect-[16/6]">
-            <Image src={projects[0].image} alt={projects[0].title} fill priority sizes="100vw" className="object-cover" />
+            <Image src={art("studio")} alt="Design canvas, code editor and mobile app on one shared workspace" fill preload sizes="100vw" className="object-cover object-top" />
             <div className="absolute inset-0 bg-gradient-to-t from-night via-night/30 to-transparent" />
           </Reveal>
         </div>
       </section>
 
-      {/* Collage */}
+      {/* Collage: the founders plus what they build */}
       <section className="container-x py-16 lg:py-20">
         <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
-          {collage.map((p, i) => (
-            <Reveal
-              key={p.image}
-              delay={i * 70}
-              className={`relative overflow-hidden rounded-lg bg-surface ${
-                i === 0 ? "col-span-2 row-span-2 aspect-[4/3] sm:aspect-auto" : "aspect-[4/3]"
-              } ${i > 2 ? "hidden sm:block" : ""}`}
-            >
-              <Image src={p.image} alt={p.title} fill sizes="(min-width: 640px) 33vw, 50vw" className="object-cover" />
+          <Reveal className="col-span-2 row-span-2 aspect-[4/3] overflow-hidden rounded-lg sm:aspect-auto">
+            <Founders team={team} sizes="(min-width: 640px) 25vw, 50vw" className="h-full w-full" />
+          </Reveal>
+          {serviceCategories.map((c, i) => (
+            <Reveal key={c.slug} delay={(i + 1) * 70} className={`relative aspect-[4/3] overflow-hidden rounded-lg bg-surface ${i > 1 ? "hidden sm:block" : ""}`}>
+              <Image src={c.image} alt={c.title} fill sizes="(min-width: 640px) 25vw, 50vw" className="object-cover" />
             </Reveal>
           ))}
         </div>
@@ -108,7 +94,7 @@ export default function TeamPage() {
       {/* Leads */}
       <section id="leaders" className="container-x scroll-mt-20 pb-20 lg:pb-28">
         <Reveal className="mx-auto max-w-2xl text-center">
-          <p className="eyebrow lowercase text-accent">[ the leaderboard ]</p>
+          <p className="eyebrow lowercase text-accent-fg">[ the leaderboard ]</p>
           <h2 className="h-section mt-4">Meet the People Who Never Hand Your Project Off</h2>
         </Reveal>
         <div className="mt-16 relative">
@@ -121,10 +107,10 @@ export default function TeamPage() {
               <div className="grid gap-8 lg:grid-cols-12 lg:items-center">
                 <div className="lg:col-span-7 flex flex-col items-start">
                   <div className="flex items-center gap-4 mb-6">
-                    <span className="flex h-10 w-10 items-center justify-center rounded-full bg-accent/20 text-accent font-mono text-sm">0{i + 1}</span>
+                    <span className="flex h-10 w-10 items-center justify-center rounded-full bg-accent/20 text-accent-fg font-mono text-sm">0{i + 1}</span>
                     <div>
                       <h3 className="h-display text-3xl sm:text-4xl text-white">{m.name}</h3>
-                      <p className="font-mono text-[11px] tracking-wider text-accent uppercase mt-1">{m.role}</p>
+                      <p className="font-mono text-[11px] tracking-wider text-accent-fg uppercase mt-1">{m.role}</p>
                     </div>
                   </div>
                   <div className="flex flex-wrap gap-2 mb-6">
@@ -135,7 +121,7 @@ export default function TeamPage() {
                   <div className="mt-8 grid grid-cols-3 gap-6 border-t border-white/10 pt-8 w-full max-w-md">
                     {(leaderStats[i] ?? m.focus.map((f, j) => [`0${j + 1}`, f])).map(([v, l]) => (
                       <div key={l}>
-                        <p className="text-3xl font-medium text-accent">{v}</p>
+                        <p className="text-3xl font-medium text-accent-fg">{v}</p>
                         <p className="font-mono text-[10px] tracking-wider text-white/50 uppercase mt-2">{l}</p>
                       </div>
                     ))}
@@ -147,9 +133,7 @@ export default function TeamPage() {
                 </div>
                 
                 <div className="lg:col-span-5 h-full">
-                  <div className="relative h-full min-h-[400px] overflow-hidden rounded-2xl">
-                    <Portrait name={m.name} index={i} className="absolute inset-0 w-full h-full object-cover" />
-                  </div>
+                  <TeamPhoto member={m} sizes="(min-width: 1024px) 40vw, 90vw" className="h-full min-h-[400px] rounded-2xl" />
                 </div>
               </div>
             </div>
@@ -171,7 +155,12 @@ export default function TeamPage() {
             {team.map((m, i) => (
               <Reveal key={m.name} delay={(i % 3) * 80} className="group cursor-pointer">
                 <div className="relative overflow-hidden rounded-2xl mb-4 aspect-[4/5] bg-surface">
-                  <Portrait name={m.name} index={i} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+                  <TeamPhoto
+                    member={m}
+                    sizes="(min-width: 1024px) 30vw, (min-width: 640px) 45vw, 90vw"
+                    className="h-full w-full"
+                    imageClassName="transition duration-700 group-hover:scale-105 group-hover:grayscale-0"
+                  />
                 </div>
                 <div>
                   <h3 className="text-xl font-semibold">{m.name}</h3>
@@ -184,7 +173,7 @@ export default function TeamPage() {
       </section>
 
       {/* Culture Slider */}
-      <CultureSlider principles={teamPrinciples} projects={projects} />
+      <CultureSlider principles={teamPrinciples} />
 
       {/* Careers */}
       <section id="careers" className="container-x scroll-mt-20 py-20 lg:py-28">
@@ -209,7 +198,7 @@ export default function TeamPage() {
                   </span>
                   <span className="rounded bg-card px-2 py-1 font-mono text-[10px] tracking-wider text-muted uppercase">{j.type === "Internship" ? "Entry level" : "Mid level"}</span>
                 </div>
-                <p className="mt-5 font-mono text-[10px] tracking-wider text-accent uppercase">{j.team}</p>
+                <p className="mt-5 font-mono text-[10px] tracking-wider text-accent-fg uppercase">{j.team}</p>
                 <h3 className="mt-1 text-xl font-semibold">{j.title}</h3>
                 <p className="mt-2 text-sm text-body">{j.body}</p>
                 <a href={`mailto:${site.emails.career}?subject=${encodeURIComponent(`Application: ${j.title}`)}`} className="btn-dark mt-5">
@@ -229,8 +218,10 @@ export default function TeamPage() {
           { p: projects[20], cls: "left-[10%] bottom-8 w-32 rotate-3" },
           { p: projects[25], cls: "right-[3%] top-12 w-36 rotate-6" },
           { p: projects[30], cls: "right-[11%] bottom-10 w-40 -rotate-3" },
-        ].map(({ p, cls }) => (
-          <div key={p.image} className={`absolute hidden aspect-[4/3] overflow-hidden rounded-lg shadow-lg lg:block ${cls}`} aria-hidden="true">
+        ]
+          .filter(({ p }) => p)
+          .map(({ p, cls }) => (
+          <div key={cls} className={`absolute hidden aspect-[4/3] overflow-hidden rounded-lg shadow-lg lg:block ${cls}`} aria-hidden="true">
             <Image src={p.image} alt="" fill sizes="160px" className="object-cover" />
           </div>
         ))}

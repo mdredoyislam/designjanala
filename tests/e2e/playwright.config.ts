@@ -1,3 +1,4 @@
+import { fileURLToPath } from "node:url";
 import { defineConfig, devices } from "@playwright/test";
 
 const API = "http://localhost:4000";
@@ -5,6 +6,11 @@ const WEB = "http://localhost:3000";
 const DASHBOARD = "http://localhost:3001";
 const root = "../..";
 const reuse = !process.env.CI;
+// Test-only secrets shared by the three apps.
+export const DASHBOARD_PASSWORD = "e2e-password";
+const REVALIDATE_SECRET = "e2e-revalidate";
+// Leads, content edits and uploads from test runs stay out of apps/api/data.
+const DATA_DIR = fileURLToPath(new URL("./.data/", import.meta.url));
 
 /**
  * Runs against production builds of all three apps (run `npm run build` first).
@@ -24,7 +30,7 @@ export default defineConfig({
   projects: [
     { name: "api", testMatch: /api\.spec\.ts/, use: { baseURL: API } },
     { name: "web", testMatch: /web\.spec\.ts/, use: { ...devices["Desktop Chrome"], baseURL: WEB } },
-    { name: "dashboard", testMatch: /dashboard\.spec\.ts/, use: { ...devices["Desktop Chrome"], baseURL: DASHBOARD } },
+    { name: "dashboard", testMatch: /(dashboard|content)\.spec\.ts/, use: { ...devices["Desktop Chrome"], baseURL: DASHBOARD } },
   ],
   webServer: [
     {
@@ -32,21 +38,21 @@ export default defineConfig({
       cwd: root,
       url: `${API}/health`,
       reuseExistingServer: reuse,
-      env: { PORT: "4000", NODE_ENV: "development" },
+      env: { PORT: "4000", NODE_ENV: "development", DATA_DIR },
     },
     {
       command: "npm run start -w @designjanala/web",
       cwd: root,
       url: WEB,
       reuseExistingServer: reuse,
-      env: { API_URL: API },
+      env: { API_URL: API, REVALIDATE_SECRET },
     },
     {
       command: "npm run start -w @designjanala/dashboard",
       cwd: root,
-      url: DASHBOARD,
+      url: `${DASHBOARD}/login`,
       reuseExistingServer: reuse,
-      env: { API_URL: API },
+      env: { API_URL: API, DASHBOARD_PASSWORD, WEB_URL: WEB, REVALIDATE_SECRET },
     },
   ],
 });

@@ -1,24 +1,24 @@
 "use client";
 
 import { useState } from "react";
-import { techStack } from "@/data/site";
+import type { SiteContent } from "@designjanala/shared";
 
 const ALL = "All";
 /** Tools shown before "Load more", and how many each click adds. */
 const STEP = 16;
-const tabs = [
-  { name: ALL, count: techStack.reduce((n, t) => n + t.items.length, 0) },
-  ...techStack.map((t) => ({ name: t.category, count: t.items.length })),
-];
 
 /** Homepage stack: a segmented pill bar of categories over a cloud of tool pills. */
-export default function TechStack() {
+export default function TechStack({ techStack }: { techStack: SiteContent["techStack"] }) {
+  const tabs = [
+    { name: ALL, count: techStack.reduce((n, t) => n + t.items.length, 0) },
+    ...techStack.map((t) => ({ name: t.category, count: t.items.length })),
+  ];
   const [active, setActive] = useState(ALL);
   const [limit, setLimit] = useState(STEP);
   const items =
     active === ALL
       ? techStack.flatMap((t) => t.items.map((name) => ({ name, category: t.category })))
-      : techStack.find((t) => t.category === active)!.items.map((name) => ({ name, category: active }));
+      : (techStack.find((t) => t.category === active)?.items ?? []).map((name) => ({ name, category: active }));
 
   return (
     <div>
@@ -65,7 +65,7 @@ export default function TechStack() {
             key={`${category}-${name}`}
             className="group flex items-center gap-2 rounded-full border border-line bg-card py-1.5 pr-4 pl-1.5 text-sm font-medium text-ink transition-colors hover:border-accent"
           >
-            <span className="flex h-7 w-7 items-center justify-center rounded-full bg-accent/10 font-mono text-[11px] font-bold text-accent transition-colors group-hover:bg-accent group-hover:text-accent-ink">
+            <span className="flex h-7 w-7 items-center justify-center rounded-full bg-accent/10 font-mono text-[11px] font-bold text-accent-fg transition-colors group-hover:bg-accent group-hover:text-accent-ink">
               {name[0]}
             </span>
             {name}

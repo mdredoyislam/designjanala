@@ -1,4 +1,4 @@
-import type { Post } from "@/data/site";
+import type { Post } from "@designjanala/shared";
 
 /** Generated orange cover for a blog post: title on the left, a retro "screen" on the right. */
 export default function PostCover({ post, index = 0, large = false }: { post: Post; index?: number; large?: boolean }) {

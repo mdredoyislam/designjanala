@@ -2,26 +2,31 @@
 
 import Image from "next/image";
 import { useMemo, useState } from "react";
-import { categories, marketplaces, site, type Project } from "@/data/site";
+import type { Project, SiteContent } from "@designjanala/shared";
 
 const PAGE = 9;
-const creativeMarket = marketplaces.find((m) => m.name === "Creative Market")!.href;
-const labelFor = (slug: string) => categories.find((c) => c.slug === slug)?.label ?? slug;
-
-const tabs = [
-  { slug: "all", label: "All" },
-  { slug: "free", label: "Free" },
-  ...categories.filter((c) => c.slug !== "all"),
-];
 
 /** Dark template directory: free templates first, filterable by category. */
-export default function FreebieGrid({ projects }: { projects: Project[] }) {
+export default function FreebieGrid({
+  projects,
+  categories,
+  sampleEmail,
+  storeUrl,
+}: {
+  projects: Project[];
+  categories: SiteContent["categories"];
+  sampleEmail: string;
+  /** Where premium templates are sold (Creative Market). */
+  storeUrl: string;
+}) {
+  const labelFor = (slug: string) => categories.find((c) => c.slug === slug)?.label ?? slug;
+  const tabs = [{ slug: "all", label: "All" }, { slug: "free", label: "Free" }, ...categories];
   const [active, setActive] = useState("all");
   const [limit, setLimit] = useState(PAGE);
 
   const sorted = useMemo(() => [...projects].sort((a, b) => Number(!!b.free) - Number(!!a.free)), [projects]);
   const list = sorted.filter((p) =>
-    active === "all" ? true : active === "free" ? p.free : p.categories.includes(active as Project["categories"][number]),
+    active === "all" ? true : active === "free" ? p.free : p.categories.includes(active),
   );
 
   return (
@@ -48,7 +53,7 @@ export default function FreebieGrid({ projects }: { projects: Project[] }) {
 
       <div className="mt-5 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {list.slice(0, limit).map((p, i) => (
-          <article key={p.image} className="card-dark flex flex-col overflow-hidden">
+          <article key={`${i}-${p.image}`} className="card-dark flex flex-col overflow-hidden">
             <div className="flex items-center justify-between px-5 pt-5">
               <span className="font-mono text-[10px] tracking-wider text-white/50 uppercase">Template</span>
               <span className={`rounded px-2 py-0.5 font-mono text-[10px] font-semibold tracking-wider uppercase ${p.free ? "bg-accent text-accent-ink" : "border border-night-line text-white/60"}`}>
@@ -64,13 +69,13 @@ export default function FreebieGrid({ projects }: { projects: Project[] }) {
               <span className="truncate pr-3 font-mono text-[10px] text-white/45 uppercase">{p.categories.map(labelFor).join(" · ")}</span>
               {p.free ? (
                 <a
-                  href={`mailto:${site.emails.sample}?subject=${encodeURIComponent(`Free template: ${p.title}`)}`}
-                  className="font-mono text-[11px] font-semibold tracking-wider text-accent uppercase hover:underline"
+                  href={`mailto:${sampleEmail}?subject=${encodeURIComponent(`Free template: ${p.title}`)}`}
+                  className="font-mono text-[11px] font-semibold tracking-wider text-accent-fg uppercase hover:underline"
                 >
                   Get template ↗
                 </a>
               ) : (
-                <a href={creativeMarket} target="_blank" rel="noopener noreferrer" className="font-mono text-[11px] font-semibold tracking-wider text-accent uppercase hover:underline">
+                <a href={storeUrl} target="_blank" rel="noopener noreferrer" className="font-mono text-[11px] font-semibold tracking-wider text-accent-fg uppercase hover:underline">
                   View on market ↗
                 </a>
               )}

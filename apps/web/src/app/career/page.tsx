@@ -1,41 +1,50 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import PageHero from "@/components/PageHero";
 import Reveal from "@/components/Reveal";
 import { ArrowUpRight } from "@/components/icons";
-import { site, socials } from "@/data/site";
+import { art } from "@designjanala/shared";
+import { getContent } from "@/lib/content";
 
 export const metadata: Metadata = {
   title: "Career",
   description: "Join DesignJanala — full-time, internship and remote opportunities, plus online and offline design courses.",
 };
 
-const youtube = socials.find((s) => s.name === "YouTube")!.href;
+export default async function CareerPage() {
+  const { site, socials } = await getContent();
+  const youtube = socials.find((s) => s.name === "YouTube")?.href ?? "/open-source";
 
-const paths = [
-  {
-    kicker: "Online tutorial",
-    title: "Learn from our video classes",
-    body: "Class videos are available online, so you can learn graphic design at your own pace.",
-    cta: "Go to online classroom",
-    href: youtube,
-  },
-  {
-    kicker: "Offline course",
-    title: "Take admission in Dhaka",
-    body: "Hands-on classes with our designers, from fundamentals to freelancing-ready portfolios.",
-    cta: "Ask about admission",
-    href: `mailto:${site.emails.career}?subject=Offline%20course%20admission`,
-  },
-  {
-    kicker: "Join our team",
-    title: "Confident? Drop your CV",
-    body: "We hire designers and developers for the long term, and offer internships and remote roles.",
-    cta: "Send your CV",
-    href: `mailto:${site.emails.career}?subject=Job%20application`,
-  },
-];
+  const paths = [
+    {
+      kicker: "Online tutorial",
+      title: "Learn from our video classes",
+      body: "Class videos are available online, so you can learn graphic design at your own pace.",
+      cta: "Go to online classroom",
+      href: youtube,
+      image: art("career-online"),
+      alt: "Online video class with a lesson playlist",
+    },
+    {
+      kicker: "Offline course",
+      title: "Take admission in Dhaka",
+      body: "Hands-on classes with our designers, from fundamentals to freelancing-ready portfolios.",
+      cta: "Ask about admission",
+      href: `mailto:${site.emails.career}?subject=Offline%20course%20admission`,
+      image: art("career-offline"),
+      alt: "Classroom whiteboard with a design lesson",
+    },
+    {
+      kicker: "Join our team",
+      title: "Confident? Drop your CV",
+      body: "We hire designers and developers for the long term, and offer internships and remote roles.",
+      cta: "Send your CV",
+      href: `mailto:${site.emails.career}?subject=Job%20application`,
+      image: art("career-cv"),
+      alt: "A CV being sent",
+    },
+  ];
 
-export default function CareerPage() {
   return (
     <>
       <PageHero eyebrow="Career" title="Build the Future of Design With Us">
@@ -57,6 +66,9 @@ export default function CareerPage() {
                 }`}
               >
                 <span className="font-mono text-xs font-medium uppercase tracking-[0.2em] opacity-70">{p.kicker}</span>
+                <div className="relative my-8 aspect-[5/3] overflow-hidden rounded-xl">
+                  <Image src={p.image} alt={p.alt} fill sizes="(min-width: 1024px) 30vw, 90vw" className="object-cover transition-transform duration-700 group-hover:scale-105" />
+                </div>
                 <div>
                   <h2 className="h-display text-3xl">{p.title}</h2>
                   <p className="mt-4 text-sm leading-relaxed opacity-70">{p.body}</p>

@@ -4,11 +4,13 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
-import { nav, serviceCategories, servicesIn } from "@/data/site";
+import type { SiteContent } from "@designjanala/shared";
 import { ArrowDown, ArrowUpRight } from "./icons";
 
 /** Dark header that sits over every page's dark hero. "Service" opens a mega menu. */
-export default function Header() {
+export default function Header({ content }: { content: Pick<SiteContent, "nav" | "serviceCategories" | "services"> }) {
+  const { nav, serviceCategories } = content;
+  const servicesIn = (category: string) => content.services.filter((s) => s.category === category);
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
   const [menu, setMenu] = useState(false);
@@ -51,14 +53,14 @@ export default function Header() {
   const isActive = (href: string) => pathname === href || pathname.startsWith(href + "/");
   const linkClass = (active: boolean) =>
     `rounded px-3 py-2 font-mono text-xs font-medium uppercase tracking-[0.06em] transition-colors ${
-      active ? "text-accent" : "text-white/75 hover:text-white"
+      active ? "text-accent-fg" : "text-white/75 hover:text-white"
     }`;
 
   return (
     <>
       <header
         ref={menuRef}
-        className={`sticky top-0 z-50 border-b text-white transition-colors duration-300 ${
+        className={`theme-dark sticky top-0 z-50 border-b text-white transition-colors duration-300 ${
           scrolled || open || menu ? "border-night-line bg-night/90 backdrop-blur-xl" : "border-transparent bg-night"
         }`}
       >
@@ -121,7 +123,7 @@ export default function Header() {
                         <Link href={`/services/${s.slug}`} className="group -mx-3 block rounded-lg px-3 py-2.5 transition-colors hover:bg-night-2">
                           <span className="flex items-center justify-between text-[15px] font-medium text-white">
                             {s.title}
-                            <ArrowUpRight className="h-4 w-4 text-accent opacity-0 transition-opacity group-hover:opacity-100" />
+                            <ArrowUpRight className="h-4 w-4 text-accent-fg opacity-0 transition-opacity group-hover:opacity-100" />
                           </span>
                           <span className="mt-0.5 block text-sm text-white/45">{s.tagline}</span>
                         </Link>
@@ -134,7 +136,7 @@ export default function Header() {
             <div className="border-t border-night-line">
               <div className="container-x flex items-center justify-between py-4 text-sm">
                 <span className="text-white/50">Not sure what you need? We&rsquo;ll help you scope it.</span>
-                <Link href="/services" className="font-mono text-xs font-semibold tracking-[0.06em] text-accent uppercase">
+                <Link href="/services" className="font-mono text-xs font-semibold tracking-[0.06em] text-accent-fg uppercase">
                   [ View all services ]
                 </Link>
               </div>

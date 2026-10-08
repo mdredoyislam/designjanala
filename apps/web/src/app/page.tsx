@@ -11,15 +11,19 @@ import Radar from "@/components/Radar";
 import Reveal from "@/components/Reveal";
 import SectionHeading from "@/components/SectionHeading";
 import ServiceCategories from "@/components/ServiceCategories";
+import { Founders } from "@/components/TeamPhoto";
 import TechStack from "@/components/TechStack";
 import Testimonials from "@/components/Testimonials";
 import { Check } from "@/components/icons";
-import { aiInProcess, expectations, industries, marketplaces, projects, site, stats, whyUs } from "@/data/site";
+import { art } from "@designjanala/shared";
+import { getContent } from "@/lib/content";
 
-const trusted = [...marketplaces.map((m) => m.name), "Once Upon A Bazaar", "PAN USA", "California Auto Parts"];
-const clientNames = ["Once Upon A Bazaar", "PAN USA", "California Auto Parts", "Upwork", "Fiverr"];
-
-export default function Home() {
+export default async function Home() {
+  const { aiInProcess, clients, expectations, industries, marketplaces, site, stats, team, techStack, testimonials, whyUs } = await getContent();
+  const trusted = [...marketplaces.map((m) => m.name), ...clients];
+  const clientNames = [...clients, ...marketplaces.slice(0, 2).map((m) => m.name)];
+  const happy = stats[1];
+  const years = stats[2];
   return (
     <>
       {/* Hero */}
@@ -73,7 +77,7 @@ export default function Home() {
       <section className="container-x py-20 lg:py-28">
         <Reveal>
           <p className="h-display max-w-5xl text-2xl leading-[1.2] sm:text-3xl lg:text-[2.6rem]">
-            <span className="text-accent">AI isn&rsquo;t an add-on for us.</span> It&rsquo;s built into how {site.name} designs
+            <span className="text-accent-fg">AI isn&rsquo;t an add-on for us.</span> It&rsquo;s built into how {site.name} designs
             and engineers software, shaping decisions, workflows, and the way products come to life.
           </p>
         </Reveal>
@@ -85,7 +89,7 @@ export default function Home() {
               <ul className="mt-5 space-y-2.5">
                 {aiInProcess.map((item) => (
                   <li key={item} className="flex gap-2 text-sm text-body">
-                    <Check className="mt-0.5 h-4 w-4 shrink-0 text-accent" />
+                    <Check className="mt-0.5 h-4 w-4 shrink-0 text-accent-fg" />
                     {item}
                   </li>
                 ))}
@@ -118,17 +122,21 @@ export default function Home() {
           {whyUs.map((w, i) => (
             <Reveal key={w.title} delay={i * 100} className="text-center">
               <div className="card flex h-44 items-center justify-center overflow-hidden px-6">
-                <MockUI variant={[1, 3, 0][i]} className="h-36 w-full max-w-[240px] translate-y-6" />
+                <MockUI variant={[1, 3, 0][i % 3]} className="h-36 w-full max-w-[240px] translate-y-6" />
               </div>
               <h3 className="mt-6 text-lg font-semibold">{w.title}</h3>
               <p className="mx-auto mt-2 max-w-xs text-sm text-body">{w.body}</p>
             </Reveal>
           ))}
         </div>
-        <Reveal className="mt-14 flex flex-col items-center text-center">
-          <span className="h-display text-4xl text-accent">350+</span>
-          <p className="mt-1 font-mono text-[11px] tracking-[0.14em] text-muted uppercase">Happy clients across 12 years</p>
-        </Reveal>
+        {happy && years && (
+          <Reveal className="mt-14 flex flex-col items-center text-center">
+            <span className="h-display text-4xl text-accent-fg">{`${happy.value}${happy.suffix}`}</span>
+            <p className="mt-1 font-mono text-[11px] tracking-[0.14em] text-muted uppercase">
+              {happy.label} across {years.value} years
+            </p>
+          </Reveal>
+        )}
       </section>
 
       {/* Full-cycle statement */}
@@ -175,14 +183,14 @@ export default function Home() {
               ))}
             </div>
           </Reveal>
-          <Reveal delay={100} className="relative aspect-[4/3] overflow-hidden rounded-xl bg-surface">
-            <Image src={projects[0].image} alt={projects[0].title} fill sizes="(min-width: 1024px) 50vw, 100vw" className="object-cover" />
+          <Reveal delay={100}>
+            <Founders team={team} sizes="(min-width: 1024px) 25vw, 50vw" className="aspect-[4/3] rounded-xl" />
           </Reveal>
         </div>
         <dl className="mt-10 grid gap-5 sm:grid-cols-3">
           {stats.slice(0, 3).map((s, i) => (
             <Reveal key={s.label} delay={i * 80} className="card px-6 py-7 text-center">
-              <dd className="h-display text-4xl text-accent sm:text-5xl">
+              <dd className="h-display text-4xl text-accent-fg sm:text-5xl">
                 <CountUp value={s.value} suffix={s.suffix || "+"} />
               </dd>
               <dt className="mt-2 font-mono text-[11px] tracking-[0.14em] text-muted uppercase">{s.label}</dt>
@@ -194,8 +202,14 @@ export default function Home() {
       {/* Process */}
       <section id="process" className="scroll-mt-20 bg-surface/60 py-20 lg:py-28">
         <div className="container-x grid gap-12 lg:grid-cols-2 lg:items-center">
-          <Reveal className="relative aspect-[4/3] overflow-hidden rounded-xl bg-surface lg:aspect-[4/5]">
-            <Image src={projects[2].image} alt={projects[2].title} fill sizes="(min-width: 1024px) 50vw, 100vw" className="object-cover" />
+          <Reveal className="relative mx-auto aspect-[4/5] w-full max-w-md overflow-hidden rounded-xl border border-line bg-surface lg:max-w-none">
+            <Image
+              src={art("process")}
+              alt="Product journey: idea, AI-enhanced planning, design and engineering, testing and launch"
+              fill
+              sizes="(min-width: 1024px) 50vw, 100vw"
+              className="object-cover"
+            />
           </Reveal>
           <div>
             <SectionHeading title={`The ${site.name} Development Journey`} className="mb-8" />
@@ -213,7 +227,7 @@ export default function Home() {
             We provide custom design and development services for the industries below.
           </Reveal>
           <Reveal className="mt-10 hidden sm:block">
-            <Radar />
+            <Radar industries={industries} />
           </Reveal>
           <ul className="mt-10 grid grid-cols-2 gap-3 sm:hidden">
             {industries.map((ind) => (
@@ -238,7 +252,7 @@ export default function Home() {
         <div className="container-x">
           <SectionHeading eyebrow="Technology" title="Engineered with Modern Tech Stacks" center className="mb-10" />
           <Reveal>
-            <TechStack />
+            <TechStack techStack={techStack} />
           </Reveal>
           <div className="mt-12 text-center">
             <Link href="/technology" className="btn-dark">
@@ -262,7 +276,7 @@ export default function Home() {
           <div className="grid grid-cols-2 gap-px overflow-hidden rounded-xl bg-line sm:grid-cols-3 lg:col-span-7">
             {expectations.map((e, i) => (
               <Reveal key={e.title} delay={(i % 3) * 80} className="flex flex-col items-center bg-card px-4 py-8 text-center">
-                <span className="flex h-10 w-10 items-center justify-center rounded-lg bg-surface text-accent">
+                <span className="flex h-10 w-10 items-center justify-center rounded-lg bg-surface text-accent-fg">
                   <Check className="h-5 w-5" />
                 </span>
                 <h3 className="mt-4 text-sm font-semibold sm:text-[15px]">{e.title}</h3>
@@ -273,7 +287,7 @@ export default function Home() {
         </div>
       </section>
 
-      <Testimonials />
+      <Testimonials testimonials={testimonials} dark />
 
       <Faq />
 

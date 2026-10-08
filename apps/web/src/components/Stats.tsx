@@ -1,8 +1,9 @@
-import { stats } from "@/data/site";
+import { getContent } from "@/lib/content";
 import CountUp from "./CountUp";
 
 /** `compact` keeps a 2×2 grid on desktop, for use in a half-width column. */
-export default function Stats({ compact = false }: { compact?: boolean }) {
+export default async function Stats({ compact = false }: { compact?: boolean }) {
+  const { stats } = await getContent();
   return (
     <dl className={`grid grid-cols-2 gap-px overflow-hidden rounded-2xl border border-line bg-line ${compact ? "" : "lg:grid-cols-4"}`}>
       {stats.map((s) => (

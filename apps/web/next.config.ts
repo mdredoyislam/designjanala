@@ -1,6 +1,12 @@
 import type { NextConfig } from "next";
 
+const apiUrl = process.env.API_URL;
+
 const nextConfig: NextConfig = {
+  // Images uploaded in the dashboard are stored by the API; serve them from this site's own domain.
+  async rewrites() {
+    return apiUrl ? [{ source: "/uploads/:name", destination: `${apiUrl}/uploads/:name` }] : [];
+  },
   // Keep old WordPress URLs working after the migration.
   async redirects() {
     return [

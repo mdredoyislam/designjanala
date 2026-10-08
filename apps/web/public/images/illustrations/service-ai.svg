@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" width="800" height="600" role="img" aria-label="AI assistant chat connected to a network of agents and data sources">
+<title>AI assistant chat connected to a network of agents and data sources</title>
+  
+  <defs>
+    <radialGradient id="g11" cx="0.72" cy="0.4" r="0.6">
+      <stop offset="0" stop-color="#ffd000" stop-opacity="0.22"/>
+      <stop offset="1" stop-color="#ffd000" stop-opacity="0"/>
+    </radialGradient>
+    <pattern id="p12" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M40 0H0V40" fill="none" stroke="#ffffff" stroke-opacity="0.045"/>
+    </pattern>
+    <pattern id="d13" width="10" height="10" patternUnits="userSpaceOnUse">
+      <circle cx="5" cy="5" r="1.3" fill="#ffd000"/>
+    </pattern>
+    <radialGradient id="mg15" cx="0.72" cy="0.4" r="0.45">
+      <stop offset="0" stop-color="#fff" stop-opacity="0.35"/>
+      <stop offset="1" stop-color="#fff" stop-opacity="0"/>
+    </radialGradient>
+    <mask id="m14"><rect width="800" height="600" fill="url(#mg15)"/></mask>
+  </defs>
+  <rect width="800" height="600" fill="#0a0a0a"/>
+  <rect width="800" height="600" fill="url(#p12)"/>
+  <rect width="800" height="600" fill="url(#d13)" mask="url(#m14)"/>
+  <rect width="800" height="600" fill="url(#g11)"/>
+  <path d="M600 140 L700 250" stroke="#3a3a3a" stroke-width="2"/><path d="M600 140 L520 300" stroke="#3a3a3a" stroke-width="2"/><path d="M700 250 L640 380" stroke="#3a3a3a" stroke-width="2"/><path d="M520 300 L640 380" stroke="#3a3a3a" stroke-width="2"/><path d="M640 380 L700 470" stroke="#3a3a3a" stroke-width="2"/><path d="M640 380 L560 500" stroke="#3a3a3a" stroke-width="2"/><path d="M700 250 L700 470" stroke="#3a3a3a" stroke-width="2"/><path d="M520 300 L560 500" stroke="#3a3a3a" stroke-width="2"/><path d="M520 300 L640 380 L700 470" fill="none" stroke="#ffd000" stroke-width="3"/><circle cx="600" cy="140" r="18" fill="#1c1c1c" stroke="#3a3a3a" stroke-width="2"/><circle cx="700" cy="250" r="18" fill="#1c1c1c" stroke="#3a3a3a" stroke-width="2"/><circle cx="640" cy="380" r="30" fill="#ffd000" stroke="#ffd000" stroke-width="2"/><circle cx="520" cy="300" r="18" fill="#ffd000" stroke="#ffd000" stroke-width="2"/><circle cx="700" cy="470" r="18" fill="#ffd000" stroke="#ffd000" stroke-width="2"/><circle cx="560" cy="500" r="18" fill="#1c1c1c" stroke="#3a3a3a" stroke-width="2"/><path d="M630 372 l10 -16 10 16 -10 16z" fill="#0a0a0a"/>
+  
+  <g>
+    <rect x="80" y="108" width="400" height="420" rx="14" fill="#000" opacity="0.55"/>
+    <rect x="70" y="90" width="400" height="420" rx="14" fill="#141414" stroke="#3a3a3a" stroke-width="1.5"/>
+    <path d="M70 126H470" stroke="#3a3a3a" stroke-width="1.5"/>
+    <circle cx="90" cy="108" r="5" fill="#3a3a3a"/>
+    <circle cx="107" cy="108" r="5" fill="#3a3a3a"/>
+    <circle cx="124" cy="108" r="5" fill="#ffd000"/>
+    <text x="270" y="113" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12" letter-spacing="1.5" fill="#525252">ASSISTANT</text>
+  </g>
+  <rect x="230" y="150" width="216" height="44" rx="14" fill="#ffd000"/>
+  <rect x="248" y="166" width="150" height="8" rx="4" fill="#0a0a0a"/>
+  <circle cx="108" cy="232" r="18" fill="#f5f5f5"/>
+  <path d="M100 232 l8 -9 8 9 -8 9z" fill="#0a0a0a"/>
+  <rect x="136" y="214" width="270" height="110" rx="14" fill="#1c1c1c"/>
+  <rect x="154" y="234" width="220" height="8" rx="4" fill="#f5f5f5" opacity="0.8"/><rect x="154" y="254" width="200" height="8" rx="4" fill="#3a3a3a"/><rect x="154" y="274" width="160" height="8" rx="4" fill="#3a3a3a"/><rect x="154" y="294" width="120" height="8" rx="4" fill="#ffd000"/>
+  <rect x="270" y="342" width="176" height="44" rx="14" fill="#ffd000"/>
+  <rect x="288" y="358" width="110" height="8" rx="4" fill="#0a0a0a"/>
+  <circle cx="108" cy="420" r="18" fill="#f5f5f5"/>
+  <circle cx="148" cy="420" r="5" fill="#525252" opacity="1"/><circle cx="164" cy="420" r="5" fill="#525252" opacity="0.75"/><circle cx="180" cy="420" r="5" fill="#525252" opacity="0.5"/>
+  <rect x="90" y="456" width="360" height="38" rx="12" fill="#0a0a0a" stroke="#3a3a3a"/>
+  <rect x="108" y="471" width="200" height="8" rx="4" fill="#3a3a3a"/>
+  <rect x="410" y="463" width="30" height="24" rx="7" fill="#ffd000"/>
+
+</svg>

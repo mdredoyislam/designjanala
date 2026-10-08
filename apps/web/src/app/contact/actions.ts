@@ -1,6 +1,6 @@
 "use server";
 
-import { site } from "@/data/site";
+import { getContent } from "@/lib/content";
 
 export type ContactState = {
   status: "idle" | "success" | "error";
@@ -13,6 +13,7 @@ const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 export async function submitContact(_prev: ContactState, formData: FormData): Promise<ContactState> {
   // Honeypot: real users never fill this hidden field.
   if (formData.get("website")) return { status: "success", message: "Thanks! We'll be in touch soon." };
+  const { site } = await getContent();
 
   const data = {
     name: String(formData.get("name") ?? "").trim(),

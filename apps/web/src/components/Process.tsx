@@ -1,8 +1,9 @@
-import { process } from "@/data/site";
+import { getContent } from "@/lib/content";
 import Reveal from "./Reveal";
 
 /** "The DesignJanala Development Journey": numbered stages with a connecting line. */
-export default function Process({ dark = false }: { dark?: boolean }) {
+export default async function Process({ dark = false }: { dark?: boolean }) {
+  const { process } = await getContent();
   return (
     <ol className="relative space-y-1">
       <span className={`absolute top-4 bottom-4 left-[15px] w-px ${dark ? "bg-night-line" : "bg-line"}`} aria-hidden="true" />

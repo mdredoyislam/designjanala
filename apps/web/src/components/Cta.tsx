@@ -58,7 +58,7 @@ export function CtaPeach({ title, body }: { title: ReactNode; body: ReactNode })
               </div>
             ))}
           </div>
-          <div className="absolute -right-3 -bottom-6 rounded-lg bg-night px-4 py-3 text-accent shadow-lg sm:-right-8">
+          <div className="absolute -right-3 -bottom-6 rounded-lg bg-night px-4 py-3 text-accent-fg shadow-lg sm:-right-8">
             <p className="font-mono text-[10px] tracking-wider uppercase opacity-80">Reply time</p>
             <p className="h-display text-xl">&lt; 24 hrs</p>
           </div>

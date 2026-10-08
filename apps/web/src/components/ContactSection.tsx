@@ -1,7 +1,8 @@
+import { getContent } from "@/lib/content";
 import ContactForm from "./ContactForm";
-import { site } from "@/data/site";
 
-export default function ContactSection({ as: Heading = "h2" }: { as?: "h1" | "h2" }) {
+export default async function ContactSection({ as: Heading = "h2" }: { as?: "h1" | "h2" }) {
+  const { site, services } = await getContent();
   return (
     <section id="contact" className="relative overflow-hidden bg-surface/60 py-20 lg:py-28">
       <div className="pointer-events-none absolute -bottom-40 -left-40 h-[480px] w-[480px] rounded-full bg-accent/20 blur-[120px]" aria-hidden="true" />
@@ -25,7 +26,7 @@ export default function ContactSection({ as: Heading = "h2" }: { as?: "h1" | "h2
           </p>
         </div>
         <div className="rounded-xl border border-line bg-card p-7 shadow-sm sm:p-10 lg:col-span-7">
-          <ContactForm />
+          <ContactForm services={services.map((s) => s.title)} />
         </div>
       </div>
     </section>

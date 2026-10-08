@@ -1,4 +1,5 @@
 import { randomUUID } from "node:crypto";
+import { JsonFile } from "./json-file";
 import { leadInputSchema, leadStatuses, type Lead, type LeadInput, type LeadStats, type LeadStatus } from "@designjanala/shared";
 
 /** Persistence boundary. Swap MemoryLeadStore for a database-backed store without touching the routes. */
@@ -13,11 +14,14 @@ export interface LeadStore {
 const DAY = 24 * 60 * 60 * 1000;
 
 export class MemoryLeadStore implements LeadStore {
-  private leads = new Map<string, Lead>();
+  protected leads = new Map<string, Lead>();
 
   constructor(seed: Lead[] = []) {
     for (const lead of seed) this.leads.set(lead.id, lead);
   }
+
+  /** Called after every change; FileLeadStore saves to disk here. */
+  protected persist() {}
 
   async list(filter: { status?: LeadStatus } = {}) {
     return [...this.leads.values()]
@@ -33,6 +37,7 @@ export class MemoryLeadStore implements LeadStore {
     const now = new Date().toISOString();
     const lead: Lead = { ...leadInputSchema.parse(input), id: randomUUID(), status: "new", createdAt: now, updatedAt: now };
     this.leads.set(lead.id, lead);
+    this.persist();
     return lead;
   }
 
@@ -41,6 +46,7 @@ export class MemoryLeadStore implements LeadStore {
     if (!lead) return undefined;
     const updated = { ...lead, status, updatedAt: new Date().toISOString() };
     this.leads.set(id, updated);
+    this.persist();
     return updated;
   }
 
@@ -50,6 +56,24 @@ export class MemoryLeadStore implements LeadStore {
     for (const l of all) byStatus[l.status]++;
     const since = now.getTime() - 7 * DAY;
     return { total: all.length, byStatus, last7Days: all.filter((l) => Date.parse(l.createdAt) >= since).length };
+  }
+}
+
+/** Leads kept in a JSON file, so they survive restarts. Seeds the file only when it doesn't exist yet. */
+export class FileLeadStore extends MemoryLeadStore {
+  private readonly file: JsonFile<Lead[] | null>;
+
+  constructor(path: string, seed: Lead[] = []) {
+    const file = new JsonFile<Lead[] | null>(path, () => null);
+    const saved = file.read();
+    super(saved ?? seed);
+    this.file = file;
+    if (!saved) this.persist();
+  }
+
+  protected persist() {
+    // `file` is unset while the parent constructor seeds the map.
+    this.file?.write([...this.leads.values()]);
   }
 }
 

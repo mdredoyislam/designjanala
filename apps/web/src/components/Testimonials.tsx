@@ -2,14 +2,16 @@
 
 import Link from "next/link";
 import { useRef } from "react";
-import { testimonials } from "@/data/site";
+import type { SiteContent } from "@designjanala/shared";
 import { ArrowLeft, ArrowRight } from "./icons";
 
 /** Two-up testimonial slider. `dark` renders the "Proof, not promises" variant. */
 export default function Testimonials({
+  testimonials,
   title = "What Our Clients Think of Us",
   dark = false,
 }: {
+  testimonials: SiteContent["testimonials"];
   title?: string;
   dark?: boolean;
 }) {
@@ -65,7 +67,7 @@ export default function Testimonials({
               }`}
             >
               <div>
-                <span className="h-display text-5xl leading-none text-accent" aria-hidden="true">&ldquo;</span>
+                <span className="h-display text-5xl leading-none text-accent-fg" aria-hidden="true">&ldquo;</span>
                 <blockquote className="h-display mt-2 text-xl normal-case leading-snug sm:text-2xl">{t.quote}</blockquote>
               </div>
               <figcaption className={`mt-10 border-t pt-6 ${dark ? "border-night-line" : "border-mist"}`}>

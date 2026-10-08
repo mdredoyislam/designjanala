@@ -1,6 +1,7 @@
 import type { MetadataRoute } from "next";
-import { site } from "@/data/site";
+import { getContent } from "@/lib/content";
 
-export default function robots(): MetadataRoute.Robots {
+export default async function robots(): Promise<MetadataRoute.Robots> {
+  const { site } = await getContent();
   return { rules: { userAgent: "*", allow: "/" }, sitemap: `${site.url}/sitemap.xml` };
 }

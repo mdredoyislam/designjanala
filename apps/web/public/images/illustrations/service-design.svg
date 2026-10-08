@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" width="800" height="600" role="img" aria-label="Design canvas with brand mark, typography and colour palette">
+<title>Design canvas with brand mark, typography and colour palette</title>
+  
+  <defs>
+    <radialGradient id="g26" cx="0.35" cy="0.4" r="0.6">
+      <stop offset="0" stop-color="#ffd000" stop-opacity="0.22"/>
+      <stop offset="1" stop-color="#ffd000" stop-opacity="0"/>
+    </radialGradient>
+    <pattern id="p27" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M40 0H0V40" fill="none" stroke="#ffffff" stroke-opacity="0.045"/>
+    </pattern>
+    <pattern id="d28" width="10" height="10" patternUnits="userSpaceOnUse">
+      <circle cx="5" cy="5" r="1.3" fill="#ffd000"/>
+    </pattern>
+    <radialGradient id="mg30" cx="0.35" cy="0.4" r="0.45">
+      <stop offset="0" stop-color="#fff" stop-opacity="0.35"/>
+      <stop offset="1" stop-color="#fff" stop-opacity="0"/>
+    </radialGradient>
+    <mask id="m29"><rect width="800" height="600" fill="url(#mg30)"/></mask>
+  </defs>
+  <rect width="800" height="600" fill="#0a0a0a"/>
+  <rect width="800" height="600" fill="url(#p27)"/>
+  <rect width="800" height="600" fill="url(#d28)" mask="url(#m29)"/>
+  <rect width="800" height="600" fill="url(#g26)"/>
+  
+  <g>
+    <rect x="70" y="78" width="680" height="470" rx="14" fill="#000" opacity="0.55"/>
+    <rect x="60" y="60" width="680" height="470" rx="14" fill="#141414" stroke="#3a3a3a" stroke-width="1.5"/>
+    <path d="M60 96H740" stroke="#3a3a3a" stroke-width="1.5"/>
+    <circle cx="80" cy="78" r="5" fill="#3a3a3a"/>
+    <circle cx="97" cy="78" r="5" fill="#3a3a3a"/>
+    <circle cx="114" cy="78" r="5" fill="#ffd000"/>
+    <text x="400" y="83" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12" letter-spacing="1.5" fill="#525252">BRAND SYSTEM</text>
+  </g>
+  <rect x="80" y="116" width="300" height="300" rx="12" fill="#0a0a0a" stroke="#2a2a2a"/>
+  <path d="M80 266H380M230 116V416" stroke="#2a2a2a" stroke-dasharray="4 6"/>
+  <circle cx="230" cy="266" r="100" fill="none" stroke="#2a2a2a" stroke-dasharray="4 6"/>
+  <rect x="160" y="196" width="140" height="140" rx="30" fill="#ffd000"/>
+  <path d="M196 300 V232 h34 a34 34 0 0 1 0 68z" fill="#0a0a0a"/>
+  <path d="M160 196 C 120 196, 120 150, 160 140" fill="none" stroke="#ffd000" stroke-width="2"/>
+  <rect x="155" y="135" width="10" height="10" fill="#0a0a0a" stroke="#ffd000" stroke-width="2"/>
+  <circle cx="160" cy="196" r="6" fill="#0a0a0a" stroke="#ffd000" stroke-width="2"/>
+  <text x="404" y="210" font-family="Georgia, 'Times New Roman', serif" font-size="110" fill="#f5f5f5">Aa</text>
+  <text x="410" y="250" text-anchor="start" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="11" letter-spacing="2" fill="#525252">DISPLAY · 110 / 0.95</text>
+  <rect x="410" y="274" width="290" height="8" rx="4" fill="#3a3a3a"/><rect x="410" y="292" width="250" height="8" rx="4" fill="#3a3a3a"/><rect x="410" y="310" width="270" height="8" rx="4" fill="#3a3a3a"/>
+  <rect x="410" y="350" width="50" height="66" rx="8" fill="#ffd000" stroke="#3a3a3a"/><rect x="470" y="350" width="50" height="66" rx="8" fill="#ffe04d" stroke="#3a3a3a"/><rect x="530" y="350" width="50" height="66" rx="8" fill="#f5f5f5" stroke="#3a3a3a"/><rect x="590" y="350" width="50" height="66" rx="8" fill="#525252" stroke="#3a3a3a"/><rect x="650" y="350" width="50" height="66" rx="8" fill="#0a0a0a" stroke="#3a3a3a"/>
+  <text x="410" y="438" text-anchor="start" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="11" letter-spacing="2" fill="#525252">#FFD000  #0A0A0A</text>
+  <rect x="80" y="436" width="300" height="78" rx="12" fill="#1c1c1c"/>
+  <rect x="96" y="452" width="58" height="46" rx="8" fill="#ffd000"/><rect x="166" y="452" width="58" height="46" rx="8" fill="#3a3a3a"/><rect x="236" y="452" width="58" height="46" rx="8" fill="#3a3a3a"/><rect x="306" y="452" width="58" height="46" rx="8" fill="#3a3a3a"/>
+  <g>
+    <path d="M600 470l0 26 7-6.5 5 11 4.5-2-5-10.5 9.5-.5z" fill="#ffd000" stroke="#0a0a0a" stroke-width="1.5" stroke-linejoin="round"/>
+    <rect x="616" y="498" width="45.2" height="24" rx="6" fill="#ffd000"/>
+    <text x="626" y="514.5" text-anchor="start" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="12" letter-spacing="1" fill="#0a0a0a">Pen</text>
+  </g>
+
+</svg>

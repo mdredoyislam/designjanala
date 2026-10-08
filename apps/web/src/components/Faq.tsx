@@ -1,19 +1,26 @@
 import Link from "next/link";
-import { faqs as defaultFaqs, site, team } from "@/data/site";
+import type { Faq as FaqItem } from "@designjanala/shared";
+import { getContent } from "@/lib/content";
 import { ArrowDown } from "./icons";
 import Reveal from "./Reveal";
+import { TeamAvatar } from "./TeamPhoto";
 
 /** Centered heading, then a dark "more questions?" card beside a beige accordion. */
-export default function Faq({
-  title = `Questions about building with ${site.name}`,
-  items = defaultFaqs,
+export default async function Faq({
+  title,
+  items,
   more,
 }: {
   title?: string;
-  items?: { q: string; a: string }[];
+  /** Defaults to the home FAQ. */
+  items?: FaqItem[];
   more?: { label: string; href: string };
 }) {
-  const lead = team[0];
+  const content = await getContent();
+  const { site } = content;
+  title ??= `Questions about building with ${site.name}`;
+  items ??= content.faqs;
+  const lead = content.team[0];
   return (
     <section className="container-x py-20 lg:py-28">
       <Reveal className="mx-auto max-w-2xl text-center">
@@ -28,12 +35,19 @@ export default function Faq({
           </span>
           <div className="relative">
             <p className="h-display text-2xl normal-case sm:text-3xl">Do you have more questions?</p>
-            <p className="mt-5 font-semibold">{lead.name}</p>
-            <p className="text-sm text-white/60">
-              {lead.role} · {site.name}
-            </p>
+            {lead && (
+              <div className="mt-5 flex items-center gap-3">
+                <TeamAvatar member={lead} className="h-12 w-12" />
+                <div>
+                  <p className="font-semibold">{lead.name}</p>
+                  <p className="text-sm text-white/60">
+                    {lead.role} · {site.name}
+                  </p>
+                </div>
+              </div>
+            )}
             <Link href="/contact" className="btn-secondary mt-6 w-full">
-              Reach me out
+              {lead ? "Reach me out" : "Contact us"}
             </Link>
           </div>
         </Reveal>
@@ -48,7 +62,7 @@ export default function Faq({
             </details>
           ))}
           {more && (
-            <Link href={more.href} className="mt-4 inline-block px-2 text-sm font-medium underline underline-offset-4 hover:text-accent">
+            <Link href={more.href} className="mt-4 inline-block px-2 text-sm font-medium underline underline-offset-4 hover:text-accent-fg">
               {more.label}
             </Link>
           )}

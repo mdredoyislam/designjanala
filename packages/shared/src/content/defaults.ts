@@ -1,7 +1,9 @@
-// All site content lives here, migrated from the WordPress site (designjanala.com).
-// Edit this file to update copy without touching components.
+// Default website content, migrated from the WordPress site (designjanala.com).
+// The website shows these until a section is edited in the dashboard; "Reset" in the
+// dashboard returns a section to what is here.
+import { contentSchema, type SiteContent } from "./schema";
 
-export const site = {
+const site = {
   name: "DesignJanala",
   tagline: "AI-Powered Product Design & Development Agency",
   location: "Dhaka, Bangladesh",
@@ -15,7 +17,7 @@ export const site = {
   github: "",
 };
 
-export const nav = [
+const nav = [
   { label: "Service", href: "/services" },
   { label: "Technology", href: "/technology" },
   { label: "Blog", href: "/blog" },
@@ -23,14 +25,14 @@ export const nav = [
   { label: "Open Source", href: "/open-source" },
 ];
 
-export const marketplaces = [
+const marketplaces = [
   { name: "Upwork", href: "https://www.upwork.com/o/profiles/users/_~01e12f672a175a73ac/" },
   { name: "Fiverr", href: "https://www.fiverr.com/zumanurr" },
   { name: "Creative Market", href: "https://creativemarket.com/designjanala" },
   { name: "GraphicRiver", href: "https://graphicriver.net/user/zumanuruzzal/portfolio" },
 ];
 
-export const socials = [
+const socials = [
   { name: "Facebook", short: "Fb", href: "https://www.facebook.com/KhulleiDesign" },
   { name: "LinkedIn", short: "In", href: "https://www.linkedin.com/in/zumanur-rahman/" },
   { name: "Instagram", short: "Ig", href: "https://www.instagram.com/zumanur.rahman" },
@@ -38,14 +40,16 @@ export const socials = [
   { name: "YouTube", short: "Yt", href: "https://www.youtube.com/channel/UCuRUKa3_0ItF-qbqo5ncWCA" },
 ];
 
-export const stats = [
+const clients = ["Once Upon A Bazaar", "PAN USA", "California Auto Parts"];
+
+const stats = [
   { value: 1500, suffix: "+", label: "Projects Completed" },
   { value: 350, suffix: "+", label: "Happy Clients" },
   { value: 12, suffix: "", label: "Years on the Market" },
   { value: 10, suffix: "", label: "Qualified Specialists" },
 ];
 
-export const values = [
+const values = [
   {
     title: "Experienced",
     body: "An experienced team dedicatedly providing designs for more than 10 years.",
@@ -61,7 +65,7 @@ export const values = [
 ];
 
 /** "The DesignJanala Development Journey" */
-export const process = [
+const process = [
   {
     title: "Idea & Requirements",
     body: "We understand your goals, your users and the outcomes that matter before anything is designed or built.",
@@ -85,7 +89,7 @@ export const process = [
 ];
 
 /** "Because Serious Products Need the Right Team" */
-export const whyUs = [
+const whyUs = [
   {
     title: "Product-First Engineering",
     body: "Every design and technical decision is tied to a real product outcome, not just a feature list.",
@@ -101,14 +105,14 @@ export const whyUs = [
 ];
 
 /** "AI isn't an add-on for us" */
-export const aiInProcess = [
+const aiInProcess = [
   "AI-assisted research, competitor analysis and requirement mapping",
   "Rapid prototyping and design exploration with AI tools",
   "AI pair-programming with human code review on every change",
   "Automated testing and QA that catch issues before your users do",
 ];
 
-export const industries = [
+const industries = [
   { title: "SaaS & Startups", body: "Recurring revenue depends on retention, so onboarding, dashboards and billing have to just work." },
   { title: "Fintech", body: "Compliance isn't a checklist at the end. We design secure flows and audit trails from day one." },
   { title: "Healthcare", body: "Patient portals and clinical tools that are simple, accessible and protect sensitive data." },
@@ -120,17 +124,17 @@ export const industries = [
 ];
 
 /** "Where Others Stop, We Continue": DesignJanala vs Freelancers vs Traditional Agencies. */
-export const comparison: { label: string; values: [string, string, string] }[] = [
-  { label: "AI-Driven Workflow", values: ["Fully AI-accelerated", "Rarely used", "Limited AI usage"] },
-  { label: "End-to-End Development", values: ["Brand, design & code in one team", "Single skill set", "Split across departments"] },
-  { label: "Scalable Architecture", values: ["Built in from day one", "Often an afterthought", "Structured but slow"] },
-  { label: "Dedicated Product Team", values: ["Designers + engineers + PM", "One person", "Rotating staff"] },
-  { label: "Production-Ready Delivery", values: ["Tested, documented, deployed", "Varies by person", "Lengthy QA cycles"] },
-  { label: "Post-Launch Support", values: ["Continuous optimisation", "Usually unavailable", "Paid change requests"] },
+const comparison = [
+  { label: "AI-Driven Workflow", us: "Fully AI-accelerated", freelancers: "Rarely used", agencies: "Limited AI usage" },
+  { label: "End-to-End Development", us: "Brand, design & code in one team", freelancers: "Single skill set", agencies: "Split across departments" },
+  { label: "Scalable Architecture", us: "Built in from day one", freelancers: "Often an afterthought", agencies: "Structured but slow" },
+  { label: "Dedicated Product Team", us: "Designers + engineers + PM", freelancers: "One person", agencies: "Rotating staff" },
+  { label: "Production-Ready Delivery", us: "Tested, documented, deployed", freelancers: "Varies by person", agencies: "Lengthy QA cycles" },
+  { label: "Post-Launch Support", us: "Continuous optimisation", freelancers: "Usually unavailable", agencies: "Paid change requests" },
 ];
 
 /** Technology categories, with a description for the Technology page. */
-export const techStack: { category: string; body: string; items: string[] }[] = [
+const techStack = [
   {
     category: "Design",
     body: "Every product starts with a clear interface and a consistent visual system your team can extend.",
@@ -178,10 +182,8 @@ export const techStack: { category: string; body: string; items: string[] }[] = 
   },
 ];
 
-export const toolCount = techStack.reduce((n, t) => n + t.items.length, 0);
-
 /** "Nothing in our stack ever gets chosen by accident" (Technology page). */
-export const stackPrinciples = [
+const stackPrinciples = [
   { title: "Solves the problem", body: "Before anything else, we ask whether a technology solves your product's problem, rather than picking something merely familiar." },
   { title: "Matches your team", body: "We consider who will write and maintain the code, and choose tools that match their experience." },
   { title: "Connects cleanly", body: "We check how a technology connects with the systems, hosting and services you already run, so nothing conflicts later." },
@@ -189,7 +191,7 @@ export const stackPrinciples = [
 ];
 
 /** "What to Expect from Us" */
-export const expectations = [
+const expectations = [
   { title: "AI-Driven Development", body: "AI tooling across research, design and code means faster cycles." },
   { title: "Scalable Architecture", body: "Clean foundations that handle growth in users and features." },
   { title: "Transparent Communication", body: "Weekly updates and direct access to the people doing the work." },
@@ -198,48 +200,38 @@ export const expectations = [
   { title: "Faster Time-to-Market", body: "Focused scopes and proven processes get you live sooner." },
 ];
 
-export type ServiceCategory = {
-  slug: "ai" | "saas" | "mobile" | "design";
-  title: string;
-  blurb: string;
-};
+/** Brand illustrations (black + yellow SVGs) in apps/web/public/images/illustrations. */
+export const art = (name: string) => `/images/illustrations/${name}.svg`;
 
 /** Service groups, mirroring the DevMonks layout: one card per group, four services each. */
-export const serviceCategories: ServiceCategory[] = [
+const serviceCategories = [
   {
     slug: "ai",
+    image: art("service-ai"),
     title: "AI Automation Systems",
     blurb: "Agents, LLMs and automations that remove busywork and put your data to work.",
   },
   {
     slug: "saas",
+    image: art("service-saas"),
     title: "SaaS Platform Engineering",
     blurb: "Scalable web platforms, portals and MVPs built on a modern, production-ready stack.",
   },
   {
     slug: "mobile",
+    image: art("service-mobile"),
     title: "Mobile App Development",
     blurb: "Native and cross-platform apps that feel fast, reliable and at home on every device.",
   },
   {
     slug: "design",
+    image: art("service-design"),
     title: "Product & Brand Design",
     blurb: "Twelve years of design craft: UI/UX, brand identity, redesigns and no-code builds.",
   },
 ];
 
-export type Service = {
-  slug: string;
-  category: ServiceCategory["slug"];
-  title: string;
-  /** Short line shown under the title in the Services menu. */
-  tagline: string;
-  short: string;
-  body: string[];
-  deliverables: string[];
-};
-
-export const services: Service[] = [
+const services = [
   // AI Automation Systems
   {
     slug: "agentic-ai-solutions",
@@ -441,30 +433,17 @@ export const services: Service[] = [
   },
 ];
 
-export const servicesIn = (category: ServiceCategory["slug"]) => services.filter((s) => s.category === category);
-
-export const categories = [
-  { slug: "all", label: "All" },
+const categories = [
   { slug: "branding", label: "Branding" },
   { slug: "flyer-brochure", label: "Flyer & Brochure" },
   { slug: "publication", label: "Publication" },
   { slug: "resume", label: "Resume" },
   { slug: "stationary", label: "Stationery" },
-] as const;
-
-export type Category = Exclude<(typeof categories)[number]["slug"], "all">;
-
-export type Project = {
-  title: string;
-  description: string;
-  image: string;
-  categories: Category[];
-  free?: boolean;
-};
+];
 
 const img = (p: string) => `/images/portfolio/${p}`;
 
-export const projects: Project[] = [
+const projects = [
   { title: "Case Study Booklet", description: "16-page multipurpose case study template", image: img("2019-02-1.jpg"), categories: ["flyer-brochure", "publication"] },
   { title: "Business Newsletter", description: "Modern and elegant InDesign newsletter", image: img("2019-02-2-4.jpg"), categories: ["flyer-brochure"] },
   { title: "Brand Identity", description: "Modern corporate brand identity system", image: img("2019-02-4-1-4.jpg"), categories: ["branding", "stationary"] },
@@ -508,9 +487,7 @@ export const projects: Project[] = [
   { title: "Resume", description: "Modern, professional and clean resume", image: img("2018-03-2-4.jpg"), categories: ["resume"] },
 ];
 
-
-
-export const testimonials = [
+const testimonials = [
   {
     quote:
       "Very responsive. Goes above and beyond to ensure that deliverables are met and the client is happy! Extremely skilled.",
@@ -537,48 +514,39 @@ export const testimonials = [
   },
 ];
 
-export type TeamMember = { name: string; role: string; bio: string; focus: string[] };
-
-export const team: TeamMember[] = [
+const team = [
   {
     name: "Zumanur Rahman",
     role: "Founder & Lead Designer",
     bio: "Started DesignJanala more than a decade ago and still leads design on every project, from brand identities to product interfaces.",
     focus: ["Brand Identity", "UI/UX", "Art Direction"],
+    photo: "/images/team/zumanur-rahman.webp",
   },
   {
     name: "Redoy Islam",
     role: "Developer",
     bio: "Turns designs into fast, maintainable web and mobile products, and owns the technical decisions behind them.",
     focus: ["Next.js", "APIs", "Mobile"],
+    photo: "/images/team/redoy-islam.webp",
   },
 ];
 
 /** Team page: "Given the choice, we…" principles. */
-export const teamPrinciples = [
+const teamPrinciples = [
   "Given the choice, we lose a day rather than ship something we wouldn't stake our name on.",
   "Given the choice, we ask one more question rather than build on an assumption.",
   "Given the choice, we keep the same people on your project from kickoff to launch.",
   "Given the choice, we say no to work we can't do well rather than say yes to everything.",
 ];
 
-export const jobs = [
+const jobs = [
   { title: "UI/UX Designer", type: "Full-time", location: "Dhaka / Hybrid", team: "Design", body: "Design web and mobile products end to end, from research and flows to polished UI and design systems." },
   { title: "Frontend Developer (React / Next.js)", type: "Full-time", location: "Dhaka / Hybrid", team: "Engineering", body: "Build fast, accessible interfaces with React, Next.js and TypeScript alongside our designers." },
   { title: "Graphic Designer", type: "Full-time", location: "Dhaka", team: "Brand", body: "Create brand identities, print collateral and marketing assets for clients worldwide." },
   { title: "Design Intern", type: "Internship", location: "Dhaka / Remote", team: "Design", body: "Learn alongside our team on real client work. A strong portfolio matters more than a degree." },
 ];
 
-export type Post = {
-  slug: string;
-  title: string;
-  category: "Design" | "Development" | "AI" | "Branding";
-  date: string;
-  excerpt: string;
-  body: string[];
-};
-
-export const posts: Post[] = [
+const posts = [
   {
     slug: "mvp-scope-checklist",
     title: "How to Scope an MVP Without Building Too Much",
@@ -698,9 +666,9 @@ export const posts: Post[] = [
   },
 ];
 
-export const postCategories = ["All Posts", "Design", "Development", "AI", "Branding"] as const;
+const postCategories = ["Design", "Development", "AI", "Branding"];
 
-export const faqs = [
+const faqs = [
   {
     q: "What services does DesignJanala offer?",
     a: "We design and build digital products end to end: AI automation (agents, custom LLMs, RAG and workflow automation), SaaS platforms, web apps and portals, MVPs, iOS, Android and cross-platform apps, plus UI/UX design, brand identity, product redesigns and Webflow / Framer sites.",
@@ -727,7 +695,7 @@ export const faqs = [
   },
 ];
 
-export const servicesFaqs = [
+const servicesFaqs = [
   { q: "Which services can I combine in one project?", a: "Any of them. Most projects combine design and development, and many add brand identity or AI features. One team handles the whole scope, so nothing falls between vendors." },
   { q: "Can you improve an existing website or app instead of building from scratch?", a: "Yes. We start with a UX and technical audit, then decide together what to keep, improve or rebuild, and roll changes out in phases." },
   { q: "How do you estimate cost and delivery time?", a: "After a short discovery call we break the scope into phases and send a proposal with deliverables, timeline and cost, with no hidden fees." },
@@ -735,46 +703,29 @@ export const servicesFaqs = [
   { q: "Do you provide support after launch?", a: "Yes. We offer ongoing maintenance, monitoring and iteration retainers so your product keeps improving after launch." },
 ];
 
-export const blogFaqs = [
+const blogFaqs = [
   { q: "What topics does the DesignJanala blog cover?", a: "Product design, branding, web and mobile development, and practical AI, written from the work we do with clients." },
   { q: "Who are the guides written for?", a: "Founders, product managers and in-house teams who want to make better decisions about design and technology." },
   { q: "Can I suggest a topic?", a: `Yes. Email ${site.emails.project} with the question you would like answered and we will consider it for a future article.` },
   { q: "Can DesignJanala help apply a guide to my project?", a: "Absolutely. Book a strategy call and we will look at how the ideas apply to your product specifically." },
 ];
 
-export const teamFaqs = [
+const teamFaqs = [
   { q: "Who works on my project?", a: "A small, dedicated team of designers and developers, led by the same people from kickoff to launch. You talk to them directly." },
   { q: "Can I speak with the team before starting?", a: "Yes. The strategy call is with the people who would actually work on your project, not a sales team." },
   { q: "How does your team collaborate with my in-house team?", a: "We join your tools and rituals (Slack, Jira, Figma, GitHub) and work as an extension of your team." },
   { q: "How can I apply to join DesignJanala?", a: `Send your CV and portfolio to ${site.emails.career}. We review every application.` },
 ];
 
-export const freebieFaqs = [
+const freebieFaqs = [
   { q: "What kind of freebies are available?", a: "Professionally designed templates such as resumes, invoices and stationery, made by our design team." },
   { q: "Can I use these templates commercially?", a: "Yes, for your own business and client work. Please don't resell or redistribute the files as templates." },
   { q: "Which software do I need?", a: "Most templates are made in Adobe InDesign, Illustrator or Photoshop. Check each template's description." },
   { q: "Can DesignJanala customise a template for me?", a: `Yes. Email ${site.emails.sample} with what you need and we'll send a quote.` },
 ];
 
-export type OpenProject = {
-  slug: string;
-  category: "Templates" | "Design Resources" | "Learning";
-  title: string;
-  body: string;
-  /** Format chip shown bottom-left of the card. */
-  format: string;
-  href: string;
-  cta: string;
-  /** Secondary link, shown under the featured card. */
-  secondary?: { label: string; href: string };
-  image?: string;
-};
-
-/**
- * Open Source page directory. These are real, publicly available DesignJanala resources.
- * Add GitHub repositories here as they are published (category, title, format = language, href = repo URL).
- */
-export const openSource: OpenProject[] = [
+/** Open Source page directory: real, publicly available DesignJanala resources. */
+const openSource = [
   {
     slug: "free-resume-template",
     category: "Templates",
@@ -834,10 +785,46 @@ export const openSource: OpenProject[] = [
   },
 ];
 
-export const openSourceFaqs = [
+const openSourceFaqs = [
   { q: "What kinds of resources are featured?", a: `Free design templates, our template collections on Creative Market and GraphicRiver, and free and offline design classes, all made by the ${site.name} team.` },
   { q: "Can I use these resources in a commercial project?", a: "Free templates can be used in personal and commercial work. Premium templates follow the licence of the marketplace you buy them from. Please don't resell or redistribute the source files." },
   { q: "How do I report a problem with a file?", a: `Email ${site.emails.sample} with the resource name and what went wrong, and we'll send a fixed version.` },
   { q: "How do I know whether a template fits my project?", a: "Check the preview and description on each card. If you're unsure, ask us and we'll suggest the closest match." },
   { q: "Can DesignJanala customise a resource for my brand?", a: "Yes. We can adapt any template to your brand, or design a complete identity or product from it." },
 ];
+
+/** Every section's default value, validated against the content schema. */
+export const defaultContent: SiteContent = contentSchema.parse({
+  site,
+  nav,
+  marketplaces,
+  socials,
+  clients,
+  stats,
+  aiInProcess,
+  whyUs,
+  expectations,
+  industries,
+  comparison,
+  process,
+  values,
+  testimonials,
+  serviceCategories,
+  services,
+  techStack,
+  stackPrinciples,
+  categories,
+  projects,
+  team,
+  teamPrinciples,
+  jobs,
+  postCategories,
+  posts,
+  openSource,
+  faqs,
+  servicesFaqs,
+  teamFaqs,
+  blogFaqs,
+  freebieFaqs,
+  openSourceFaqs,
+});

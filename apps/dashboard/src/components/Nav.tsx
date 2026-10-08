@@ -6,10 +6,12 @@ import { usePathname } from "next/navigation";
 const links = [
   { href: "/", label: "Overview" },
   { href: "/leads", label: "Leads" },
+  { href: "/content", label: "Content" },
 ];
 
 export function Nav() {
   const pathname = usePathname();
+  if (pathname === "/login") return null;
   return (
     <nav className="flex gap-1" aria-label="Dashboard">
       {links.map((l) => {

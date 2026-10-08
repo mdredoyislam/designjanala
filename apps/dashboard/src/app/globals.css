@@ -56,3 +56,19 @@ body {
 @utility panel {
   @apply rounded-xl border border-line bg-surface;
 }
+
+@utility btn {
+  @apply inline-flex items-center justify-center gap-2 rounded-md px-4 py-2.5 text-sm font-semibold transition-colors disabled:cursor-not-allowed disabled:opacity-50;
+}
+@utility btn-primary {
+  @apply btn bg-accent text-accent-ink hover:bg-accent-soft;
+}
+@utility btn-ghost {
+  @apply btn border border-line text-ink hover:border-white/40;
+}
+@utility btn-danger {
+  @apply btn border border-[#ff6b6b]/40 text-[#ff8a8a] hover:border-[#ff6b6b] hover:bg-[#ff6b6b]/10;
+}
+@utility field {
+  @apply w-full rounded-md border border-line bg-card px-3 py-2 text-sm text-ink outline-none placeholder:text-muted focus:border-accent;
+}

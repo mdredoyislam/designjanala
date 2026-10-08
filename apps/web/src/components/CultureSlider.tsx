@@ -5,23 +5,24 @@ import Image from "next/image";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { EffectFade, Autoplay } from "swiper/modules";
 import type { Swiper as SwiperType } from "swiper";
-import type { Project } from "@/data/site";
+
+// Inlined rather than imported from @designjanala/shared, which would pull the whole content model into the client bundle.
+const art = (name: string) => `/images/illustrations/${name}.svg`;
 import "swiper/css";
 import "swiper/css/effect-fade";
 
 interface CultureSliderProps {
   principles: string[];
-  projects: Project[];
 }
 
 const navItems = [
-  { num: "01", cat: "CRAFT", label: "Ship it right" },
-  { num: "02", cat: "LEARNING", label: "Keep learning" },
-  { num: "03", cat: "COLLABORATION", label: "Work together" },
-  { num: "04", cat: "OWNERSHIP", label: "Own the outcome" },
+  { num: "01", cat: "CRAFT", label: "Ship it right", image: art("culture-craft") },
+  { num: "02", cat: "LEARNING", label: "Keep learning", image: art("culture-learning") },
+  { num: "03", cat: "COLLABORATION", label: "Work together", image: art("culture-collaboration") },
+  { num: "04", cat: "OWNERSHIP", label: "Own the outcome", image: art("culture-ownership") },
 ];
 
-export default function CultureSlider({ principles, projects }: CultureSliderProps) {
+export default function CultureSlider({ principles }: CultureSliderProps) {
   const [activeIndex, setActiveIndex] = useState(0);
   const [swiperInstance, setSwiperInstance] = useState<SwiperType | null>(null);
 
@@ -42,19 +43,13 @@ export default function CultureSlider({ principles, projects }: CultureSliderPro
             <SwiperSlide key={i} className="w-full h-full">
               <div className="relative w-full h-full flex flex-col justify-center">
                 <div className="absolute inset-0" aria-hidden="true">
-                  <Image 
-                    src={projects[i * 2 + 5]?.image || projects[8]?.image || "/images/portfolio/2018-03-7-1.jpg"} 
-                    alt="" 
-                    fill 
-                    sizes="100vw" 
-                    className="object-cover opacity-40" 
-                  />
+                  <Image src={navItems[i % navItems.length].image} alt="" fill sizes="100vw" className="object-cover object-right" />
                   <div className="absolute inset-0 bg-gradient-to-r from-night via-night/60 to-transparent" />
                   <div className="absolute inset-0 bg-gradient-to-t from-night via-transparent to-transparent opacity-80" />
                 </div>
                 
                 <div className="container-x relative z-10 w-full max-w-3xl pl-0 md:pl-12 lg:pl-24">
-                  <p className="font-mono text-[11px] tracking-[0.2em] text-accent uppercase mb-6">[ culture ]</p>
+                  <p className="font-mono text-[11px] tracking-[0.2em] text-accent-fg uppercase mb-6">[ culture ]</p>
                   <h2 className="text-3xl sm:text-4xl md:text-5xl font-medium leading-[1.2] tracking-tight text-white shadow-black drop-shadow-lg">
                     {p}
                   </h2>
@@ -68,7 +63,7 @@ export default function CultureSlider({ principles, projects }: CultureSliderPro
       {/* Bottom Navigation */}
       <div className="relative border-t border-white/10 bg-night z-20">
         <div className="container-x grid grid-cols-2 md:grid-cols-4 divide-x divide-white/10 border-x border-white/10">
-          {navItems.map((v, i) => {
+          {navItems.slice(0, principles.length).map((v, i) => {
             const isActive = activeIndex === i;
             return (
               <button 
@@ -79,7 +74,7 @@ export default function CultureSlider({ principles, projects }: CultureSliderPro
                 }`}
               >
                 <p className={`font-mono text-[10px] sm:text-[11px] tracking-widest uppercase transition-colors duration-300 ${
-                  isActive ? "text-accent" : "text-white/40"
+                  isActive ? "text-accent-fg" : "text-white/40"
                 }`}>
                   [ {v.num} - {v.cat} ]
                 </p>

@@ -6,26 +6,29 @@ import OpenSourceGrid from "@/components/OpenSourceGrid";
 import PageHero, { HeroChips } from "@/components/PageHero";
 import Reveal from "@/components/Reveal";
 import SectionHeading from "@/components/SectionHeading";
-import { marketplaces, openSource, openSourceFaqs, site } from "@/data/site";
+import { getContent } from "@/lib/content";
 
-export const metadata: Metadata = {
-  title: "Open Source",
-  description: `Free templates, design resources and classes from ${site.name}. Explore the collection and find your next starting point.`,
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const { site } = await getContent();
+  return {
+    title: "Open Source",
+    description: `Free templates, design resources and classes from ${site.name}. Explore the collection and find your next starting point.`,
+  };
+}
 
-const slug = site.name.toLowerCase();
-const categories = Array.from(new Set(openSource.map((p) => p.category)));
-const creativeMarket = marketplaces.find((m) => m.name === "Creative Market")!.href;
-// "Visit GitHub" appears once site.github is set; until then the second button points to Creative Market.
-const secondary = site.github ? { label: "Visit GitHub", href: site.github } : { label: "Visit Creative Market", href: creativeMarket };
+export default async function OpenSourcePage() {
+  const { marketplaces, openSource, openSourceFaqs, site } = await getContent();
+  const slug = site.name.toLowerCase();
+  const categories = Array.from(new Set(openSource.map((p) => p.category)));
+  const creativeMarket = marketplaces.find((m) => m.name === "Creative Market")?.href ?? "/freebies";
+  // "Visit GitHub" appears once site.github is set; until then the second button points to Creative Market.
+  const secondary = site.github ? { label: "Visit GitHub", href: site.github } : { label: "Visit Creative Market", href: creativeMarket };
+  const steps = [
+    { tag: "Explore", title: "Start with the preview", body: "Check each resource's preview, format and description to make sure it fits what you want to make." },
+    { tag: "Discuss", title: "Ask before you adapt", body: `Not sure a file fits? Email ${site.emails.sample} with what you're building and we'll point you to the right one.` },
+    { tag: "Contribute", title: "Share what you made", body: "Built something with our resources? Send it to us or tag us. Feedback and fixes improve every next release." },
+  ];
 
-const steps = [
-  { tag: "Explore", title: "Start with the preview", body: "Check each resource's preview, format and description to make sure it fits what you want to make." },
-  { tag: "Discuss", title: "Ask before you adapt", body: `Not sure a file fits? Email ${site.emails.sample} with what you're building and we'll point you to the right one.` },
-  { tag: "Contribute", title: "Share what you made", body: "Built something with our resources? Send it to us or tag us. Feedback and fixes improve every next release." },
-];
-
-export default function OpenSourcePage() {
   return (
     <>
       <PageHero
@@ -49,7 +52,7 @@ ${categories.map((c) => `    "${c.toLowerCase()}"`).join(",\n")}
 }`}
             footer={
               <>
-                <span className="text-accent">↗ explore the source</span>
+                <span className="text-accent-fg">↗ explore the source</span>
                 <span>{site.name} / community</span>
               </>
             }
@@ -93,7 +96,7 @@ ${categories.map((c) => `    "${c.toLowerCase()}"`).join(",\n")}
             dark
             className="mb-10"
           />
-          <OpenSourceGrid />
+          <OpenSourceGrid openSource={openSource} />
           <p className="mt-6 max-w-2xl text-xs leading-relaxed text-white/40">
             Explore the open collection curated by {site.name}. Check each resource&rsquo;s licence, format and usage notes
             before using it in your project.
@@ -117,7 +120,7 @@ ${categories.map((c) => `    "${c.toLowerCase()}"`).join(",\n")}
           <div className="grid gap-px overflow-hidden rounded-xl border border-night-line bg-night-line md:grid-cols-3">
             {steps.map((s, i) => (
               <Reveal key={s.tag} delay={i * 80} className="bg-night p-6 sm:p-8">
-                <span className="font-mono text-[11px] tracking-wider text-accent uppercase">
+                <span className="font-mono text-[11px] tracking-wider text-accent-fg uppercase">
                   0{i + 1} / {s.tag}
                 </span>
                 <h3 className="mt-4 text-xl font-semibold">{s.title}</h3>

@@ -9,28 +9,32 @@ import Process from "@/components/Process";
 import Reveal from "@/components/Reveal";
 import SectionHeading from "@/components/SectionHeading";
 import { ArrowUpRight } from "@/components/icons";
-import { serviceCategories, services, servicesFaqs, servicesIn, site } from "@/data/site";
+import { servicesIn } from "@designjanala/shared";
+import { getContent } from "@/lib/content";
 
-export function generateStaticParams() {
+// Services added in the dashboard after the build are rendered on first visit.
+export async function generateStaticParams() {
+  const { services } = await getContent();
   return services.map((s) => ({ slug: s.slug }));
 }
 
-export const dynamicParams = false;
-
 export async function generateMetadata(props: PageProps<"/services/[slug]">): Promise<Metadata> {
   const { slug } = await props.params;
+  const { services } = await getContent();
   const s = services.find((x) => x.slug === slug);
   return s ? { title: s.title, description: s.short } : {};
 }
 
 export default async function ServicePage(props: PageProps<"/services/[slug]">) {
   const { slug } = await props.params;
+  const content = await getContent();
+  const { serviceCategories, services, servicesFaqs, site } = content;
   const index = services.findIndex((x) => x.slug === slug);
   if (index === -1) notFound();
   const service = services[index];
   const next = services[(index + 1) % services.length];
-  const category = serviceCategories.find((c) => c.slug === service.category)!;
-  const related = servicesIn(service.category).filter((s) => s.slug !== service.slug);
+  const category = serviceCategories.find((c) => c.slug === service.category);
+  const related = servicesIn(content, service.category).filter((s) => s.slug !== service.slug);
 
   const code = `const project = {
   service: "${service.title}",
@@ -42,7 +46,7 @@ export default async function ServicePage(props: PageProps<"/services/[slug]">) 
   return (
     <>
       <PageHero
-        eyebrow={category.title}
+        eyebrow={category?.title ?? "Services"}
         title={service.title}
         aside={<CodeWindow file={`~/${site.name.toLowerCase()}/${service.slug}.ts`} code={code} />}
       >
@@ -68,7 +72,7 @@ export default async function ServicePage(props: PageProps<"/services/[slug]">) 
             <ul className="mt-5 divide-y divide-mist">
               {service.deliverables.map((d, i) => (
                 <li key={d} className="flex items-center gap-3 py-3 text-[15px] font-medium">
-                  <span className="font-mono text-[11px] text-accent">0{i + 1}</span>
+                  <span className="font-mono text-[11px] text-accent-fg">0{i + 1}</span>
                   {d}
                 </li>
               ))}
@@ -86,13 +90,13 @@ export default async function ServicePage(props: PageProps<"/services/[slug]">) 
 
       {related.length > 0 && (
         <section className="container-x py-20 lg:py-28">
-          <SectionHeading eyebrow={category.title} title="Related Services" className="mb-10" />
+          <SectionHeading eyebrow={category?.title ?? "Services"} title="Related Services" className="mb-10" />
           <div className="grid gap-5 md:grid-cols-3">
             {related.map((s) => (
               <Link key={s.slug} href={`/services/${s.slug}`} className="card group flex flex-col p-6 transition-colors hover:bg-mist">
-                <h3 className="text-lg font-semibold group-hover:text-accent">{s.title}</h3>
+                <h3 className="text-lg font-semibold group-hover:text-accent-fg">{s.title}</h3>
                 <p className="mt-2 flex-1 text-sm text-body">{s.short}</p>
-                <span className="mt-6 font-mono text-[11px] font-semibold tracking-wider text-accent uppercase">[ Explore ]</span>
+                <span className="mt-6 font-mono text-[11px] font-semibold tracking-wider text-accent-fg uppercase">[ Explore ]</span>
               </Link>
             ))}
           </div>
@@ -103,7 +107,7 @@ export default async function ServicePage(props: PageProps<"/services/[slug]">) 
         <div className="container-x flex items-center justify-between gap-6 py-12 lg:py-16">
           <div>
             <p className="eyebrow">[ Next service ]</p>
-            <p className="h-display mt-3 text-3xl transition-colors group-hover:text-accent sm:text-5xl">{next.title}</p>
+            <p className="h-display mt-3 text-3xl transition-colors group-hover:text-accent-fg sm:text-5xl">{next.title}</p>
           </div>
           <span className="flex h-14 w-14 shrink-0 items-center justify-center rounded-md bg-accent text-accent-ink transition-transform duration-500 group-hover:rotate-45">
             <ArrowUpRight className="h-6 w-6" />

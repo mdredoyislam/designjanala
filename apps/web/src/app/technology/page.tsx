@@ -5,17 +5,23 @@ import Marquee from "@/components/Marquee";
 import PageHero, { HeroChips } from "@/components/PageHero";
 import Reveal from "@/components/Reveal";
 import SectionHeading from "@/components/SectionHeading";
-import { site, stackPrinciples, techStack, toolCount } from "@/data/site";
+import { toolCount as countTools } from "@designjanala/shared";
+import { getContent } from "@/lib/content";
 
-export const metadata: Metadata = {
-  title: "Technology",
-  description: `The design, frontend, backend, mobile, cloud, DevOps, AI and analytics tools ${site.name} uses to build reliable products.`,
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const { site } = await getContent();
+  return {
+    title: "Technology",
+    description: `The design, frontend, backend, mobile, cloud, DevOps, AI and analytics tools ${site.name} uses to build reliable products.`,
+  };
+}
 
-const slug = site.name.toLowerCase();
-const allTools = techStack.flatMap((t) => t.items);
-
-export default function TechnologyPage() {
+export default async function TechnologyPage() {
+  const content = await getContent();
+  const { site, stackPrinciples, techStack } = content;
+  const slug = site.name.toLowerCase();
+  const allTools = techStack.flatMap((t) => t.items);
+  const toolCount = countTools(content);
   return (
     <>
       <PageHero
@@ -62,16 +68,16 @@ export default function TechnologyPage() {
           {techStack.map((t, i) => (
             <Reveal key={t.category} delay={(i % 3) * 70} className="bg-surface p-6 sm:p-8">
               <div className="flex items-start justify-between">
-                <span className="flex h-10 w-10 items-center justify-center rounded-full bg-accent/10 font-mono text-sm font-bold text-accent">
+                <span className="flex h-10 w-10 items-center justify-center rounded-full bg-accent/10 font-mono text-sm font-bold text-accent-fg">
                   {t.category[0]}
                 </span>
-                <span className="font-mono text-xs text-accent">0{i + 1}</span>
+                <span className="font-mono text-xs text-accent-fg">0{i + 1}</span>
               </div>
               <h3 className="mt-6 text-lg font-semibold">{t.category === "Design" ? "Design & Prototyping" : `${t.category}${["Frontend", "Backend"].includes(t.category) ? " Development" : ""}`}</h3>
               <p className="mt-2 text-sm text-body">{t.body}</p>
               <ul className="mt-5 flex flex-wrap gap-1.5">
                 {t.items.map((item) => (
-                  <li key={item} className="rounded bg-accent/10 px-2 py-1 text-[11px] font-medium text-accent">
+                  <li key={item} className="rounded bg-accent/10 px-2 py-1 text-[11px] font-medium text-accent-fg">
                     {item}
                   </li>
                 ))}
@@ -102,7 +108,7 @@ export default function TechnologyPage() {
           <div className="mt-12 grid gap-px overflow-hidden rounded-xl bg-line sm:grid-cols-2 lg:grid-cols-4">
             {stackPrinciples.map((p, i) => (
               <Reveal key={p.title} delay={i * 80} className="bg-card p-6 sm:p-8">
-                <span className="flex h-10 w-10 items-center justify-center rounded-full bg-accent/10 font-mono text-xs font-semibold text-accent">
+                <span className="flex h-10 w-10 items-center justify-center rounded-full bg-accent/10 font-mono text-xs font-semibold text-accent-fg">
                   0{i + 1}
                 </span>
                 <h3 className="mt-10 text-lg font-semibold">{p.title}</h3>

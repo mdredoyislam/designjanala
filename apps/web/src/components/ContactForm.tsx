@@ -2,7 +2,6 @@
 
 import { useActionState } from "react";
 import { submitContact, type ContactState } from "@/app/contact/actions";
-import { services } from "@/data/site";
 
 const budgets = ["< $500", "$500 – $1,500", "$1,500 – $5,000", "$5,000+", "Not sure yet"];
 const initial: ContactState = { status: "idle" };
@@ -10,7 +9,8 @@ const initial: ContactState = { status: "idle" };
 const field =
   "w-full border-0 border-b border-steel bg-transparent px-0 py-3 text-lg outline-none transition-colors placeholder:text-ink/30 focus:border-accent focus:ring-0";
 
-export default function ContactForm() {
+/** `services` fills the service dropdown (titles from the content). */
+export default function ContactForm({ services }: { services: string[] }) {
   const [state, action, pending] = useActionState(submitContact, initial);
 
   if (state.status === "success") {
@@ -39,7 +39,7 @@ export default function ContactForm() {
         <select name="service" defaultValue="" className={field}>
           <option value="" disabled className="bg-surface">Select a service</option>
           {services.map((s) => (
-            <option key={s.slug} className="bg-surface">{s.title}</option>
+            <option key={s} className="bg-surface">{s}</option>
           ))}
           <option className="bg-surface">Other</option>
         </select>

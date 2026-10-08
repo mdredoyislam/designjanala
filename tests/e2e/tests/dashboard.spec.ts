@@ -1,9 +1,18 @@
 import { expect, test } from "@playwright/test";
+import { signIn } from "./login";
 
 const WEB = "http://localhost:3000";
 
+test("the dashboard requires sign-in", async ({ page }) => {
+  await page.goto("/leads");
+  await expect(page).toHaveURL(/\/login\?next=%2Fleads/);
+  await page.getByLabel("Password").fill("not-the-password");
+  await page.getByRole("button", { name: "Sign in" }).click();
+  await expect(page.getByText("That password isn't right.")).toBeVisible();
+});
+
 test("overview shows pipeline numbers", async ({ page }) => {
-  await page.goto("/");
+  await signIn(page);
   await expect(page.getByRole("heading", { name: "Studio pipeline" })).toBeVisible();
   await expect(page.getByText("Total leads")).toBeVisible();
 });
@@ -19,7 +28,7 @@ test("a contact-form submission appears in the dashboard and its status can be c
   await form.locator('button[type="submit"]').click();
   await expect(page.getByText(/received your brief/i)).toBeVisible();
 
-  await page.goto("/leads?status=new");
+  await signIn(page, "/leads?status=new");
   const row = page.getByRole("row").filter({ hasText: name });
   await expect(row).toBeVisible();
 
