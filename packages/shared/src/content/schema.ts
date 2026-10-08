@@ -67,7 +67,16 @@ const sections = {
   aiInProcess: strings("AI in our process", "Point"),
   whyUs: z.array(titleBody).meta({ itemLabel: "title" }),
   expectations: z.array(titleBody).meta({ itemLabel: "title" }),
-  industries: z.array(titleBody).meta({ itemLabel: "title" }),
+  industries: z
+    .array(
+      titleBody.extend({
+        builds: z
+          .array(z.string().meta({ title: "Item" }))
+          .default([])
+          .meta({ title: "What we build", description: "Shown as a checklist in the home page industry explorer (three or four work best)." }),
+      }),
+    )
+    .meta({ itemLabel: "title" }),
   comparison: z
     .array(
       z.object({

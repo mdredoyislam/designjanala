@@ -113,14 +113,46 @@ const aiInProcess = [
 ];
 
 const industries = [
-  { title: "SaaS & Startups", body: "Recurring revenue depends on retention, so onboarding, dashboards and billing have to just work." },
-  { title: "Fintech", body: "Compliance isn't a checklist at the end. We design secure flows and audit trails from day one." },
-  { title: "Healthcare", body: "Patient portals and clinical tools that are simple, accessible and protect sensitive data." },
-  { title: "E-commerce", body: "Stores, catalogs and brand experiences that turn browsers into buyers on every device." },
-  { title: "Real Estate", body: "Listing platforms, CRMs and property tools for agents, owners and buyers." },
-  { title: "Ed-tech", body: "Engagement drops fast when a platform feels clunky, so we design for focus and progress." },
-  { title: "Logistics", body: "Route complexity, real-time tracking and fleet data need dashboards that stay readable." },
-  { title: "Media & Publishing", body: "Twelve years of editorial and print design, now applied to digital publishing products." },
+  {
+    title: "SaaS & Startups",
+    body: "Recurring revenue depends on retention, so onboarding, dashboards and billing have to just work.",
+    builds: ["Onboarding that activates users", "Subscriptions & billing", "Admin and analytics dashboards", "MVPs that grow into v2"],
+  },
+  {
+    title: "Fintech",
+    body: "Compliance isn't a checklist at the end. We design secure flows and audit trails from day one.",
+    builds: ["KYC & account onboarding", "Payments and wallets", "Audit trails & role-based access", "Reporting for finance teams"],
+  },
+  {
+    title: "Healthcare",
+    body: "Patient portals and clinical tools that are simple, accessible and protect sensitive data.",
+    builds: ["Appointment booking", "Patient portals & records", "Telehealth video visits", "Accessible, privacy-first UI"],
+  },
+  {
+    title: "E-commerce",
+    body: "Stores, catalogs and brand experiences that turn browsers into buyers on every device.",
+    builds: ["Storefronts & product catalogs", "Fast mobile checkout", "bKash, card & COD payments", "Order and inventory tools"],
+  },
+  {
+    title: "Real Estate",
+    body: "Listing platforms, CRMs and property tools for agents, owners and buyers.",
+    builds: ["Listing search with maps", "Agent CRM & lead tracking", "Viewing and booking flows", "Owner dashboards"],
+  },
+  {
+    title: "Ed-tech",
+    body: "Engagement drops fast when a platform feels clunky, so we design for focus and progress.",
+    builds: ["Course players & progress", "Quizzes and certificates", "Teacher & admin panels", "Live and recorded classes"],
+  },
+  {
+    title: "Logistics",
+    body: "Route complexity, real-time tracking and fleet data need dashboards that stay readable.",
+    builds: ["Live shipment tracking", "Driver mobile apps", "Dispatch & route dashboards", "Customer delivery updates"],
+  },
+  {
+    title: "Media & Publishing",
+    body: "Twelve years of editorial and print design, now applied to digital publishing products.",
+    builds: ["Editorial sites & CMS", "Subscriptions & paywalls", "Newsletters", "Brand and layout systems"],
+  },
 ];
 
 /** "Where Others Stop, We Continue": DesignJanala vs Freelancers vs Traditional Agencies. */

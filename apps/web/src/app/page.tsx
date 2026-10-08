@@ -4,10 +4,10 @@ import Comparison from "@/components/Comparison";
 import CountUp from "@/components/CountUp";
 import { CtaGlow } from "@/components/Cta";
 import Faq from "@/components/Faq";
+import IndustryExplorer from "@/components/IndustryExplorer";
 import Marquee from "@/components/Marquee";
 import { MockUI } from "@/components/MockUI";
 import Process from "@/components/Process";
-import Radar from "@/components/Radar";
 import Reveal from "@/components/Reveal";
 import SectionHeading from "@/components/SectionHeading";
 import ServiceCategories from "@/components/ServiceCategories";
@@ -221,22 +221,18 @@ export default async function Home() {
 
       {/* Industries */}
       <section id="industries" className="relative scroll-mt-20 overflow-hidden bg-night py-20 text-white lg:py-28">
-        <div className="bg-halftone-center pointer-events-none absolute inset-0 opacity-30" aria-hidden="true" />
+        <div className="bg-halftone pointer-events-none absolute inset-0 opacity-40" aria-hidden="true" />
         <div className="container-x relative">
-          <SectionHeading title="Building Software for Diverse Industry Needs" center />
-          <Reveal className="mt-4 text-center text-white/60">
-            We provide custom design and development services for the industries below.
+          <SectionHeading
+            eyebrow="Industries"
+            title="Building Software for Diverse Industry Needs"
+            aside={<p>Every industry has its own rules, users and risks. Pick one to see what we usually build there.</p>}
+            dark
+            className="mb-12"
+          />
+          <Reveal>
+            <IndustryExplorer industries={industries} />
           </Reveal>
-          <Reveal className="mt-10 hidden sm:block">
-            <Radar industries={industries} />
-          </Reveal>
-          <ul className="mt-10 grid grid-cols-2 gap-3 sm:hidden">
-            {industries.map((ind) => (
-              <li key={ind.title} className="card-dark px-3 py-3 font-mono text-[11px] tracking-wider text-white/70 uppercase">
-                {ind.title}
-              </li>
-            ))}
-          </ul>
         </div>
       </section>
 
