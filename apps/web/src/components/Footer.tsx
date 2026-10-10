@@ -136,12 +136,6 @@ export default async function Footer() {
           </div>
         </div>
       </div>
-      {/* Oversized outlined wordmark, cropped by the bottom edge. */}
-      <div className="pointer-events-none overflow-hidden select-none" aria-hidden="true">
-        <p className="text-outline font-display -mb-[0.2em] text-center text-[13vw] leading-[0.8] font-bold tracking-[-0.04em] uppercase">
-          {site.name}
-        </p>
-      </div>
     </footer>
   );
 }
