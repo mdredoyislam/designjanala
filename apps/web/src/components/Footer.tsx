@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { getContent } from "@/lib/content";
+import { ArrowDown } from "./icons";
 
 type Col = { title: string; links: { label: string; href: string }[] };
 
@@ -101,7 +102,7 @@ export default async function Footer() {
             </div>
           </div>
 
-          <div className="grid gap-x-8 gap-y-12 sm:grid-cols-3 lg:col-span-7">
+          <div className="grid grid-cols-2 gap-x-6 gap-y-10 sm:grid-cols-3 sm:gap-x-8 sm:gap-y-12 lg:col-span-7">
             {[industryCol, ...topRow, ...bottomRow].map(live).map((c) => (
               <div key={c.title}>
                 <h3 className="font-mono text-[11px] tracking-[0.14em] text-white/50 uppercase">[ {c.title} ]</h3>
@@ -122,11 +123,24 @@ export default async function Footer() {
         <div className="mt-16 flex flex-col gap-4 border-t border-night-line pt-6 text-xs text-white/50 sm:flex-row sm:items-center sm:justify-between">
           <p>&copy; {new Date().getFullYear()}, {site.name}. All rights reserved.</p>
           <p>{site.location}</p>
-          <div className="flex gap-5">
+          <div className="flex items-center gap-5">
             <Link href="/contact" className="hover:text-white">Privacy Policy</Link>
             <Link href="/contact" className="hover:text-white">Terms and Conditions</Link>
+            <a
+              href="#top"
+              aria-label="Back to top"
+              className="flex h-8 w-8 items-center justify-center rounded-md border border-night-line text-white/70 transition-colors hover:border-accent hover:bg-accent hover:text-accent-ink"
+            >
+              <ArrowDown className="h-3.5 w-3.5 rotate-180" />
+            </a>
           </div>
         </div>
+      </div>
+      {/* Oversized outlined wordmark, cropped by the bottom edge. */}
+      <div className="pointer-events-none overflow-hidden select-none" aria-hidden="true">
+        <p className="text-outline font-display -mb-[0.2em] text-center text-[13vw] leading-[0.8] font-bold tracking-[-0.04em] uppercase">
+          {site.name}
+        </p>
       </div>
     </footer>
   );

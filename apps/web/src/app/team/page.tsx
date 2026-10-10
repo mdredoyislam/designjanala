@@ -37,7 +37,7 @@ export default async function TeamPage() {
         <div className="container-x relative pt-16 sm:pt-20 lg:pt-24">
           <div className="grid gap-10 lg:grid-cols-12 lg:items-end">
             <Reveal className="lg:col-span-8">
-              <p className="eyebrow lowercase">[ team ]</p>
+              <p className="eyebrow">[ Team ]</p>
               <h1 className="h-hero mt-5">
                 Fewer Hands, Tighter Builds,
                 <br className="hidden sm:block" /> and Better Results
@@ -94,7 +94,7 @@ export default async function TeamPage() {
       {/* Leads */}
       <section id="leaders" className="container-x scroll-mt-20 pb-20 lg:pb-28">
         <Reveal className="mx-auto max-w-2xl text-center">
-          <p className="eyebrow lowercase text-accent-fg">[ the leaderboard ]</p>
+          <p className="eyebrow">[ The Leaderboard ]</p>
           <h2 className="h-section mt-4">Meet the People Who Never Hand Your Project Off</h2>
         </Reveal>
         <div className="mt-16 relative">

@@ -6,9 +6,10 @@ const WEB = "http://localhost:3000";
 test("the dashboard requires sign-in", async ({ page }) => {
   await page.goto("/leads");
   await expect(page).toHaveURL(/\/login\?next=%2Fleads/);
+  await page.getByLabel("Email").fill("admin@e2e.test");
   await page.getByLabel("Password").fill("not-the-password");
   await page.getByRole("button", { name: "Sign in" }).click();
-  await expect(page.getByText("That password isn't right.")).toBeVisible();
+  await expect(page.getByText("That email or password isn't right.")).toBeVisible();
 });
 
 test("overview shows pipeline numbers", async ({ page }) => {

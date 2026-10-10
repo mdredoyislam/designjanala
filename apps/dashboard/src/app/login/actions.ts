@@ -2,7 +2,7 @@
 
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
-import { SESSION_COOKIE, SESSION_MAX_AGE, authConfig, createSessionToken, passwordMatches } from "@/lib/session";
+import { SESSION_COOKIE, SESSION_MAX_AGE, authConfig, createSessionToken, credentialsMatch } from "@/lib/session";
 
 export type LoginState = { error?: string };
 
@@ -14,10 +14,10 @@ const safeNext = (next: FormDataEntryValue | null) => {
 
 export async function login(_prev: LoginState, formData: FormData): Promise<LoginState> {
   if (!authConfig().password) return { error: "Sign-in isn't configured. Set DASHBOARD_PASSWORD for the dashboard and restart it." };
-  if (!(await passwordMatches(String(formData.get("password") ?? "")))) {
+  if (!(await credentialsMatch(String(formData.get("email") ?? ""), String(formData.get("password") ?? "")))) {
     // A short pause makes guessing slower.
     await new Promise((r) => setTimeout(r, 600));
-    return { error: "That password isn't right." };
+    return { error: "That email or password isn't right." };
   }
   (await cookies()).set(SESSION_COOKIE, await createSessionToken(), {
     httpOnly: true,

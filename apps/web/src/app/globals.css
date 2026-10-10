@@ -146,6 +146,41 @@ body {
   @apply inline-flex items-center rounded-full px-3.5 py-2 text-sm;
 }
 
+/*
+ * The logo's bracket, as a card hover: yellow corner ticks slide in from the corners.
+ * Add `corners` to a `relative` element; it uses ::before/::after, so not on .btn.
+ */
+@utility corners {
+  &::before,
+  &::after {
+    content: "";
+    position: absolute;
+    width: 14px;
+    height: 14px;
+    border: 0 solid var(--accent);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+  }
+  &::before { top: 8px; left: 8px; border-top-width: 2px; border-left-width: 2px; transform: translate(6px, 6px); }
+  &::after { right: 8px; bottom: 8px; border-right-width: 2px; border-bottom-width: 2px; transform: translate(-6px, -6px); }
+  &:hover::before,
+  &:hover::after,
+  &:focus-within::before,
+  &:focus-within::after { opacity: 1; transform: none; }
+}
+/* Thick yellow stroke just under the caps of a display headline (readable on light and dark). */
+@utility marker {
+  background: linear-gradient(transparent 86%, var(--accent) 86%, var(--accent) 95%, transparent 95%);
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+}
+/* Outlined display text, for the oversized footer wordmark. */
+@utility text-outline {
+  color: transparent;
+  -webkit-text-stroke: 1px rgb(255 255 255 / 0.14);
+}
+
 /* Yellow halftone dots used behind every hero. */
 .bg-halftone {
   background-image: radial-gradient(circle, rgb(255 208 0 / 0.55) 1.1px, transparent 1.6px);
@@ -189,6 +224,21 @@ body {
   to { width: 100%; }
 }
 
+/* Reading progress under the header, driven by page scroll where the browser supports it. */
+.scroll-progress {
+  transform: scaleX(0);
+  transform-origin: left;
+}
+@supports (animation-timeline: scroll()) {
+  @keyframes scroll-progress {
+    to { transform: scaleX(1); }
+  }
+  .scroll-progress {
+    animation: scroll-progress linear both;
+    animation-timeline: scroll(root);
+  }
+}
+
 @keyframes blink {
   0%, 49% { opacity: 1; }
   50%, 100% { opacity: 0; }
@@ -222,5 +272,6 @@ body {
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   .animate-marquee, .animate-blink, .animate-pulse-dot { animation: none; }
+  .corners::before, .corners::after { transition: none; }
   .reveal { opacity: 1; transform: none; transition: none; }
 }

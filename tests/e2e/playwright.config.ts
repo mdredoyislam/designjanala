@@ -7,6 +7,7 @@ const DASHBOARD = "http://localhost:3001";
 const root = "../..";
 const reuse = !process.env.CI;
 // Test-only secrets shared by the three apps.
+export const DASHBOARD_EMAIL = "admin@e2e.test";
 export const DASHBOARD_PASSWORD = "e2e-password";
 const REVALIDATE_SECRET = "e2e-revalidate";
 // Leads, content edits and uploads from test runs stay out of apps/api/data.
@@ -52,7 +53,7 @@ export default defineConfig({
       cwd: root,
       url: `${DASHBOARD}/login`,
       reuseExistingServer: reuse,
-      env: { API_URL: API, DASHBOARD_PASSWORD, WEB_URL: WEB, REVALIDATE_SECRET },
+      env: { API_URL: API, DASHBOARD_EMAIL, DASHBOARD_PASSWORD, WEB_URL: WEB, REVALIDATE_SECRET },
     },
   ],
 });

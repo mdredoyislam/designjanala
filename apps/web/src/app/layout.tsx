@@ -35,7 +35,7 @@ export default async function RootLayout({ children }: LayoutProps<"/">) {
   const { nav, serviceCategories, services } = await getContent();
   return (
     <html lang="en" className={`${inter.variable} ${grotesk.variable} ${mono.variable} antialiased`}>
-      <body className="flex min-h-screen flex-col bg-background">
+      <body id="top" className="flex min-h-screen flex-col bg-background">
         <Header content={{ nav, serviceCategories, services }} />
         <main className="flex-1">{children}</main>
         <Footer />

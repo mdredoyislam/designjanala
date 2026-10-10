@@ -26,7 +26,7 @@ Copy each app's `.env.example` to `.env.local` (Next apps) or `.env` (API) as ne
 | `apps/web/.env.local` | `API_URL=http://localhost:4000`, `REVALIDATE_SECRET=<any string>` |
 | `apps/dashboard/.env.local` | `API_URL=http://localhost:4000`, `WEB_URL=http://localhost:3000`, `REVALIDATE_SECRET=<same string>` |
 
-In development the dashboard and API need no password or token; set `DASHBOARD_PASSWORD` and `API_TOKEN` to try sign-in.
+In development the dashboard and API need no password or token; set `DASHBOARD_EMAIL`, `DASHBOARD_PASSWORD` and `API_TOKEN` to try sign-in.
 
 ## Check
 
@@ -53,11 +53,11 @@ apps/web  ◀──────────────────────�
 
 - **Content** (`packages/shared/src/content`): `schema.ts` defines every editable section (services, articles, team, portfolio, FAQs, settings…); `defaults.ts` holds the original website content. The API validates saves against the schema, the dashboard generates its editor forms from it, and the website renders the result.
 - **API** (`apps/api/src/app.ts`): public `GET /content` (defaults merged with saved edits), `GET /uploads/:name` and `POST /leads`; token-protected leads, `GET /content/sections`, `PUT /content/:section`, `DELETE /content/:section` (reset to original) and `POST /uploads` (PNG/JPG/WebP/GIF/AVIF up to 5 MB). Everything is stored as files under `DATA_DIR` (`leads.json`, `content.json`, `uploads/`), so **put `DATA_DIR` on a persistent disk and back it up**. `API_TOKEN` is required in production.
-- **Dashboard**: sign-in with `DASHBOARD_PASSWORD` (required in production); **Content** lists every section and edits it, **Leads** manages contact-form leads. After a save it calls the website's `/api/revalidate`, so changes are live on the next page view.
+- **Dashboard**: sign-in with `DASHBOARD_EMAIL` + `DASHBOARD_PASSWORD` (the password is required in production); **Content** lists every section and edits it, **Leads** manages contact-form leads. After a save it calls the website's `/api/revalidate`, so changes are live on the next page view.
 - **Web**: reads content with `getContent()` (`apps/web/src/lib/content.ts`). If `API_URL` isn't set or the API is down it shows the original content, so the site never goes down with the API. Pages also refresh from the API every 5 minutes. Set `API_URL` **at build time** too: it adds the `/uploads/*` rewrite that serves dashboard-uploaded images. New services and articles get pages on first visit, without a rebuild.
 
 ### Production checklist
 
 - API: `API_TOKEN`, `DATA_DIR` (persistent), `CORS_ORIGINS`.
-- Dashboard: `API_URL`, `API_TOKEN`, `DASHBOARD_PASSWORD`, `SESSION_SECRET`, `WEB_URL`, `REVALIDATE_SECRET`.
+- Dashboard: `API_URL`, `API_TOKEN`, `DASHBOARD_EMAIL`, `DASHBOARD_PASSWORD`, `SESSION_SECRET`, `WEB_URL`, `REVALIDATE_SECRET`.
 - Web: `API_URL` (build and runtime), `REVALIDATE_SECRET`, `CONTACT_WEBHOOK_URL`.

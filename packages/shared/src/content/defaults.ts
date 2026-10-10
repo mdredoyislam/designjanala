@@ -18,7 +18,7 @@ const site = {
 };
 
 const nav = [
-  { label: "Service", href: "/services" },
+  { label: "Services", href: "/services" },
   { label: "Technology", href: "/technology" },
   { label: "Blog", href: "/blog" },
   { label: "Team", href: "/team" },
