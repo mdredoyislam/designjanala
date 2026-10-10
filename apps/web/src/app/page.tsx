@@ -44,7 +44,7 @@ export default async function Home() {
             <h1 className="h-display mt-5 text-[2.75rem] leading-[0.98] sm:text-[clamp(3rem,8vw,6.5rem)]">
               Building AI-Powered
               <br className="hidden sm:block" /> Products That
-              <br className="hidden sm:block" /> <span className="marker">People Love</span>
+              <br className="hidden sm:block" /> People Love
             </h1>
             <div className="mt-9 flex flex-wrap items-center justify-center gap-3">
               <Link href="/contact" className="btn-primary">

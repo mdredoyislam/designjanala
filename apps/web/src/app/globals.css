@@ -111,11 +111,26 @@ body {
 @utility lead {
   @apply text-base leading-relaxed text-body lg:text-lg;
 }
-/* Mono "[ LABEL ]" button. Brackets are added in CSS so the label stays plain text. */
+/*
+ * Mono button framed by the logo's bracket: each half of the square, with the connector's
+ * dot on the left and its arrow tip on the right. Drawn as masks so it takes the text colour.
+ */
 @utility btn {
-  @apply inline-flex items-center justify-center gap-2 rounded-md px-5 py-3 font-mono text-xs font-semibold uppercase tracking-[0.06em] leading-none whitespace-nowrap transition-all duration-300 sm:text-[13px];
-  &::before { content: "[ "; white-space: pre; }
-  &::after { content: " ]"; white-space: pre; }
+  @apply inline-flex items-center justify-center gap-2.5 rounded-md px-5 py-[9px] font-mono text-xs font-semibold uppercase tracking-[0.06em] leading-none whitespace-nowrap transition-all duration-300 sm:text-[13px];
+  &::before,
+  &::after {
+    content: "";
+    flex: none;
+    width: 0.75em;
+    height: 1.5em;
+    background: currentColor;
+    mask: var(--btn-bracket) center / contain no-repeat;
+    transition: transform 0.3s ease;
+  }
+  &::before { --btn-bracket: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 24'%3E%3Crect x='4' y='1' width='8' height='2.5'/%3E%3Crect x='4' y='1' width='2.5' height='8'/%3E%3Crect x='4' y='15' width='2.5' height='8'/%3E%3Crect x='4' y='20.5' width='8' height='2.5'/%3E%3Crect x='1.5' y='11' width='7' height='2'/%3E%3Ccircle cx='1.75' cy='12' r='1.75'/%3E%3C/svg%3E"); }
+  &::after { --btn-bracket: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 24'%3E%3Crect x='0' y='1' width='8' height='2.5'/%3E%3Crect x='5.5' y='1' width='2.5' height='8'/%3E%3Crect x='5.5' y='15' width='2.5' height='8'/%3E%3Crect x='0' y='20.5' width='8' height='2.5'/%3E%3Crect x='3.5' y='11' width='6' height='2'/%3E%3Cpolygon points='9,9.25 12,12 9,14.75'/%3E%3C/svg%3E"); }
+  &:hover::before { transform: translateX(-2px); }
+  &:hover::after { transform: translateX(2px); }
 }
 @utility btn-primary {
   @apply btn bg-accent text-accent-ink hover:bg-accent-soft hover:shadow-[0_8px_30px_-8px_var(--accent)];
@@ -169,18 +184,6 @@ body {
   &:focus-within::before,
   &:focus-within::after { opacity: 1; transform: none; }
 }
-/* Thick yellow stroke just under the caps of a display headline (readable on light and dark). */
-@utility marker {
-  background: linear-gradient(transparent 86%, var(--accent) 86%, var(--accent) 95%, transparent 95%);
-  box-decoration-break: clone;
-  -webkit-box-decoration-break: clone;
-}
-/* Outlined display text, for the oversized footer wordmark. */
-@utility text-outline {
-  color: transparent;
-  -webkit-text-stroke: 1px rgb(255 255 255 / 0.14);
-}
-
 /* Yellow halftone dots used behind every hero. */
 .bg-halftone {
   background-image: radial-gradient(circle, rgb(255 208 0 / 0.55) 1.1px, transparent 1.6px);
