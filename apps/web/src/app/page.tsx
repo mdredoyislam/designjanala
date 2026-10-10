@@ -32,16 +32,28 @@ export default async function Home() {
         <div className="bg-halftone pointer-events-none absolute inset-0" aria-hidden="true" />
         <div className="container-x relative pt-16 pb-14 sm:pt-24 lg:pt-28 lg:pb-20">
           <Reveal className="flex flex-col items-center text-center">
-            <p className="eyebrow">[ AI-Powered Product Studio ]</p>
+            <span className="inline-flex items-center gap-2 rounded-full border border-night-line bg-night-2/80 py-1.5 pr-3.5 pl-2.5 font-mono text-[11px] tracking-[0.08em] text-white/70 uppercase backdrop-blur">
+              <span className="relative flex h-2 w-2">
+                <span className="absolute inset-0 animate-ping rounded-full bg-accent/70 motion-reduce:animate-none" />
+                <span className="relative h-2 w-2 rounded-full bg-accent" />
+              </span>
+              Now booking new projects
+            </span>
+            <p className="eyebrow mt-6">[ AI-Powered Product Studio ]</p>
             {/* Three lines from sm up; the size scales with the viewport so the longest line fits the container. */}
             <h1 className="h-display mt-5 text-[2.75rem] leading-[0.98] sm:text-[clamp(3rem,8vw,6.5rem)]">
               Building AI-Powered
               <br className="hidden sm:block" /> Products That
-              <br className="hidden sm:block" /> People Love
+              <br className="hidden sm:block" /> <span className="marker">People Love</span>
             </h1>
-            <Link href="/contact" className="btn-secondary mt-8">
-              Start Your Project
-            </Link>
+            <div className="mt-9 flex flex-wrap items-center justify-center gap-3">
+              <Link href="/contact" className="btn-primary">
+                Start Your Project
+              </Link>
+              <Link href="/portfolio" className="btn-outline text-white/80 hover:text-white">
+                See our work
+              </Link>
+            </div>
           </Reveal>
           <Reveal delay={120} className="mt-16 grid gap-8 border-t border-night-line pt-8 sm:grid-cols-2 lg:mt-24">
             <div>
@@ -190,7 +202,7 @@ export default async function Home() {
         </div>
         <dl className="mt-10 grid gap-5 sm:grid-cols-3">
           {stats.slice(0, 3).map((s, i) => (
-            <Reveal key={s.label} delay={i * 80} className="card px-6 py-7 text-center">
+            <Reveal key={s.label} delay={i * 80} className="card corners relative px-6 py-7 text-center">
               <dd className="h-display text-4xl text-accent-fg sm:text-5xl">
                 <CountUp value={s.value} suffix={s.suffix || "+"} />
               </dd>

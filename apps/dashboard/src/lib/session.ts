@@ -20,23 +20,27 @@ function safeEqual(a: string, b: string) {
 }
 
 /**
- * Sign-in is enabled by DASHBOARD_PASSWORD. Without it the dashboard is open in development
- * and locked in production (it edits the live website).
+ * Sign-in is enabled by DASHBOARD_PASSWORD (and DASHBOARD_EMAIL, when set). Without a password the
+ * dashboard is open in development and locked in production (it edits the live website).
  */
 export function authConfig() {
   const password = process.env.DASHBOARD_PASSWORD || undefined;
   return {
+    email: process.env.DASHBOARD_EMAIL?.trim().toLowerCase() || undefined,
     password,
     secret: process.env.SESSION_SECRET || password,
     required: Boolean(password) || process.env.NODE_ENV === "production",
   };
 }
 
-export async function passwordMatches(given: string) {
-  const { password } = authConfig();
+/** Checks both fields before answering, so a wrong email and a wrong password look the same. */
+export async function credentialsMatch(givenEmail: string, givenPassword: string) {
+  const { email, password } = authConfig();
   if (!password) return false;
+  const emailOk = !email || safeEqual(givenEmail.trim().toLowerCase(), email);
   // Compare fixed-length digests so the comparison doesn't leak the password length.
-  return safeEqual(await sign("password-check", given), await sign("password-check", password));
+  const passwordOk = safeEqual(await sign("password-check", givenPassword), await sign("password-check", password));
+  return emailOk && passwordOk;
 }
 
 export async function createSessionToken(now = Date.now()) {
